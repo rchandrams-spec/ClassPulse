@@ -585,7 +585,7 @@ Generate all 5 outputs below. Return ONLY a valid JSON object. No markdown, no b
   try {
     for (let i = 1; i <= 5; i++) { setGenStep(i); await delay(600); }
 
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -706,7 +706,7 @@ Return ONLY valid JSON:
 }`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -761,7 +761,7 @@ Return ONLY valid JSON:
 }`;
 
   try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -891,3 +891,4 @@ function showToast(msg) {
 </script>
 </body>
 </html>
+
