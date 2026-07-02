@@ -587,16 +587,16 @@ Generate all 5 outputs below. Return ONLY a valid JSON object. No markdown, no b
 
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
 
     const data = await resp.json();
-    let raw = (data.content || []).map(b => b.text || '').join('').replace(/```json|```/g, '').trim();
+    let raw = ((data.choices || [])[0]?.message?.content || '').replace(/```json|```/g, '').trim();
     S.outputs = JSON.parse(raw);
   } catch(err) {
     S.outputs = demoOutputs(sess);
@@ -708,15 +708,15 @@ Return ONLY valid JSON:
   try {
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
     const data = await resp.json();
-    let raw = (data.content || []).map(b => b.text || '').join('').replace(/```json|```/g, '').trim();
+    let raw = ((data.choices || [])[0]?.message?.content || '').replace(/```json|```/g, '').trim();
     const parsed = JSON.parse(raw);
 
     // Mark sessions as topic done
@@ -763,15 +763,15 @@ Return ONLY valid JSON:
   try {
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }]
       })
     });
     const data = await resp.json();
-    let raw = (data.content || []).map(b => b.text || '').join('').replace(/```json|```/g, '').trim();
+    let raw = ((data.choices || [])[0]?.message?.content || '').replace(/```json|```/g, '').trim();
     const parsed = JSON.parse(raw);
 
     const report = { date: now.toISOString(), sessions: thisWeek.length, ...parsed };
