@@ -1,900 +1,1198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<title>ClassPulse</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ClassPulse — AI Teaching Companion</title>
+<meta name="theme-color" content="#1A3A5C"/>
+<link rel="manifest" href="manifest.json"/>
 <style>
   :root {
     --navy: #1A3A5C;
-    --navy-light: #234d78;
-    --amber: #E8A020;
-    --amber-light: #f0b340;
+    --navy2: #0A1628;
     --teal: #0D7377;
-    --bg: #F4F7FA;
-    --surface: #FFFFFF;
-    --surface2: #F0F4F8;
-    --border: #DDE3EC;
-    --text: #1A2332;
+    --gold: #E8A020;
+    --white: #ffffff;
+    --bg: #F4F8FB;
+    --card: #ffffff;
+    --text1: #1A2A3A;
     --text2: #4A5568;
-    --text3: #8A96A8;
-    --danger: #C0392B;
-    --success: #27AE60;
-    --radius: 12px;
-    --radius-sm: 8px;
-    --shadow: 0 2px 12px rgba(26,58,92,0.08);
-    --shadow-lg: 0 8px 32px rgba(26,58,92,0.14);
+    --text3: #8A9BB0;
+    --border: #E2EAF4;
+    --green: #2D7D5A;
+    --red: #C0392B;
+    --radius: 14px;
+    --shadow: 0 2px 16px rgba(26,58,92,0.10);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html, body { height: 100%; background: var(--bg); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); }
-  
-  /* App shell */
-  #app { max-width: 430px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; position: relative; }
-  .screen { display: none; flex-direction: column; min-height: 100vh; padding-bottom: 2rem; }
-  .screen.active { display: flex; }
-  
-  /* Top bar */
-  .topbar { display: flex; align-items: center; padding: 1rem 1.25rem 0.75rem; position: sticky; top: 0; background: var(--bg); z-index: 10; gap: 10px; }
-  .logo-text { font-size: 22px; font-weight: 700; color: var(--navy); letter-spacing: -0.5px; }
-  .logo-text span { color: var(--amber); }
-  .back-btn { background: none; border: none; color: var(--navy); font-size: 22px; cursor: pointer; padding: 4px; line-height: 1; }
-  .topbar-title { font-size: 16px; font-weight: 600; color: var(--navy); }
-  .topbar-right { margin-left: auto; }
-  
-  /* Content area */
-  .content { padding: 0.75rem 1.25rem; flex: 1; }
-  
-  /* Cards */
-  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 1rem 1.25rem; margin-bottom: 0.875rem; box-shadow: var(--shadow); }
-  .card-flat { background: var(--surface2); border-radius: var(--radius); border: 1px solid var(--border); padding: 1rem 1.25rem; margin-bottom: 0.875rem; }
-  
-  /* Form elements */
-  .field { margin-bottom: 1rem; }
-  .field:last-child { margin-bottom: 0; }
-  .field-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: block; }
-  select, input[type=text], input[type=password] {
-    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-    font-size: 15px; background: var(--surface); color: var(--text); font-family: inherit;
-    appearance: none; -webkit-appearance: none; outline: none; transition: border-color 0.15s;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text1);
+    min-height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
   }
-  select:focus, input:focus { border-color: var(--navy); }
-  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A5568' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-  
-  /* Buttons */
-  .btn { width: 100%; padding: 15px; border: none; border-radius: var(--radius-sm); font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .btn:active { transform: scale(0.98); }
-  .btn-navy { background: var(--navy); color: #fff; }
-  .btn-navy:active { background: var(--navy-light); }
-  .btn-amber { background: var(--amber); color: #fff; }
-  .btn-amber:active { background: var(--amber-light); }
-  .btn-danger { background: var(--danger); color: #fff; }
-  .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
-  .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); font-size: 15px; padding: 12px; }
-  .btn-sm { padding: 7px 14px; font-size: 13px; width: auto; border-radius: 6px; }
-  .btn-stack { display: flex; flex-direction: column; gap: 0.625rem; margin-top: 0.5rem; }
-  
-  /* Badges */
-  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; }
-  .badge-green { background: #E8F5E9; color: #2E7D32; }
-  .badge-amber { background: #FFF8E1; color: #E65100; }
-  .badge-navy { background: #E8EEF4; color: var(--navy); }
-  .badge-teal { background: #E0F2F1; color: var(--teal); }
-  
-  /* Home screen */
-  .hero-banner { background: linear-gradient(135deg, var(--navy) 0%, #234d78 100%); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; color: #fff; position: relative; overflow: hidden; }
-  .hero-banner::after { content: ''; position: absolute; right: -20px; top: -20px; width: 100px; height: 100px; background: rgba(232,160,32,0.15); border-radius: 50%; }
-  .hero-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
-  .hero-title { font-size: 20px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
-  .hero-sub { font-size: 13px; color: rgba(255,255,255,0.7); }
-  
-  /* API key card */
-  .api-card { background: var(--surface2); border: 1.5px dashed var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 0.875rem; }
-  .api-card.saved { border-style: solid; border-color: #B2DFDB; background: #E0F2F1; }
-  .api-status { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--teal); font-weight: 500; margin-top: 6px; }
-  
-  /* Recording screen */
-  .rec-ring { width: 120px; height: 120px; border-radius: 50%; background: #FFF0F0; border: 3px solid #F5C6C6; display: flex; align-items: center; justify-content: center; margin: 1.5rem auto; position: relative; }
-  .rec-ring.recording { border-color: var(--danger); animation: ring-pulse 2s ease-in-out infinite; }
-  @keyframes ring-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.2); } 50% { box-shadow: 0 0 0 16px rgba(192,57,43,0); } }
-  .rec-dot { width: 16px; height: 16px; background: var(--danger); border-radius: 50%; animation: dot-blink 1.2s ease-in-out infinite; }
-  @keyframes dot-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
-  .timer-display { font-size: 42px; font-weight: 300; color: var(--navy); text-align: center; font-variant-numeric: tabular-nums; letter-spacing: 2px; margin-bottom: 0.5rem; }
-  .rec-meta { text-align: center; font-size: 13px; color: var(--text3); margin-bottom: 1.5rem; }
-  .transcript-area { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; min-height: 110px; max-height: 160px; overflow-y: auto; font-size: 13px; color: var(--text2); line-height: 1.7; }
-  .transcript-placeholder { color: var(--text3); font-style: italic; }
-  
-  /* Generating screen */
-  .gen-center { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 2rem; text-align: center; }
-  .gen-spinner { width: 56px; height: 56px; border: 4px solid var(--border); border-top-color: var(--navy); border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 1.5rem; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .gen-title { font-size: 18px; font-weight: 600; color: var(--navy); margin-bottom: 8px; }
-  .gen-sub { font-size: 14px; color: var(--text3); line-height: 1.6; }
-  .gen-steps { margin-top: 2rem; width: 100%; }
-  .gen-step { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 13px; color: var(--text3); margin-bottom: 4px; }
-  .gen-step.done { color: var(--success); background: #F0FBF4; }
-  .gen-step.active { color: var(--navy); background: var(--surface2); font-weight: 500; }
-  .gen-step-icon { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; }
-  .gen-step.done .gen-step-icon { background: var(--success); color: #fff; }
-  .gen-step.active .gen-step-icon { background: var(--navy); color: #fff; }
-  .gen-step.pending .gen-step-icon { background: var(--border); }
-  
-  /* Output screen */
-  .output-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 1rem; scrollbar-width: none; }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy2);
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--white); }
+  .logo span { color: var(--gold); }
+  .header-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  /* ── Pages ── */
+  .page { display: none; padding: 16px; }
+  .page.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 60%, var(--teal));
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    margin-bottom: 14px;
+    color: white;
+  }
+  .hero-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
+  .hero p { font-size: 14px; opacity: 0.8; line-height: 1.5; }
+
+  /* ── API Key ── */
+  .key-section { background: #EAF5F5; border: 1.5px solid var(--teal); }
+  .key-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--teal); margin-bottom: 8px; }
+  .key-input {
+    width: 100%;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 15px;
+    color: var(--text1);
+    outline: none;
+    transition: border 0.2s;
+  }
+  .key-input:focus { border-color: var(--teal); }
+  .key-status { font-size: 12px; margin-top: 6px; }
+  .key-ok { color: var(--green); font-weight: 600; }
+  .key-hint { color: var(--text3); }
+
+  /* ── Suggest cards ── */
+  .suggest {
+    border: 1.5px solid var(--gold);
+    background: #FFF9EC;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .suggest-text { font-size: 14px; color: var(--text1); line-height: 1.4; }
+  .suggest-text b { display: block; font-size: 15px; margin-bottom: 2px; }
+
+  /* ── Buttons ── */
+  .btn {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    justify-content: center;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-primary { background: var(--navy); color: white; width: 100%; padding: 16px; font-size: 17px; }
+  .btn-teal { background: var(--teal); color: white; }
+  .btn-gold { background: var(--gold); color: var(--navy2); }
+  .btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
+  .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── Session page ── */
+  .session-status {
+    text-align: center;
+    padding: 32px 20px;
+  }
+  .rec-indicator {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--red);
+    margin: 0 auto 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    animation: pulse 1.5s infinite;
+    box-shadow: 0 0 0 0 rgba(192,57,43,0.4);
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(192,57,43,0); }
+    100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); }
+  }
+  .rec-label { font-size: 20px; font-weight: 700; color: var(--text1); margin-bottom: 8px; }
+  .rec-sub { font-size: 14px; color: var(--text3); margin-bottom: 6px; }
+  .rec-timer { font-size: 36px; font-weight: 800; color: var(--navy); font-variant-numeric: tabular-nums; }
+  .transcript-preview {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    color: var(--text2);
+    min-height: 60px;
+    max-height: 120px;
+    overflow-y: auto;
+    margin-top: 14px;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  /* ── Session config ── */
+  .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .config-item label { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 0.5px; display: block; margin-bottom: 5px; }
+  .config-item select, .config-item input {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--text1);
+    background: white;
+    outline: none;
+  }
+  .config-item select:focus, .config-item input:focus { border-color: var(--teal); }
+  .config-full { grid-column: 1 / -1; }
+
+  /* ── Generation steps ── */
+  .gen-steps { margin: 16px 0; }
+  .gen-step {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0;
+    font-size: 14px; color: var(--text3);
+    border-bottom: 1px solid var(--border);
+  }
+  .gen-step:last-child { border: none; }
+  .gen-step.active { color: var(--teal); font-weight: 600; }
+  .gen-step.done { color: var(--green); }
+  .gen-step-icon { font-size: 16px; width: 24px; text-align: center; }
+
+  /* ── Outputs ── */
+  .output-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+    scrollbar-width: none;
+  }
   .output-tabs::-webkit-scrollbar { display: none; }
-  .out-tab { flex-shrink: 0; font-size: 12px; font-weight: 500; padding: 7px 13px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text2); cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.15s; }
-  .out-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
-  .output-body { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; font-size: 14px; color: var(--text2); line-height: 1.8; white-space: pre-wrap; min-height: 200px; max-height: 55vh; overflow-y: auto; box-shadow: var(--shadow); }
-  .output-actions { display: flex; gap: 8px; margin-bottom: 0.875rem; }
-  .output-actions .btn { flex: 1; font-size: 14px; padding: 11px; }
-  
-  /* Topic card */
-  .topic-complete-card { background: #FFF8E8; border: 1.5px solid #F0C070; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 0.875rem; }
-  .topic-complete-card h4 { font-size: 14px; font-weight: 600; color: #7A4A00; margin-bottom: 4px; }
-  .topic-complete-card p { font-size: 12px; color: #9A6A20; margin-bottom: 10px; line-height: 1.5; }
-  
-  /* History */
-  .session-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
-  .session-item:last-child { border-bottom: none; }
-  .session-date-box { background: var(--navy); color: #fff; border-radius: 8px; padding: 6px 8px; text-align: center; min-width: 42px; flex-shrink: 0; }
-  .session-date-day { font-size: 18px; font-weight: 700; line-height: 1; }
-  .session-date-mon { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
-  .session-info { flex: 1; }
-  .session-chapter { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
-  .session-meta { font-size: 12px; color: var(--text3); margin-top: 3px; }
-  .chevron { color: var(--text3); font-size: 18px; align-self: center; }
-  
-  /* Tab bar */
-  .tab-row { display: flex; background: var(--surface2); border-radius: var(--radius-sm); padding: 3px; margin-bottom: 1rem; border: 1px solid var(--border); }
-  .tab-btn { flex: 1; padding: 8px 6px; font-size: 13px; font-weight: 500; border: none; background: transparent; color: var(--text2); cursor: pointer; border-radius: 8px; font-family: inherit; transition: all 0.15s; }
-  .tab-btn.active { background: var(--surface); color: var(--navy); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
-  
-  /* Notification banner */
-  .notify-banner { background: #FFF8E1; border: 1px solid #FFE082; border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 0.875rem; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-  .notify-text { font-size: 13px; color: #7A4A00; flex: 1; line-height: 1.4; }
-  
-  /* Empty states */
-  .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text3); }
-  .empty-icon { font-size: 48px; margin-bottom: 1rem; }
-  .empty-title { font-size: 16px; font-weight: 600; color: var(--text2); margin-bottom: 6px; }
-  .empty-sub { font-size: 14px; line-height: 1.6; }
-  
-  /* Section headers */
-  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 0.5rem; }
-  
-  /* Divider */
-  .divider { height: 1px; background: var(--border); margin: 0.75rem 0; }
-  
-  /* Toast */
-  #toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--text); color: #fff; padding: 10px 20px; border-radius: 24px; font-size: 14px; font-weight: 500; transition: transform 0.3s ease; z-index: 100; white-space: nowrap; }
-  #toast.show { transform: translateX(-50%) translateY(0); }
-  
-  /* PWA install hint */
-  .install-hint { background: var(--navy); color: rgba(255,255,255,0.85); font-size: 12px; text-align: center; padding: 8px 16px; line-height: 1.5; }
-  .install-hint strong { color: #fff; }
+  .tab-btn {
+    white-space: nowrap;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .tab-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .output-body {
+    background: white;
+    border-radius: var(--radius);
+    padding: 18px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text1);
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 200px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .output-actions { display: flex; gap: 10px; margin-top: 12px; }
+  .output-actions .btn { flex: 1; }
+
+  /* ── History ── */
+  .history-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .h-tab {
+    flex: 1; text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px; font-weight: 600;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .h-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .session-item {
+    background: white;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.1s;
+  }
+  .session-item:active { transform: scale(0.98); }
+  .session-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .session-item p { font-size: 13px; color: var(--text3); }
+  .session-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--navy2);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.3s;
+    z-index: 9999;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── Empty state ── */
+  .empty { text-align: center; padding: 48px 20px; }
+  .empty-icon { font-size: 48px; margin-bottom: 14px; }
+  .empty h3 { font-size: 18px; font-weight: 700; color: var(--text2); margin-bottom: 6px; }
+  .empty p { font-size: 14px; color: var(--text3); line-height: 1.6; }
+
+  /* ── Weekly card ── */
+  .weekly-item {
+    background: white;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  .weekly-item h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .weekly-item p { font-size: 12px; color: var(--text3); }
+
+  .divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+  /* ── PWA install bar ── */
+  .install-bar {
+    background: var(--navy);
+    color: white;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  .install-bar a { color: var(--gold); text-decoration: none; font-weight: 600; }
 </style>
 </head>
 <body>
 
-<div id="app">
+<div class="install-bar">
+  <b>Save as app:</b> Chrome menu → "Add to Home Screen"
+</div>
 
-  <!-- ═══════════════════════════════ HOME ═══════════════════════════════ -->
-  <div class="screen active" id="screen-home">
-    <div class="install-hint" id="install-hint">
-      <strong>Save as app:</strong> Chrome menu → "Add to Home Screen"
-    </div>
-    <div class="topbar">
-      <span class="logo-text">Class<span>Pulse</span></span>
-      <button class="back-btn topbar-right" style="font-size:15px; padding:6px 10px; background:var(--surface2); border-radius:8px; border:1px solid var(--border); color:var(--text2);" onclick="goTo('screen-history')">History</button>
-    </div>
-    <div class="content">
+<!-- ═══════ HEADER ═══════ -->
+<div class="header">
+  <div class="logo">Class<span>Pulse</span></div>
+  <button class="header-btn" onclick="goTo('history')">History</button>
+</div>
 
-      <div class="hero-banner">
-        <div class="hero-tag">AI Teaching Companion</div>
-        <div class="hero-title">Ready for class?</div>
-        <div class="hero-sub">Record → Teach → Get notes, DPP, test paper & more</div>
-      </div>
+<!-- ═══════ HOME PAGE ═══════ -->
+<div id="page-home" class="page active">
 
-      <div class="api-card" id="api-card">
-        <label class="field-label">Groq API Key (free)</label>
-        <input type="password" id="groq-key" placeholder="gsk_..." oninput="saveKey()" />
-        <div class="api-status" id="api-status" style="display:none;">✓ Key saved</div>
-        <p style="font-size:11px; color:var(--text3); margin-top:6px;">Get free key at console.groq.com · Stays on your device only</p>
-      </div>
+  <div class="hero">
+    <div class="hero-tag">AI Teaching Companion</div>
+    <h1>Ready for class?</h1>
+    <p>Record → Teach → Get notes, DPP, test paper & more</p>
+  </div>
 
-      <div id="week-notify" style="display:none;" class="notify-banner">
-        <span class="notify-text" id="week-notify-text"></span>
-        <button class="btn btn-amber btn-sm" onclick="triggerWeekly()">Generate</button>
-      </div>
-
-      <div id="pending-topics-section"></div>
-
-      <div class="btn-stack">
-        <button class="btn btn-navy" onclick="goTo('screen-setup')">
-          ▶ Start new session
-        </button>
-        <button class="btn btn-ghost" onclick="goTo('screen-history')">
-          Session history
-        </button>
-      </div>
+  <!-- API Key -->
+  <div class="card key-section">
+    <div class="key-label">GROQ API KEY (FREE)</div>
+    <input type="password" id="groq-key" class="key-input"
+      placeholder="gsk_..." oninput="saveKey()"/>
+    <div class="key-status" id="key-status">
+      <span class="key-hint">Get free key at console.groq.com · Stays on your device only</span>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════ SETUP ═══════════════════════════════ -->
-  <div class="screen" id="screen-setup">
-    <div class="topbar">
-      <button class="back-btn" onclick="goTo('screen-home')">←</button>
-      <span class="topbar-title">New session</span>
-    </div>
-    <div class="content">
-      <div class="card">
-        <div class="field">
-          <label class="field-label">Class / Grade</label>
-          <select id="s-class">
-            <option>Class 8</option><option>Class 9</option><option>Class 10</option>
-            <option selected>Class 11</option><option>Class 12</option><option>JEE Droppers</option><option>NEET Droppers</option>
-          </select>
-        </div>
-        <div class="field">
-          <label class="field-label">Subject</label>
-          <select id="s-subject">
-            <option selected>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Biology</option>
-          </select>
-        </div>
-        <div class="field">
-          <label class="field-label">Chapter *</label>
-          <input type="text" id="s-chapter" placeholder="e.g. Laws of Motion" />
-        </div>
-        <div class="field">
-          <label class="field-label">Topic (optional)</label>
-          <input type="text" id="s-topic" placeholder="e.g. Free Body Diagrams" />
-        </div>
-        <div class="field">
-          <label class="field-label">Session type</label>
-          <select id="s-type">
-            <option>New topic</option><option>Continuation</option><option>Revision</option><option>Problem solving</option>
-          </select>
-        </div>
-        <div class="field">
-          <label class="field-label">Target exam</label>
-          <select id="s-exam">
-            <option>JEE</option><option>NEET</option><option>CBSE Board</option><option>State Board</option>
-          </select>
-        </div>
-      </div>
-      <button class="btn btn-navy" onclick="startSession()">Start recording</button>
-    </div>
-  </div>
+  <!-- Suggestions -->
+  <div id="suggestions"></div>
 
-  <!-- ═══════════════════════════════ RECORDING ═══════════════════════════════ -->
-  <div class="screen" id="screen-recording">
-    <div class="topbar">
-      <span class="logo-text">Class<span>Pulse</span></span>
-      <span class="badge badge-navy topbar-right" id="rec-badge"></span>
-    </div>
-    <div class="content">
-      <div class="rec-ring recording" id="rec-ring">
-        <div class="rec-dot"></div>
-      </div>
-      <div class="timer-display" id="timer">00:00</div>
-      <div class="rec-meta" id="rec-meta"></div>
+  <!-- Start Session -->
+  <button class="btn btn-primary" id="start-btn" onclick="goToSession()">
+    ▶ Start new session
+  </button>
 
-      <div class="card">
-        <div class="section-label" style="margin-bottom:8px;">Live transcript</div>
-        <div class="transcript-area" id="transcript-area">
-          <span class="transcript-placeholder">Listening... speak clearly towards your phone.</span>
-        </div>
-      </div>
-
-      <button class="btn btn-danger" onclick="stopSession()">■ Stop &amp; generate outputs</button>
-      <p style="font-size:12px; color:var(--text3); text-align:center; margin-top:10px;">Keep screen on · Don't minimize the app</p>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════ GENERATING ═══════════════════════════════ -->
-  <div class="screen" id="screen-generating">
-    <div class="topbar">
-      <span class="logo-text">Class<span>Pulse</span></span>
-    </div>
-    <div class="gen-center">
-      <div class="gen-spinner"></div>
-      <div class="gen-title" id="gen-title">Processing your session</div>
-      <div class="gen-sub" id="gen-sub">This takes about 20–40 seconds</div>
-      <div class="gen-steps" id="gen-steps"></div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════ OUTPUTS ═══════════════════════════════ -->
-  <div class="screen" id="screen-outputs">
-    <div class="topbar">
-      <button class="back-btn" onclick="goTo('screen-home')">←</button>
-      <div>
-        <div class="topbar-title" id="out-title"></div>
-        <div style="font-size:11px; color:var(--text3);" id="out-subtitle"></div>
-      </div>
-    </div>
-    <div class="content">
-      <div class="output-tabs" id="output-tabs"></div>
-      <div class="output-actions">
-        <button class="btn btn-outline" onclick="copyOutput()">Copy</button>
-        <button class="btn btn-ghost" onclick="shareOutput()">Share</button>
-      </div>
-      <div class="output-body" id="output-body"></div>
-
-      <div class="topic-complete-card" id="topic-card" style="display:none;">
-        <h4>Topic assignment ready?</h4>
-        <p id="topic-card-text"></p>
-        <div style="display:flex; gap:8px;">
-          <button class="btn btn-amber btn-sm" style="flex:1;" onclick="generateTopicAssignment(false)">App suggests → Generate</button>
-          <button class="btn btn-ghost btn-sm" style="flex:1; font-size:12px;" onclick="generateTopicAssignment(true)">Manual: mark complete</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════ HISTORY ═══════════════════════════════ -->
-  <div class="screen" id="screen-history">
-    <div class="topbar">
-      <button class="back-btn" onclick="goTo('screen-home')">←</button>
-      <span class="topbar-title">History</span>
-    </div>
-    <div class="content">
-      <div class="tab-row">
-        <button class="tab-btn active" id="htab-sessions" onclick="switchHistoryTab('sessions')">Sessions</button>
-        <button class="tab-btn" id="htab-topics" onclick="switchHistoryTab('topics')">Topics</button>
-        <button class="tab-btn" id="htab-weekly" onclick="switchHistoryTab('weekly')">Weekly</button>
-      </div>
-      <div id="history-content"></div>
-    </div>
+  <div style="margin-top:10px;">
+    <button class="btn btn-ghost" style="width:100%;" onclick="goTo('history')">
+      Session history
+    </button>
   </div>
 
 </div>
 
-<div id="toast"></div>
+<!-- ═══════ SESSION CONFIG PAGE ═══════ -->
+<div id="page-config" class="page">
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <h2 style="font-size:18px; font-weight:800;">New Session</h2>
+  </div>
 
+  <div class="card">
+    <div class="card-title">Session Details</div>
+    <div class="config-grid">
+      <div class="config-item">
+        <label>CLASS</label>
+        <select id="cfg-class">
+          <option>Class 8</option>
+          <option>Class 9</option>
+          <option>Class 10</option>
+          <option selected>Class 11</option>
+          <option>Class 12</option>
+        </select>
+      </div>
+      <div class="config-item">
+        <label>SUBJECT</label>
+        <select id="cfg-subject">
+          <option>Physics</option>
+          <option>Chemistry</option>
+          <option>Mathematics</option>
+          <option>Biology</option>
+          <option>Science</option>
+        </select>
+      </div>
+      <div class="config-item config-full">
+        <label>CHAPTER / TOPIC</label>
+        <input type="text" id="cfg-chapter" placeholder="e.g. Units and Dimensions"/>
+      </div>
+      <div class="config-item">
+        <label>BOARD</label>
+        <select id="cfg-board">
+          <option>CBSE</option>
+          <option>ICSE</option>
+          <option>Karnataka</option>
+          <option>Tamil Nadu</option>
+          <option>Telangana</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="config-item">
+        <label>EXAM TARGET</label>
+        <select id="cfg-exam">
+          <option>Board</option>
+          <option>JEE</option>
+          <option>NEET</option>
+          <option>KCET</option>
+          <option>JEE + Board</option>
+          <option>NEET + Board</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" onclick="startSession()">
+    🎙 Start Recording
+  </button>
+</div>
+
+<!-- ═══════ RECORDING PAGE ═══════ -->
+<div id="page-recording" class="page">
+  <div class="session-status">
+    <div class="rec-indicator" id="rec-dot">🎙</div>
+    <div class="rec-label">Recording in progress</div>
+    <div class="rec-sub" id="rec-info">Listening to your class...</div>
+    <div class="rec-timer" id="rec-timer">0:00</div>
+    <div class="transcript-preview" id="transcript-preview">
+      Speak naturally — ClassPulse is listening...
+    </div>
+  </div>
+  <button class="btn btn-primary" style="background:var(--red);" onclick="stopSession()">
+    ⏹ Stop &amp; Generate Outputs
+  </button>
+</div>
+
+<!-- ═══════ GENERATING PAGE ═══════ -->
+<div id="page-generating" class="page">
+  <div style="text-align:center; padding:24px 0 16px;">
+    <div style="font-size:40px; margin-bottom:12px;">⚡</div>
+    <h2 id="gen-title" style="font-size:20px; font-weight:800; margin-bottom:6px;">Generating outputs...</h2>
+    <p id="gen-sub" style="font-size:14px; color:var(--text3);">This takes 15–30 seconds</p>
+  </div>
+  <div class="card gen-steps" id="gen-steps"></div>
+</div>
+
+<!-- ═══════ OUTPUTS PAGE ═══════ -->
+<div id="page-outputs" class="page">
+  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Home</button>
+    <div>
+      <div style="font-size:16px; font-weight:800;" id="out-title">Class Notes</div>
+      <div style="font-size:12px; color:var(--text3);" id="out-sub"></div>
+    </div>
+  </div>
+
+  <div class="output-tabs" id="output-tabs"></div>
+  <div class="output-body" id="output-body"></div>
+  <div class="output-actions">
+    <button class="btn btn-ghost" onclick="copyOutput()">📋 Copy</button>
+    <button class="btn btn-teal" onclick="shareOutput()">↗ Share</button>
+  </div>
+</div>
+
+<!-- ═══════ HISTORY PAGE ═══════ -->
+<div id="page-history" class="page">
+  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <h2 style="font-size:18px; font-weight:800;">History</h2>
+  </div>
+  <div class="history-tabs">
+    <div class="h-tab active" onclick="switchHistoryTab('sessions', this)">Sessions</div>
+    <div class="h-tab" onclick="switchHistoryTab('weekly', this)">Weekly</div>
+  </div>
+  <div id="history-body"></div>
+</div>
+
+<!-- ═══════ SESSION VIEW PAGE ═══════ -->
+<div id="page-session-view" class="page">
+  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+    <button class="btn btn-ghost btn-sm" onclick="goTo('history')">← Back</button>
+    <h2 style="font-size:18px; font-weight:800;" id="sv-title">Session</h2>
+  </div>
+  <div class="output-tabs" id="sv-tabs"></div>
+  <div class="output-body" id="sv-body"></div>
+  <div class="output-actions">
+    <button class="btn btn-ghost" onclick="copySV()">📋 Copy</button>
+    <button class="btn btn-teal" onclick="shareSV()">↗ Share</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
 <script>
-// ─── State ───────────────────────────────────────────────────────────────────
-const S = {
+// ── State ──────────────────────────────────────────────────────────────────
+let S = {
   sessions: JSON.parse(localStorage.getItem('cp_sessions') || '[]'),
-  weekly: JSON.parse(localStorage.getItem('cp_weekly') || '[]'),
-  current: null,
+  weekly:   JSON.parse(localStorage.getItem('cp_weekly')   || '[]'),
+  current: null,   // current session being recorded
   outputs: {},
-  transcript: '',
-  seconds: 0,
-  timerInt: null,
-  recognition: null,
-  fullText: '',
-  activeTab: 'notes',
   outputTabs: [],
-  wakeLock: null
+  activeTab: '',
+  svSession: null,
+  svTab: '',
+  timerInterval: null,
+  historyTab: 'sessions',
 };
 
-const BASE_TABS = [
-  { key: 'notes',    label: 'Class notes' },
-  { key: 'dpp',      label: 'DPP (10 Qs)' },
-  { key: 'coverage', label: 'Coverage log' },
-  { key: 'parent',   label: 'Parent summary' },
-  { key: 'teaching', label: 'Teaching log' }
-];
+// ── Boot ───────────────────────────────────────────────────────────────────
+window.onload = () => {
+  const k = localStorage.getItem('cp_groq');
+  if (k) {
+    document.getElementById('groq-key').value = k;
+    document.getElementById('key-status').innerHTML =
+      '<span class="key-ok">✓ Key saved</span>';
+  }
+  renderHome();
+};
 
-// ─── Navigation ──────────────────────────────────────────────────────────────
+// ── Navigation ─────────────────────────────────────────────────────────────
 function goTo(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if (id === 'screen-home') renderHome();
-  if (id === 'screen-history') renderHistory('sessions');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'home') renderHome();
+  if (id === 'history') renderHistory(S.historyTab);
 }
 
-// ─── API Key ─────────────────────────────────────────────────────────────────
+function goToSession() {
+  if (!getKey()) { showToast('⚠ Please enter your Groq API key first'); return; }
+  goTo('config');
+}
+
+// ── API Key ────────────────────────────────────────────────────────────────
 function saveKey() {
   const v = document.getElementById('groq-key').value.trim();
   if (v.length > 10) {
     localStorage.setItem('cp_groq', v);
-    document.getElementById('api-status').style.display = 'flex';
-    document.getElementById('api-card').classList.add('saved');
+    document.getElementById('key-status').innerHTML =
+      '<span class="key-ok">✓ Key saved</span>';
   }
 }
+function getKey() {
+  return localStorage.getItem('cp_groq') ||
+         document.getElementById('groq-key').value.trim();
+}
 
-function getKey() { return localStorage.getItem('cp_groq') || document.getElementById('groq-key').value.trim(); }
-
-window.addEventListener('load', () => {
-  const k = localStorage.getItem('cp_groq');
-  if (k) {
-    document.getElementById('groq-key').value = k;
-    document.getElementById('api-status').style.display = 'flex';
-    document.getElementById('api-card').classList.add('saved');
-  }
-  renderHome();
-
-  // Hide install hint if already standalone
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    const h = document.getElementById('install-hint');
-    if (h) h.style.display = 'none';
-  }
-});
-
-// ─── Home ────────────────────────────────────────────────────────────────────
+// ── Home render ────────────────────────────────────────────────────────────
 function renderHome() {
-  // Weekly notification
-  const now = new Date();
-  const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
-  const thisWeek = S.sessions.filter(s => new Date(s.date) >= weekStart);
-  const wn = document.getElementById('week-notify');
-  if (thisWeek.length >= 3) {
-    document.getElementById('week-notify-text').textContent = `${thisWeek.length} sessions this week. Generate weekly assignment + coverage report?`;
-    wn.style.display = 'flex';
-  } else { wn.style.display = 'none'; }
+  const el = document.getElementById('suggestions');
+  el.innerHTML = '';
 
-  // Pending topic suggestions
-  const groups = {};
-  S.sessions.forEach(s => { if (!groups[s.chapter]) groups[s.chapter] = []; groups[s.chapter].push(s); });
-  const pending = Object.entries(groups).filter(([ch, arr]) => arr.length >= 2 && !arr.some(s => s.topicDone));
-  const el = document.getElementById('pending-topics-section');
-  if (pending.length > 0) {
-    el.innerHTML = `<div class="section-label" style="margin-bottom:6px;">App suggests: topic assignments ready</div>` +
-      pending.slice(0,3).map(([ch, arr]) => `
-        <div class="notify-banner" style="background:#E8F4F0; border-color:#A5D6C8;">
-          <span class="notify-text" style="color:#1A5C4A;">${ch} — ${arr.length} sessions complete</span>
-          <button class="btn btn-ghost btn-sm" style="background:var(--teal); color:#fff; border:none;" onclick="quickTopicGen('${ch}')">Generate</button>
-        </div>`).join('');
-  } else { el.innerHTML = ''; }
+  if (!S.sessions.length) return;
+
+  // Weekly suggestion — if 3+ sessions this week
+  const weekStart = new Date();
+  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+  weekStart.setHours(0,0,0,0);
+  const thisWeek = S.sessions.filter(s => new Date(s.date) >= weekStart);
+
+  if (thisWeek.length >= 3) {
+    el.innerHTML += `
+      <div class="suggest">
+        <div class="suggest-text">
+          <b>${thisWeek.length} sessions this week</b>
+          Generate weekly assignment + coverage report?
+        </div>
+        <button class="btn btn-gold btn-sm" onclick="triggerWeekly()">Generate</button>
+      </div>`;
+  }
+
+  // Topic suggestions — chapters with 2+ sessions
+  const chapterMap = {};
+  S.sessions.forEach(s => {
+    if (!s.chapter) return;
+    const key = s.chapter + '|' + s.class + '|' + s.subject + '|' + s.exam;
+    if (!chapterMap[key]) chapterMap[key] = [];
+    chapterMap[key].push(s);
+  });
+
+  Object.entries(chapterMap).forEach(([key, arr]) => {
+    if (arr.length >= 2 && !arr[0].topicDone) {
+      const [ch, cls, subj] = key.split('|');
+      el.innerHTML += `
+        <div class="suggest">
+          <div class="suggest-text">
+            <b>${ch}</b>
+            ${arr.length} sessions complete — generate topic assignment?
+          </div>
+          <button class="btn btn-teal btn-sm"
+            onclick="quickTopicGen('${ch.replace(/'/g,"\\'")}')">Generate</button>
+        </div>`;
+    }
+  });
 }
 
-// ─── Session Setup ────────────────────────────────────────────────────────────
+// ── Session start ──────────────────────────────────────────────────────────
 function startSession() {
-  const chapter = document.getElementById('s-chapter').value.trim();
-  if (!chapter) { showToast('Enter a chapter name first'); return; }
+  const chapter = document.getElementById('cfg-chapter').value.trim();
+  if (!chapter) { showToast('Please enter a chapter name'); return; }
 
   S.current = {
     id: Date.now(),
     date: new Date().toISOString(),
-    class: document.getElementById('s-class').value,
-    subject: document.getElementById('s-subject').value,
-    chapter,
-    topic: document.getElementById('s-topic').value.trim(),
-    type: document.getElementById('s-type').value,
-    exam: document.getElementById('s-exam').value,
-    duration: 0,
+    class:   document.getElementById('cfg-class').value,
+    subject: document.getElementById('cfg-subject').value,
+    chapter: chapter,
+    board:   document.getElementById('cfg-board').value,
+    exam:    document.getElementById('cfg-exam').value,
     transcript: '',
+    duration: 0,
     outputs: {},
-    topicDone: false
+    topicDone: false,
   };
 
-  S.fullText = '';
-  S.seconds = 0;
-  document.getElementById('timer').textContent = '00:00';
-  document.getElementById('transcript-area').innerHTML = '<span class="transcript-placeholder">Listening... speak clearly towards your phone.</span>';
-  document.getElementById('rec-badge').textContent = `${S.current.class} · ${S.current.subject}`;
-  document.getElementById('rec-meta').textContent = `${S.current.chapter}${S.current.topic ? ' — ' + S.current.topic : ''} · ${S.current.type}`;
-
-  goTo('screen-recording');
-
-  // Wake lock
-  if ('wakeLock' in navigator) {
-    navigator.wakeLock.request('screen').then(wl => { S.wakeLock = wl; }).catch(() => {});
-  }
-
-  // Timer
-  S.timerInt = setInterval(() => {
-    S.seconds++;
-    const m = String(Math.floor(S.seconds / 60)).padStart(2, '0');
-    const sc = String(S.seconds % 60).padStart(2, '0');
-    document.getElementById('timer').textContent = `${m}:${sc}`;
-  }, 1000);
+  goTo('recording');
+  document.getElementById('rec-info').textContent =
+    `${S.current.subject} · ${S.current.chapter} · ${S.current.class}`;
 
   startRecognition();
+  startTimer();
 }
 
-// ─── Speech Recognition ───────────────────────────────────────────────────────
+// ── Speech recognition ─────────────────────────────────────────────────────
+let recognition = null;
+let recognitionActive = false;
+
 function startRecognition() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SR) {
-    document.getElementById('transcript-area').textContent = 'Speech recognition not available. Use Chrome on Android. Your session timer is running — stop when done and outputs will be generated in demo mode.';
+    showToast('Speech recognition not supported on this browser');
     return;
   }
+  recognition = new SR();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  recognition.lang = 'en-IN';
+  recognitionActive = true;
 
-  S.recognition = new SR();
-  S.recognition.continuous = true;
-  S.recognition.interimResults = true;
-  S.recognition.lang = 'en-IN';
-  S.recognition.maxAlternatives = 1;
-
-  S.recognition.onresult = (e) => {
+  recognition.onresult = (e) => {
     let interim = '';
     for (let i = e.resultIndex; i < e.results.length; i++) {
-      if (e.results[i].isFinal) S.fullText += e.results[i][0].transcript + ' ';
-      else interim += e.results[i][0].transcript;
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) {
+        S.current.transcript += t + ' ';
+      } else {
+        interim = t;
+      }
     }
-    const el = document.getElementById('transcript-area');
-    el.textContent = S.fullText + interim;
-    el.scrollTop = el.scrollHeight;
-  };
-
-  S.recognition.onerror = (e) => {
-    if (e.error === 'no-speech') return;
-  };
-
-  S.recognition.onend = () => {
-    if (document.getElementById('screen-recording').classList.contains('active')) {
-      try { S.recognition.start(); } catch(e) {}
+    const preview = document.getElementById('transcript-preview');
+    if (preview) {
+      const display = S.current.transcript.slice(-300) + interim;
+      preview.textContent = display || 'Listening...';
+      preview.scrollTop = preview.scrollHeight;
     }
   };
 
-  try { S.recognition.start(); } catch(e) {}
+  recognition.onend = () => {
+    if (recognitionActive) {
+      try { recognition.start(); } catch(e) {}
+    }
+  };
+
+  recognition.onerror = (e) => {
+    if (e.error !== 'no-speech') {
+      console.warn('Speech error:', e.error);
+    }
+  };
+
+  try { recognition.start(); } catch(e) { console.warn(e); }
 }
 
-// ─── Stop Session ─────────────────────────────────────────────────────────────
+function stopRecognition() {
+  recognitionActive = false;
+  if (recognition) {
+    try { recognition.stop(); } catch(e) {}
+    recognition = null;
+  }
+}
+
+// ── Timer ──────────────────────────────────────────────────────────────────
+let timerSeconds = 0;
+function startTimer() {
+  timerSeconds = 0;
+  S.timerInterval = setInterval(() => {
+    timerSeconds++;
+    const m = Math.floor(timerSeconds / 60);
+    const s = timerSeconds % 60;
+    const el = document.getElementById('rec-timer');
+    if (el) el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+  }, 1000);
+}
+function stopTimer() {
+  clearInterval(S.timerInterval);
+  if (S.current) S.current.duration = timerSeconds;
+}
+
+// ── Stop session ───────────────────────────────────────────────────────────
 function stopSession() {
-  clearInterval(S.timerInt);
-  if (S.recognition) { try { S.recognition.stop(); } catch(e) {} S.recognition = null; }
-  if (S.wakeLock) { S.wakeLock.release(); S.wakeLock = null; }
-
-  S.current.duration = S.seconds;
-  S.current.transcript = S.fullText.trim();
-
-  goTo('screen-generating');
+  stopRecognition();
+  stopTimer();
+  goTo('generating');
   runGeneration();
 }
 
-// ─── Generation ───────────────────────────────────────────────────────────────
-const GEN_STEPS = [
-  'Transcribing your session',
-  'Writing class notes',
-  'Generating DPP (10 questions)',
-  'Building coverage log',
-  'Composing parent summary',
-  'Finalising teaching log'
+// ── Generation steps display ───────────────────────────────────────────────
+const STEPS = [
+  { icon: '📝', label: 'Analysing transcript' },
+  { icon: '📚', label: 'Writing class notes' },
+  { icon: '❓', label: 'Generating DPP' },
+  { icon: '📊', label: 'Building coverage report' },
+  { icon: '✅', label: 'Finalising all outputs' },
 ];
-
-function setGenStep(active) {
-  document.getElementById('gen-title').textContent = GEN_STEPS[active] || 'Finalising...';
-  document.getElementById('gen-steps').innerHTML = GEN_STEPS.map((s, i) => {
-    const cls = i < active ? 'done' : i === active ? 'active' : 'pending';
-    const icon = i < active ? '✓' : i === active ? '→' : '';
-    return `<div class="gen-step ${cls}"><div class="gen-step-icon">${icon}</div>${s}</div>`;
-  }).join('');
+function renderSteps(active) {
+  document.getElementById('gen-steps').innerHTML = STEPS.map((s, i) => `
+    <div class="gen-step ${i < active ? 'done' : i === active ? 'active' : ''}">
+      <span class="gen-step-icon">${i < active ? '✓' : s.icon}</span>
+      ${s.label}
+    </div>`).join('');
 }
+const delay = ms => new Promise(r => setTimeout(r, ms));
 
+// ── Main generation ────────────────────────────────────────────────────────
 async function runGeneration() {
-  setGenStep(0);
+  renderSteps(0);
   const sess = S.current;
-  const ctx = `Class: ${sess.class} | Subject: ${sess.subject} | Chapter: ${sess.chapter} | Topic: ${sess.topic || 'General'} | Session type: ${sess.type} | Exam target: ${sess.exam} | Duration: ${Math.floor(sess.duration/60)} min`;
-  const transcript = sess.transcript || '[No audio captured — generate sample outputs based on context]';
+  const today = new Date().toLocaleDateString('en-IN');
+  const dur = Math.floor((sess.duration || timerSeconds) / 60);
 
-  const prompt = `You are ClassPulse, an AI assistant for a physics teacher in India. A class just ended.
+  const ctx = `Class: ${sess.class} | Subject: ${sess.subject} | Chapter: ${sess.chapter} | Board: ${sess.board} | Exam: ${sess.exam} | Duration: ${dur} min | Date: ${today}`;
+
+  const transcript = sess.transcript.trim() ||
+    `[No transcript captured — browser speech recognition may not have been active. Generate based on context: ${ctx}]`;
+
+  for (let i = 0; i <= 4; i++) { renderSteps(i); await delay(500); }
+
+  const prompt = `You are ClassPulse, an AI assistant for a ${sess.subject} teacher in India. A class just ended. Generate real, complete, usable content — not templates or descriptions. Use the transcript and context to write specific content for this class.
 
 CONTEXT: ${ctx}
+DATE: ${today}
 
-CLASS TRANSCRIPT (${transcript.length} chars):
+TRANSCRIPT:
 """
 ${transcript.substring(0, 4000)}
 """
 
-Generate all 5 outputs below. Return ONLY a valid JSON object. No markdown, no backticks, no preamble.
+Return ONLY a valid JSON object with exactly these 5 keys. Write actual content — no placeholders, no instructions inside the values.
 
 {
-  "notes": "Structured class notes with: (1) Topic heading, (2) Key concepts explained in bullet points, (3) Important formulas with symbols, (4) Examples or problems solved today, (5) Key takeaways. 400-600 words. Clear headings. Student-friendly language.",
-  "dpp": "DAILY PRACTICE PROBLEMS\\n\\nChapter: [chapter]\\nDate: [today]\\nTarget: [exam]\\n\\n10 questions numbered 1-10. Each has: difficulty tag [Easy/Medium/Hard], the question, and for MCQ include 4 options (a,b,c,d). Mix: 4 Easy, 4 Medium, 2 Hard. Cover concepts from today's session only.",
-  "coverage": "COVERAGE LOG\\nDate: [today]\\nClass: [class] | Subject: [subject]\\nChapter: [chapter]\\n\\nTopics covered: [list]\\nConcepts introduced: [list]\\nFormulas discussed: [list]\\nExamples solved: [count and brief]\\nBoard diagrams used: [list if any]\\nEstimated coverage: [X% of chapter]\\nNext session: [what to start with]",
-  "parent": "Parent WhatsApp message in simple English. 5-6 lines max. Format:\\n\\nDear Parent,\\n[What was taught today in simple terms]\\n[One key concept your child should explain to you]\\n[Homework: DPP questions have been given]\\n[What will be covered next class]\\n\\nRegards,\\n[Teacher]",
-  "teaching": "TEACHING LOG (Private)\\nDate: [today] | Duration: [X min]\\nChapter: [chapter] | Type: [session type]\\n\\nWhat went well:\\n[observations]\\n\\nConcepts that needed more time:\\n[list]\\n\\nStudent confusion signals noticed:\\n[list or 'None observed']\\n\\nTo revisit next class:\\n[specific points]\\n\\nPersonal notes:\\n[teaching improvement thoughts]"
+  "notes": "CLASS NOTES\\n${sess.chapter}\\nClass: ${sess.class} | Subject: ${sess.subject} | Date: ${today}\\n\\nKEY CONCEPTS COVERED TODAY:\\n[Write 3-5 actual concepts from the transcript with explanations]\\n\\nIMPORTANT FORMULAE:\\n[Write actual formulae discussed with symbol meanings]\\n\\nEXAMPLES SOLVED:\\n[Write actual examples or problems from today's class]\\n\\nKEY TAKEAWAYS FOR ${sess.exam}:\\n[Write 3-4 exam-relevant points from today]",
+
+  "dpp": "DAILY PRACTICE PROBLEMS\\n${sess.chapter} | ${today} | Target: ${sess.exam}\\n\\n1. [Easy] Write an actual question based on today's concepts in ${sess.chapter}.\\n2. [Easy] Write an actual question based on today's concepts in ${sess.chapter}.\\n3. [Easy] Write a definition or fill-in-the-blank question on ${sess.chapter}.\\n4. [Easy] Write an actual conceptual question on ${sess.chapter}.\\n5. [Medium] Write an application question on ${sess.chapter}.\\n6. [Medium] MCQ: Write question? (a) option1 (b) option2 (c) option3 (d) option4\\n7. [Medium] MCQ: Write question? (a) option1 (b) option2 (c) option3 (d) option4\\n8. [Medium] Write a numerical problem with given data for ${sess.chapter}.\\n9. [Hard] Write a complex numerical requiring multiple steps for ${sess.chapter}.\\n10. [Hard] Write a higher-order thinking question on ${sess.chapter}.",
+
+  "coverage": "COVERAGE LOG\\nDate: ${today} | Class: ${sess.class} | Subject: ${sess.subject}\\nChapter: ${sess.chapter} | Board: ${sess.board} | Duration: ${dur} min\\n\\nTopics covered today:\\n[List actual topics from the transcript]\\n\\nFormulae discussed:\\n[List actual formulae]\\n\\nExamples solved: [number and brief description]\\n\\nEstimated chapter coverage: [X% of chapter]\\n\\nNext session should begin with:\\n[Specific next topic to continue]",
+
+  "parent": "Dear Parent,\\n\\nIn today's ${sess.subject} class (${sess.class}), your child studied ${sess.chapter}.\\n\\n[Write 2-3 sentences explaining what was actually taught today in simple language a parent understands — no jargon. Use the transcript context.]\\n\\nAsk your child to explain [write one specific concept from today] in their own words — that is the best way to check understanding.\\n\\nHomework: 10 Daily Practice Problems have been assigned. Please ensure completion before the next class.\\n\\nNext class: We will continue with [next topic in ${sess.chapter}].\\n\\nRegards,\\n${sess.subject} Teacher",
+
+  "teaching": "TEACHING LOG (Private)\\nDate: ${today} | Duration: ${dur} min\\nClass: ${sess.class} | Chapter: ${sess.chapter}\\n\\nWhat went well today:\\n[Write 1-2 actual observations from this session based on transcript]\\n\\nConcepts that needed more time:\\n[Write specific concept that was rushed or needs revisiting]\\n\\nStudent signals noticed:\\n[Write actual observations or: None observed in this session]\\n\\nTo revisit next class:\\n[Specific point to pick up from]\\n\\nPersonal note:\\n[One honest reflection on today's teaching]"
 }`;
 
   try {
-    for (let i = 1; i <= 5; i++) { setGenStep(i); await delay(600); }
-
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getKey()
+      },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
         max_tokens: 3000,
+        temperature: 0.7,
         messages: [{ role: 'user', content: prompt }]
       })
     });
 
     const data = await resp.json();
-    let raw = ((data.choices || [])[0]?.message?.content || '').replace(/```json|```/g, '').trim();
-    S.outputs = JSON.parse(raw);
+
+    if (data.error) {
+      throw new Error(data.error.message || 'API error');
+    }
+
+    let raw = ((data.choices || [])[0]?.message?.content || '')
+      .replace(/```json|```/g, '').trim();
+
+    const parsed = JSON.parse(raw);
+
+    sess.outputs = parsed;
+    S.sessions.unshift(sess);
+    localStorage.setItem('cp_sessions', JSON.stringify(S.sessions));
+
+    S.outputs = parsed;
+    S.outputTabs = [
+      { key: 'notes',    label: 'Class Notes' },
+      { key: 'dpp',      label: 'DPP' },
+      { key: 'coverage', label: 'Coverage' },
+      { key: 'parent',   label: 'Parent' },
+      { key: 'teaching', label: 'Teaching Log' },
+    ];
+    S.activeTab = 'notes';
+
+    goTo('outputs');
+    document.getElementById('out-title').textContent = sess.chapter;
+    document.getElementById('out-sub').textContent =
+      `${sess.class} · ${sess.subject} · ${today}`;
+    renderOutputTabs();
+    renderOutputBody();
+
   } catch(err) {
-    S.outputs = demoOutputs(sess);
+    console.error('Generation error:', err);
+    showToast('⚠ Generation failed: ' + (err.message || 'Check API key'));
+    goTo('home');
   }
-
-  sess.outputs = S.outputs;
-  S.sessions.unshift(sess);
-  localStorage.setItem('cp_sessions', JSON.stringify(S.sessions));
-
-  S.outputTabs = [...BASE_TABS];
-  S.activeTab = 'notes';
-  renderOutputs();
-  goTo('screen-outputs');
 }
 
-function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-// ─── Outputs ──────────────────────────────────────────────────────────────────
-function renderOutputs() {
-  const sess = S.current;
-  document.getElementById('out-title').textContent = sess.chapter + (sess.topic ? ' — ' + sess.topic : '');
-  document.getElementById('out-subtitle').textContent = `${sess.class} · ${new Date(sess.date).toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'})} · ${Math.floor(sess.duration/60)} min`;
-
-  renderOutputTabs();
-  renderOutputBody();
-
-  // Topic suggestion card
-  const sameChapter = S.sessions.filter(s => s.chapter === sess.chapter && !s.topicDone);
-  const card = document.getElementById('topic-card');
-  if (sameChapter.length >= 1) {
-    document.getElementById('topic-card-text').textContent = `${sameChapter.length} session${sameChapter.length>1?'s':''} on "${sess.chapter}". If you've finished this topic, generate the topic assignment + test paper now.`;
-    card.style.display = 'block';
-  } else { card.style.display = 'none'; }
-}
-
+// ── Output rendering ───────────────────────────────────────────────────────
 function renderOutputTabs() {
-  document.getElementById('output-tabs').innerHTML = S.outputTabs.map(t =>
-    `<button class="out-tab ${t.key === S.activeTab ? 'active' : ''}" onclick="switchTab('${t.key}')">${t.label}</button>`
-  ).join('');
+  document.getElementById('output-tabs').innerHTML =
+    S.outputTabs.map(t => `
+      <button class="tab-btn ${t.key === S.activeTab ? 'active' : ''}"
+        onclick="switchTab('${t.key}')">${t.label}</button>
+    `).join('');
 }
-
 function switchTab(key) {
   S.activeTab = key;
   renderOutputTabs();
   renderOutputBody();
 }
-
 function renderOutputBody() {
-  document.getElementById('output-body').textContent = S.outputs[S.activeTab] || 'Not available.';
+  document.getElementById('output-body').textContent =
+    S.outputs[S.activeTab] || '';
 }
-
 function copyOutput() {
   const text = S.outputs[S.activeTab] || '';
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
+  navigator.clipboard.writeText(text).then(() => showToast('Copied!'));
+}
+function shareOutput() {
+  const text = S.outputs[S.activeTab] || '';
+  if (navigator.share) {
+    navigator.share({ text });
   } else {
-    const ta = document.createElement('textarea');
-    ta.value = text; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-    showToast('Copied');
+    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
   }
 }
 
-function shareOutput() {
-  const sess = S.current;
-  const tabLabel = S.outputTabs.find(t => t.key === S.activeTab)?.label || '';
-  if (navigator.share) {
-    navigator.share({
-      title: `ClassPulse — ${tabLabel}`,
-      text: S.outputs[S.activeTab] || '',
-    }).catch(() => copyOutput());
-  } else { copyOutput(); }
-}
-
-// ─── Topic Assignment ─────────────────────────────────────────────────────────
-async function generateTopicAssignment(manual) {
-  const chapter = S.current.chapter;
-  generateTopicFor(chapter, S.current.class, S.current.subject, S.current.exam);
-}
-
-async function quickTopicGen(chapter) {
+// ── Topic assignment ───────────────────────────────────────────────────────
+function quickTopicGen(chapter) {
   const sess = S.sessions.find(s => s.chapter === chapter);
   if (!sess) return;
-  S.current = sess;
-  S.outputs = sess.outputs || {};
-  S.outputTabs = [...BASE_TABS];
-  await generateTopicFor(chapter, sess.class, sess.subject, sess.exam);
+  generateTopicFor(chapter, sess.class, sess.subject, sess.exam, sess.board);
 }
 
-async function generateTopicFor(chapter, cls, subject, exam) {
-  goTo('screen-generating');
+async function generateTopicFor(chapter, cls, subject, exam, board) {
+  goTo('generating');
   document.getElementById('gen-title').textContent = 'Generating topic assignment...';
-  document.getElementById('gen-sub').textContent = `Clubbing all sessions on "${chapter}"`;
-  document.getElementById('gen-steps').innerHTML = '';
+  document.getElementById('gen-sub').textContent = `Chapter: ${chapter}`;
 
-  const related = S.sessions.filter(s => s.chapter === chapter);
-  const transcripts = related.map(s => s.transcript || '').join('\n\n---\n\n').substring(0, 5000);
+  for (let i = 0; i <= 4; i++) { renderSteps(i); await delay(400); }
 
-  const prompt = `const today2 = new Date().toLocaleDateString('en-IN');
-  const prompt = `You are an expert ${subject} teacher for ${cls} in India preparing for ${exam}. Write a complete topic assignment and test paper for Chapter: ${chapter}.
+  const today = new Date().toLocaleDateString('en-IN');
 
-STRICT RULE: Write fully formed actual questions. No placeholders like [Write question here]. Every question must be complete and answerable.
+  const prompt = `You are an expert ${subject} teacher preparing for ${exam} exam. Generate a complete topic assignment and test paper for Chapter: ${chapter}, Class: ${cls}, Board: ${board}.
 
-Return ONLY valid JSON — no markdown, no text outside JSON:
+CRITICAL: Write FULLY FORMED actual questions. Every question must be complete, specific to ${chapter}, and immediately usable by a student. Do not use placeholders.
+
+Return ONLY valid JSON — no markdown, no text outside the JSON object:
 
 {
-  "assignment": "TOPIC ASSIGNMENT\\nChapter: ${chapter} | Class: ${cls} | Subject: ${subject} | Target: ${exam}\\nDate: ${today2} | Total: 25 marks\\n\\nSECTION A — Conceptual (5 × 1 = 5 marks)\\n1. Define the term 'dimension' of a physical quantity. Give two examples.\\n2. State the principle of homogeneity of dimensions.\\n3. Distinguish between fundamental quantities and derived quantities with examples.\\n4. Can a dimensionally correct equation be physically incorrect? Justify with an example.\\n5. Write the dimensional formula and SI unit of (i) velocity (ii) acceleration.\\n\\nSECTION B — Application (5 × 2 = 10 marks)\\n6. Check the dimensional correctness of the equation: v² = u² + 2as.\\n7. Using dimensional analysis, find the formula for the time period of a simple pendulum if it depends on length l and acceleration due to gravity g.\\n8. The dimensional formula for Planck's constant is:\\n(a) [MLT] (b) [ML²T⁻¹] (c) [M²L²T] (d) [MLT⁻²]\\n9. Which of the following is dimensionless?\\n(a) Strain (b) Stress (c) Force (d) Pressure\\n10. Convert a force of 500 dynes into Newtons using dimensional analysis.\\n\\nSECTION C — Numericals (3 × 3 = 9 marks)\\n11. The period of a pendulum T = 2π√(l/g). If l = 1m and g = 9.8 m/s², find T. Verify dimensional consistency.\\n12. Express the gravitational constant G = 6.67 × 10⁻¹¹ Nm²kg⁻² in CGS units.\\n13. The velocity of a wave v depends on tension T and linear mass density μ. Using dimensional analysis, derive the expression for v.\\n\\nSECTION D — Long Answer (1 × 1 mark)\\n14. Explain the method of dimensional analysis with three applications: (i) checking correctness of equations (ii) deriving formulae (iii) converting units. Give one example for each.",
+  "assignment": "TOPIC ASSIGNMENT\\nChapter: ${chapter}\\nClass: ${cls} | Subject: ${subject} | Board: ${board}\\nDate: ${today} | Target: ${exam} | Total: 25 marks\\n\\nSECTION A — Conceptual Questions (5 x 1 = 5 marks)\\n[Write 5 complete conceptual questions numbered 1-5, specific to ${chapter}]\\n\\nSECTION B — Application Questions (5 x 2 = 10 marks)\\n[Write 5 complete application questions numbered 6-10. Include 2 MCQs with 4 options each]\\n\\nSECTION C — Numerical Problems (3 x 3 = 9 marks)\\n[Write 3 complete numerical problems numbered 11-13, with given data]\\n\\nSECTION D — Long Answer (1 x 1 mark)\\n14. [Write one comprehensive question on ${chapter} combining theory and numerical application]",
 
-  "test_paper": "TEST PAPER\\nChapter: ${chapter} | Class: ${cls} | Exam: ${exam}\\nDate: ${today2} | Time: 45 minutes | Total Marks: 30\\n\\nSECTION A — Multiple Choice Questions (10 × 1 = 10 marks)\\n1. The dimensional formula [ML²T⁻²] represents:\\n(a) Force (b) Energy (c) Power (d) Pressure\\n2. Which pair has the same dimensions?\\n(a) Work and Power (b) Torque and Energy (c) Force and Impulse (d) Momentum and Force\\n3. Dimensional formula of coefficient of viscosity is:\\n(a) [ML⁻¹T⁻¹] (b) [MLT⁻¹] (c) [ML²T⁻²] (d) [M⁰L⁰T⁰]\\n4. The number of significant figures in 0.006700 is:\\n(a) 7 (b) 4 (c) 2 (d) 6\\n5. Which of the following is NOT a fundamental quantity in SI?\\n(a) Mass (b) Length (c) Force (d) Time\\n6. [ML²T⁻³] is the dimensional formula of:\\n(a) Energy (b) Momentum (c) Power (d) Velocity\\n7. A dimensionally correct equation is:\\n(a) Always correct (b) Always incorrect (c) May or may not be correct (d) Always approximately correct\\n8. 1 Newton = how many dynes?\\n(a) 10³ (b) 10⁵ (c) 10⁻³ (d) 10⁻⁵\\n9. The dimensional formula of angular momentum is:\\n(a) [MLT⁻¹] (b) [ML²T⁻¹] (c) [ML²T⁻²] (d) [M²L²T⁻¹]\\n10. Percentage error in measurement of radius r is 2%. Percentage error in volume of sphere is:\\n(a) 2% (b) 4% (c) 6% (d) 8%\\n\\nAnswer Key: 1-b 2-b 3-a 4-b 5-c 6-c 7-c 8-b 9-b 10-c\\n\\nSECTION B — Short Answer Questions (4 × 5 = 20 marks)\\n11. What is dimensional analysis? State its uses and limitations.\\n12. The kinetic energy E of a body depends on mass m and velocity v. Derive the formula E = ½mv² using dimensional analysis.\\n13. Explain with example how errors propagate in (i) addition (ii) multiplication of two quantities.\\n14. Using dimensional analysis, check the correctness of the equation: T = 2π√(l/g) for a simple pendulum."
-}`;;
-
-  try {
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 3000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await resp.json();
-    let raw = ((data.choices || [])[0]?.message?.content || '').replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(raw);
-
-    // Mark sessions as topic done
-    S.sessions.forEach(s => { if (s.chapter === chapter) s.topicDone = true; });
-    localStorage.setItem('cp_sessions', JSON.stringify(S.sessions));
-
-    Object.assign(S.outputs, parsed);
-    if (!S.outputTabs.find(t => t.key === 'assignment')) {
-      S.outputTabs.push({ key: 'assignment', label: 'Topic assignment' });
-      S.outputTabs.push({ key: 'test_paper', label: 'Test paper' });
-    }
-    S.activeTab = 'assignment';
-    renderOutputs();
-    goTo('screen-outputs');
-  } catch(e) {
-    showToast('Generation failed. Check API key.');
-    goTo('screen-home');
-  }
-}
-
-// ─── Weekly ───────────────────────────────────────────────────────────────────
-async function triggerWeekly() {
-  const now = new Date();
-  const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
-  const thisWeek = S.sessions.filter(s => new Date(s.date) >= weekStart);
-
-  goTo('screen-generating');
-  document.getElementById('gen-title').textContent = 'Generating weekly report...';
-  document.getElementById('gen-sub').textContent = `${thisWeek.length} sessions this week`;
-  document.getElementById('gen-steps').innerHTML = '';
-
-  const summary = thisWeek.map(s => `${s.chapter} — ${s.topic || 'General'} (${Math.floor((s.duration||0)/60)} min)`).join('\n');
-  const prompt = `Generate a weekly assignment and coverage report for a teacher.
-Week of: ${weekStart.toLocaleDateString('en-IN')}
-Sessions this week:
-${summary}
-
-Return ONLY valid JSON:
-{
-  "weekly_assign": "WEEKLY ASSIGNMENT\\nWeek of: [date]\\n\\n20 mixed problems across all topics covered this week. Tag each question with its chapter/topic. Section A: 8 concept questions. Section B: 8 numerical problems. Section C: 4 higher order thinking. Full marks: 40.",
-  "weekly_coverage": "WEEKLY COVERAGE REPORT\\nWeek of: [date]\\nTeacher: ClassPulse User\\n\\nSessions conducted: ${thisWeek.length}\\nTotal teaching time: [X hours Y min]\\n\\nChapters covered:\\n[chapter-wise breakdown]\\n\\nTopics completed this week:\\n[list]\\n\\nTopics in progress:\\n[list]\\n\\nSuggested plan for next week:\\n[3-4 specific recommendations]\\n\\nOverall pace: [comment on pace vs typical syllabus]"
+  "test_paper": "TEST PAPER\\nChapter: ${chapter} | Class: ${cls} | Board: ${board} | Exam: ${exam}\\nDate: ${today} | Time: 45 minutes | Total: 30 marks\\n\\nSECTION A — MCQ (10 x 1 = 10 marks)\\n[Write 10 complete MCQs on ${chapter}, each with 4 options (a)(b)(c)(d), numbered 1-10]\\n\\nAnswer Key: [Provide answer key for all 10]\\n\\nSECTION B — Short Answer (4 x 5 = 20 marks)\\n[Write 4 complete short answer questions numbered 11-14. Mix: theory, numerical, diagram, higher order thinking]"
 }`;
 
   try {
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getKey()
+      },
       body: JSON.stringify({
         model: 'llama-3.3-70b-versatile',
-        max_tokens: 3000,
+        max_tokens: 3500,
+        temperature: 0.7,
         messages: [{ role: 'user', content: prompt }]
       })
     });
+
     const data = await resp.json();
-    let raw = ((data.choices || [])[0]?.message?.content || '').replace(/```json|```/g, '').trim();
+    if (data.error) throw new Error(data.error.message);
+
+    let raw = ((data.choices || [])[0]?.message?.content || '')
+      .replace(/```json|```/g, '').trim();
+
     const parsed = JSON.parse(raw);
 
-    const report = { date: now.toISOString(), sessions: thisWeek.length, ...parsed };
-    S.weekly.unshift(report);
-    localStorage.setItem('cp_weekly', JSON.stringify(S.weekly));
+    // Mark sessions as topic done
+    S.sessions.forEach(s => {
+      if (s.chapter === chapter) s.topicDone = true;
+    });
+    localStorage.setItem('cp_sessions', JSON.stringify(S.sessions));
 
-    S.current = thisWeek[0] || {};
-    S.outputs = parsed;
-    S.outputTabs = [
-      { key: 'weekly_assign', label: 'Weekly assignment' },
-      { key: 'weekly_coverage', label: 'Weekly coverage' }
-    ];
-    S.activeTab = 'weekly_assign';
-    renderOutputs();
-    goTo('screen-outputs');
-  } catch(e) {
-    showToast('Generation failed. Check API key.');
-    goTo('screen-home');
+    S.outputs = { ...S.outputs, ...parsed };
+    if (!S.outputTabs.find(t => t.key === 'assignment')) {
+      S.outputTabs.push({ key: 'assignment', label: 'Topic Assignment' });
+      S.outputTabs.push({ key: 'test_paper', label: 'Test Paper' });
+    }
+    S.activeTab = 'assignment';
+    goTo('outputs');
+    document.getElementById('out-title').textContent = chapter;
+    document.getElementById('out-sub').textContent = `${cls} · ${subject} · Topic Complete`;
+    renderOutputTabs();
+    renderOutputBody();
+
+  } catch(err) {
+    console.error(err);
+    showToast('⚠ Generation failed: ' + (err.message || 'Check API key'));
+    goTo('home');
   }
 }
 
-// ─── History ──────────────────────────────────────────────────────────────────
-function switchHistoryTab(tab) {
-  ['sessions','topics','weekly'].forEach(t => {
-    document.getElementById(`htab-${t}`).classList.toggle('active', t === tab);
-  });
+// ── Weekly generation ──────────────────────────────────────────────────────
+async function triggerWeekly() {
+  goTo('generating');
+  document.getElementById('gen-title').textContent = 'Generating weekly report...';
+  document.getElementById('gen-sub').textContent = 'Combining all sessions this week';
+
+  for (let i = 0; i <= 4; i++) { renderSteps(i); await delay(400); }
+
+  const weekStart = new Date();
+  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+  weekStart.setHours(0,0,0,0);
+
+  const thisWeek = S.sessions.filter(s => new Date(s.date) >= weekStart);
+  const today = new Date().toLocaleDateString('en-IN');
+  const weekLabel = weekStart.toLocaleDateString('en-IN');
+
+  const chapSummary = [...new Set(thisWeek.map(s => s.chapter))].join(', ');
+  const subjSummary = [...new Set(thisWeek.map(s => s.subject))].join(', ');
+  const cls = thisWeek[0]?.class || 'Class 11';
+  const exam = thisWeek[0]?.exam || 'Board';
+  const totalTime = thisWeek.reduce((a,s) => a + (s.duration || 0), 0);
+
+  const combinedTranscripts = thisWeek
+    .map(s => `[${s.subject} - ${s.chapter}]:\n${(s.transcript || '').substring(0, 800)}`)
+    .join('\n\n').substring(0, 5000);
+
+  const prompt = `You are ClassPulse. Generate a complete weekly assignment and coverage report for a teacher.
+
+WEEK: ${weekLabel} to ${today}
+CLASS: ${cls} | EXAM: ${exam}
+TOPICS COVERED: ${chapSummary}
+SUBJECTS: ${subjSummary}
+SESSIONS: ${thisWeek.length} | TOTAL TIME: ${Math.floor(totalTime/60)} minutes
+
+SESSION TRANSCRIPTS:
+"""
+${combinedTranscripts}
+"""
+
+Return ONLY valid JSON with these 2 keys. Write ACTUAL content — real questions, real coverage data. No templates.
+
+{
+  "weekly_assign": "WEEKLY ASSIGNMENT\\nWeek: ${weekLabel} | Class: ${cls} | Exam: ${exam}\\nTopics: ${chapSummary}\\nTotal: 40 marks\\n\\nSECTION A — Concept Questions (8 x 1 = 8 marks)\\n[Write 8 complete conceptual questions covering all topics this week, numbered 1-8]\\n\\nSECTION B — Numerical Problems (8 x 2 = 16 marks)\\n[Write 8 complete numerical problems from this week's topics, numbered 9-16]\\n\\nSECTION C — Higher Order Thinking (4 x 4 = 16 marks)\\n[Write 4 complete application and analysis questions, numbered 17-20]",
+
+  "weekly_coverage": "WEEKLY COVERAGE REPORT\\nWeek: ${weekLabel} to ${today}\\nClass: ${cls} | Sessions: ${thisWeek.length} | Total Time: ${Math.floor(totalTime/60)} min\\n\\nCHAPTERS COVERED:\\n[List each chapter covered this week with brief description of what was taught]\\n\\nFORMULAE COVERED THIS WEEK:\\n[List key formulae taught]\\n\\nCUMULATIVE COVERAGE:\\n[For each chapter, estimate percentage of full chapter completed]\\n\\nRECOMMENDATIONS FOR NEXT WEEK:\\n[Specific topics to cover next week based on syllabus progression]"
+}`;
+
+  try {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getKey()
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 3500,
+        temperature: 0.7,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error.message);
+
+    let raw = ((data.choices || [])[0]?.message?.content || '')
+      .replace(/```json|```/g, '').trim();
+
+    const parsed = JSON.parse(raw);
+
+    const weeklyRecord = {
+      date: new Date().toISOString(),
+      weekLabel,
+      sessions: thisWeek.length,
+      chapters: chapSummary,
+      ...parsed
+    };
+    S.weekly.unshift(weeklyRecord);
+    localStorage.setItem('cp_weekly', JSON.stringify(S.weekly));
+
+    S.outputs = { ...S.outputs, ...parsed };
+    if (!S.outputTabs.find(t => t.key === 'weekly_assign')) {
+      S.outputTabs.push({ key: 'weekly_assign',    label: 'Weekly Assignment' });
+      S.outputTabs.push({ key: 'weekly_coverage',  label: 'Weekly Coverage' });
+    }
+    S.activeTab = 'weekly_assign';
+    goTo('outputs');
+    document.getElementById('out-title').textContent = 'Weekly Report';
+    document.getElementById('out-sub').textContent = `Week of ${weekLabel} · ${thisWeek.length} sessions`;
+    renderOutputTabs();
+    renderOutputBody();
+
+  } catch(err) {
+    console.error(err);
+    showToast('⚠ Generation failed: ' + (err.message || 'Check API key'));
+    goTo('home');
+  }
+}
+
+// ── History ────────────────────────────────────────────────────────────────
+function switchHistoryTab(tab, el) {
+  S.historyTab = tab;
+  document.querySelectorAll('.h-tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
   renderHistory(tab);
 }
 
 function renderHistory(tab) {
-  const el = document.getElementById('history-content');
+  const el = document.getElementById('history-body');
 
   if (tab === 'sessions') {
-    if (!S.sessions.length) { el.innerHTML = emptyState('📚', 'No sessions yet', 'Start your first class to see history here.'); return; }
-    el.innerHTML = '<div class="card">' + S.sessions.map((s, i) => {
-      const d = new Date(s.date);
-      return `<div class="session-item" onclick="viewSession(${i})">
-        <div class="session-date-box">
-          <div class="session-date-day">${d.getDate()}</div>
-          <div class="session-date-mon">${d.toLocaleDateString('en-IN',{month:'short'})}</div>
-        </div>
-        <div class="session-info">
-          <div class="session-chapter">${s.chapter}${s.topic ? ' — ' + s.topic : ''}</div>
-          <div class="session-meta">${s.class} · ${s.subject} · ${s.type} · ${Math.floor((s.duration||0)/60)} min</div>
-          ${s.topicDone ? '<span class="badge badge-green" style="margin-top:4px;">✓ Topic complete</span>' : ''}
-        </div>
-        <div class="chevron">›</div>
+    if (!S.sessions.length) {
+      el.innerHTML = `<div class="empty">
+        <div class="empty-icon">📋</div>
+        <h3>No sessions yet</h3>
+        <p>Start your first session to see it here</p>
       </div>`;
-    }).join('') + '</div>';
-  }
-
-  else if (tab === 'topics') {
-    const groups = {};
-    S.sessions.forEach(s => { if (!groups[s.chapter]) groups[s.chapter] = []; groups[s.chapter].push(s); });
-    if (!Object.keys(groups).length) { el.innerHTML = emptyState('📖', 'No topics yet', 'Complete sessions to see topic groups here.'); return; }
-    el.innerHTML = Object.entries(groups).map(([ch, arr]) => {
-      const done = arr.some(s => s.topicDone);
-      return `<div class="card">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
-          <div>
-            <div style="font-size:15px; font-weight:600; color:var(--text);">${ch}</div>
-            <div style="font-size:12px; color:var(--text3);">${arr[0].class} · ${arr[0].subject} · ${arr.length} session${arr.length>1?'s':''}</div>
-          </div>
-          ${done ? '<span class="badge badge-green">Complete</span>' : `<button class="btn btn-amber btn-sm" onclick="quickTopicGen('${ch}')">Generate</button>`}
-        </div>
-        <div class="divider"></div>
-        ${arr.map(s => `<div style="font-size:12px; color:var(--text2); padding:4px 0; border-bottom:1px solid var(--border);">${new Date(s.date).toLocaleDateString('en-IN',{day:'numeric',month:'short'})} · ${s.topic||'General'} · ${Math.floor((s.duration||0)/60)} min</div>`).join('')}
+      return;
+    }
+    el.innerHTML = S.sessions.map((s, i) => {
+      const d = new Date(s.date).toLocaleDateString('en-IN');
+      const dur = Math.floor((s.duration || 0) / 60);
+      return `<div class="session-item" onclick="viewSession(${i})">
+        <h3>${s.chapter || 'Untitled Session'}</h3>
+        <p>${s.class} · ${s.subject} · ${d} · ${dur} min</p>
+        <span class="session-badge">${s.exam}</span>
+        ${s.topicDone ? '<span class="session-badge" style="background:var(--green); margin-left:4px;">Topic Done</span>' : ''}
       </div>`;
     }).join('');
   }
 
-  else if (tab === 'weekly') {
-    if (!S.weekly.length) { el.innerHTML = emptyState('📅', 'No weekly reports', 'After 3+ sessions in a week, weekly reports appear here.'); return; }
-    el.innerHTML = S.weekly.map(r => `
-      <div class="card">
-        <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Week of ${new Date(r.date).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</div>
-        <div style="font-size:12px; color:var(--text3); margin-bottom:10px;">${r.sessions} sessions</div>
-        <div style="font-size:13px; color:var(--text2); line-height:1.6;">${(r.weekly_coverage||'').substring(0,200)}${r.weekly_coverage?.length>200?'…':''}</div>
+  if (tab === 'weekly') {
+    if (!S.weekly.length) {
+      el.innerHTML = `<div class="empty">
+        <div class="empty-icon">📅</div>
+        <h3>No weekly reports yet</h3>
+        <p>Complete 3+ sessions in a week to generate a weekly report</p>
+      </div>`;
+      return;
+    }
+    el.innerHTML = S.weekly.map((w, i) => `
+      <div class="weekly-item" onclick="viewWeekly(${i})">
+        <h3>Week of ${w.weekLabel || new Date(w.date).toLocaleDateString('en-IN')}</h3>
+        <p>${w.sessions} sessions · ${w.chapters}</p>
       </div>`).join('');
   }
 }
 
 function viewSession(index) {
   const sess = S.sessions[index];
-  S.current = sess;
-  S.outputs = sess.outputs || {};
-  S.outputTabs = [...BASE_TABS];
-  if (S.outputs.assignment) S.outputTabs.push({ key: 'assignment', label: 'Topic assignment' });
-  if (S.outputs.test_paper) S.outputTabs.push({ key: 'test_paper', label: 'Test paper' });
-  S.activeTab = 'notes';
-  renderOutputs();
-  goTo('screen-outputs');
+  if (!sess) return;
+  S.svSession = sess;
+
+  const tabs = [
+    { key: 'notes',    label: 'Notes' },
+    { key: 'dpp',      label: 'DPP' },
+    { key: 'coverage', label: 'Coverage' },
+    { key: 'parent',   label: 'Parent' },
+    { key: 'teaching', label: 'Teaching' },
+  ].filter(t => sess.outputs && sess.outputs[t.key]);
+
+  if (!tabs.length) {
+    showToast('No outputs saved for this session');
+    return;
+  }
+
+  S.svTab = tabs[0].key;
+  document.getElementById('sv-title').textContent = sess.chapter;
+  document.getElementById('sv-tabs').innerHTML = tabs.map(t =>
+    `<button class="tab-btn ${t.key === S.svTab ? 'active' : ''}"
+      onclick="switchSVTab('${t.key}')">${t.label}</button>`
+  ).join('');
+  document.getElementById('sv-body').textContent = sess.outputs[S.svTab] || '';
+  goTo('session-view');
 }
 
-function emptyState(icon, title, sub) {
-  return `<div class="empty-state"><div class="empty-icon">${icon}</div><div class="empty-title">${title}</div><div class="empty-sub">${sub}</div></div>`;
+function viewWeekly(index) {
+  const w = S.weekly[index];
+  if (!w) return;
+  S.svSession = w;
+  S.svTab = 'weekly_assign';
+
+  const tabs = [
+    { key: 'weekly_assign',   label: 'Assignment' },
+    { key: 'weekly_coverage', label: 'Coverage' },
+  ].filter(t => w[t.key]);
+
+  document.getElementById('sv-title').textContent =
+    `Week of ${w.weekLabel || ''}`;
+  document.getElementById('sv-tabs').innerHTML = tabs.map(t =>
+    `<button class="tab-btn ${t.key === S.svTab ? 'active' : ''}"
+      onclick="switchSVTab('${t.key}')">${t.label}</button>`
+  ).join('');
+  document.getElementById('sv-body').textContent = w[S.svTab] || '';
+  goTo('session-view');
 }
 
-// ─── Demo outputs (no API key) ─────────────────────────────────────────────────
-function demoOutputs(sess) {
-  const ch = sess.chapter; const ex = sess.exam;
-  return {
-    notes: `CLASS NOTES — ${ch}\nClass: ${sess.class} | Subject: ${sess.subject} | ${new Date(sess.date).toLocaleDateString('en-IN')}\n\n[Demo mode — connect Groq API for real AI-generated notes]\n\nKey Concepts:\n• Main concept 1 of ${ch}\n• Main concept 2 — definition and explanation\n• Important formula: F = ma (example)\n\nExamples solved:\n• Problem type 1 — step-by-step\n• Problem type 2 — application\n\nKey Takeaways:\n• Remember these points for ${ex}\n• Practice numerical problems daily`,
-    dpp: `DAILY PRACTICE PROBLEMS\nChapter: ${ch} | Date: ${new Date().toLocaleDateString('en-IN')} | Target: ${ex}\n\n[Demo mode — connect API for real questions]\n\n1. [Easy] Define the main concept of ${ch}.\n2. [Easy] State the fundamental law/principle.\n3. [Medium] A numerical problem based on today's concept.\n4. [Medium] Application-based question.\n5. [Medium] Conceptual MCQ:\n   a) Option A  b) Option B  c) Option C  d) Option D\n6. [Medium] Another MCQ with 4 options.\n7. [Hard] Complex numerical problem.\n8. [Easy] Fill in the blank — formula based.\n9. [Medium] Explain with diagram (describe the diagram).\n10. [Hard] Combined concept problem.`,
-    coverage: `COVERAGE LOG\nDate: ${new Date().toLocaleDateString('en-IN')}\nClass: ${sess.class} | Subject: ${sess.subject}\nChapter: ${ch} | Duration: ${Math.floor(sess.duration/60)} min\n\n[Demo mode]\n\nTopics covered: Core concepts of ${ch}\nConcepts introduced: Fundamental principles\nFormulas: As per chapter\nEstimated coverage: ~30% of chapter\nNext session: Continue from where we stopped`,
-    parent: `Dear Parent,\n\nToday in ${sess.subject} (${sess.class}), we covered ${ch}.\n\nThe class focused on introducing the core concepts. Please ask your child to explain the main idea in their own words — this is the best way to check understanding.\n\nHomework: 10 Daily Practice Problems have been given. Please ensure these are completed before the next class.\n\nNext class: We continue with ${ch}.\n\n[Demo mode — connect API for personalised summaries]`,
-    teaching: `TEACHING LOG (Private)\nDate: ${new Date().toLocaleDateString('en-IN')} | Duration: ${Math.floor(sess.duration/60)} min\nChapter: ${ch} | Type: ${sess.type}\n\n[Demo mode — connect API for AI-powered teaching insights]\n\nWhat went well:\n• Session completed as planned\n\nTo revisit:\n• Check understanding of key formula applications\n\nNext session plan:\n• Continue with ${ch}\n• More practice problems needed`
-  };
+function switchSVTab(key) {
+  S.svTab = key;
+  const data = S.svSession[key] || S.svSession?.outputs?.[key] || '';
+  document.getElementById('sv-body').textContent = data;
+  document.querySelectorAll('#sv-tabs .tab-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim() ===
+      ['Notes','DPP','Coverage','Parent','Teaching','Assignment','Coverage']
+        .find(l => key.includes(l.toLowerCase().replace(' ','_'))) ||
+      b.onclick?.toString().includes(`'${key}'`));
+  });
+  document.getElementById('sv-tabs').querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    if (b.getAttribute('onclick')?.includes(`'${key}'`)) b.classList.add('active');
+  });
 }
 
-// ─── Toast ────────────────────────────────────────────────────────────────────
+function copySV() {
+  const text = document.getElementById('sv-body').textContent;
+  navigator.clipboard.writeText(text).then(() => showToast('Copied!'));
+}
+function shareSV() {
+  const text = document.getElementById('sv-body').textContent;
+  if (navigator.share) { navigator.share({ text }); }
+  else { navigator.clipboard.writeText(text).then(() => showToast('Copied!')); }
+}
+
+// ── Toast ──────────────────────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 </script>
 </body>
 </html>
-
-
-
-
+Done
