@@ -5,1194 +5,2248 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>ClassPulse — AI Teaching Companion</title>
 <meta name="theme-color" content="#1A3A5C"/>
-<link rel="manifest" href="manifest.json"/>
 <style>
-  :root {
-    --navy: #1A3A5C;
-    --navy2: #0A1628;
-    --teal: #0D7377;
-    --gold: #E8A020;
-    --white: #ffffff;
-    --bg: #F4F8FB;
-    --card: #ffffff;
-    --text1: #1A2A3A;
-    --text2: #4A5568;
-    --text3: #8A9BB0;
-    --border: #E2EAF4;
-    --green: #2D7D5A;
-    --red: #C0392B;
-    --radius: 14px;
-    --shadow: 0 2px 16px rgba(26,58,92,0.10);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg);
-    color: var(--text1);
-    min-height: 100vh;
-    max-width: 480px;
-    margin: 0 auto;
-  }
+:root {
+  --navy:#1A3A5C; --navy2:#0A1628; --teal:#0D7377; --gold:#E8A020;
+  --white:#fff; --bg:#F4F8FB; --card:#fff; --text1:#1A2A3A;
+  --text2:#4A5568; --text3:#8A9BB0; --border:#E2EAF4;
+  --green:#2D7D5A; --red:#C0392B; --purple:#6B46C1;
+  --radius:14px;
+  --shadow:0 2px 16px rgba(26,58,92,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh;max-width:480px;margin:0 auto;}
+.header{background:var(--navy2);padding:16px 20px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.5px;color:#fff;}
+.logo span{color:var(--gold);}
+.header-btn{background:rgba(255,255,255,.1);border:none;color:#fff;padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;}
+.page{display:none;padding:16px;}
+.page.active{display:block;}
+.card{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border);}
+.hero{background:linear-gradient(135deg,var(--navy) 60%,var(--teal));border-radius:var(--radius);padding:22px 20px;margin-bottom:14px;color:#fff;}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.hero h1{font-size:24px;font-weight:800;margin-bottom:6px;}
+.hero p{font-size:14px;opacity:.8;line-height:1.5;}
+.key-section{background:#EAF5F5;border:1.5px solid var(--teal);}
+.key-label{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--teal);margin-bottom:8px;}
+.key-input{width:100%;background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:15px;color:var(--text1);outline:none;}
+.key-input:focus{border-color:var(--teal);}
+.key-status{font-size:12px;margin-top:6px;}
+.key-ok{color:var(--green);font-weight:600;}
+.key-hint{color:var(--text3);}
+.btn{border:none;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s,transform .1s;display:inline-flex;align-items:center;gap:8px;justify-content:center;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--navy);color:#fff;width:100%;padding:16px;font-size:17px;}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-gold{background:var(--gold);color:var(--navy2);}
+.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--border);}
+.btn-red{background:var(--red);color:#fff;}
+.btn-sm{padding:8px 16px;font-size:13px;border-radius:8px;}
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.config-item label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.5px;display:block;margin-bottom:5px;}
+.config-item select,.config-item input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;color:var(--text1);background:#fff;outline:none;}
+.config-full{grid-column:1/-1;}
+.session-status{text-align:center;padding:32px 20px;}
+.rec-indicator{width:80px;height:80px;border-radius:50%;background:var(--red);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:32px;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(192,57,43,.4);}70%{box-shadow:0 0 0 20px rgba(192,57,43,0);}100%{box-shadow:0 0 0 0 rgba(192,57,43,0);}}
+.rec-label{font-size:20px;font-weight:700;margin-bottom:8px;}
+.rec-sub{font-size:14px;color:var(--text3);margin-bottom:6px;}
+.rec-timer{font-size:36px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums;}
+.transcript-preview{background:var(--bg);border-radius:10px;padding:12px;font-size:13px;color:var(--text2);min-height:60px;max-height:120px;overflow-y:auto;margin-top:14px;line-height:1.6;text-align:left;}
+.gen-step{display:flex;align-items:center;gap:10px;padding:10px 0;font-size:14px;color:var(--text3);border-bottom:1px solid var(--border);}
+.gen-step:last-child{border:none;}
+.gen-step.active{color:var(--teal);font-weight:600;}
+.gen-step.done{color:var(--green);}
+.gen-step-icon{font-size:16px;width:24px;text-align:center;}
+.output-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;margin-bottom:14px;scrollbar-width:none;}
+.output-tabs::-webkit-scrollbar{display:none;}
+.tab-btn{white-space:nowrap;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1.5px solid var(--border);background:#fff;color:var(--text2);cursor:pointer;transition:all .15s;}
+.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+.output-body{background:#fff;border-radius:var(--radius);padding:0;font-size:14px;line-height:1.8;color:var(--text1);min-height:200px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.output-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.output-actions .btn{flex:1;}
+.session-item{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;border:1px solid var(--border);cursor:pointer;box-shadow:var(--shadow);transition:transform .1s;}
+.session-item:active{transform:scale(.98);}
+.session-item h3{font-size:15px;font-weight:700;margin-bottom:4px;}
+.session-item p{font-size:13px;color:var(--text3);}
+.session-badge{display:inline-block;background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:6px;letter-spacing:.5px;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy2);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;transition:transform .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.empty{text-align:center;padding:48px 20px;}
+.empty-icon{font-size:48px;margin-bottom:14px;}
+.empty h3{font-size:18px;font-weight:700;color:var(--text2);margin-bottom:6px;}
+.empty p{font-size:14px;color:var(--text3);line-height:1.6;}
+.install-bar{background:var(--navy);color:#fff;text-align:center;padding:8px 16px;font-size:12px;}
 
-  /* ── Header ── */
-  .header {
-    background: var(--navy2);
-    padding: 16px 20px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: var(--white); }
-  .logo span { color: var(--gold); }
-  .header-btn {
-    background: rgba(255,255,255,0.1);
-    border: none;
-    color: #fff;
-    padding: 7px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    cursor: pointer;
-  }
+#page-preview{padding:0;}
+.preview-header{background:var(--navy2);padding:12px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;}
+.preview-header h2{font-size:16px;font-weight:700;color:#fff;flex:1;}
+.preview-actions{display:flex;gap:8px;padding:12px 16px;background:#fff;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.preview-frame{padding:0;background:#f0f0f0;min-height:80vh;}
+.preview-iframe{width:100%;min-height:80vh;border:none;background:#fff;}
 
-  /* ── Pages ── */
-  .page { display: none; padding: 16px; }
-  .page.active { display: block; }
+.settings-section{margin-bottom:16px;}
+.settings-section h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;letter-spacing:.5px;}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);}
+.toggle-row:last-child{border:none;}
+.toggle-label{font-size:14px;color:var(--text1);}
+.toggle-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+.toggle{position:relative;width:44px;height:24px;background:var(--border);border-radius:12px;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.toggle.on{background:var(--teal);}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;background:#fff;border-radius:50%;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.toggle.on::after{left:22px;}
 
-  /* ── Cards ── */
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-  }
-  .card-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--text3);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
+/* ══════════════════════════════════════════════════════════
+   LAYOUT OPTIMIZATION INTELLIGENCE (LOI) — VSN-2.0
+   ══════════════════════════════════════════════════════════ */
+.vsn-page{
+  font-family:Georgia,'Times New Roman',serif;
+  background:#fff;padding:12px 14px;color:#1A2A3A;
+  line-height:1.5;font-size:11px;
+}
+.vsn-header{
+  border-bottom:2px solid var(--navy);padding-bottom:8px;
+  margin-bottom:10px;
+}
+.vsn-header h1{font-size:16px;color:var(--navy);margin-bottom:2px;letter-spacing:.3px;line-height:1.2;}
+.vsn-header .vsn-sub{font-size:11px;color:var(--text2);font-style:italic;margin-bottom:4px;}
+.vsn-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.vsn-tag{
+  background:var(--bg);border:1px solid var(--border);
+  padding:1px 6px;border-radius:8px;font-size:8px;
+  font-weight:700;color:var(--text2);letter-spacing:.3px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-narrative{margin:8px 0;padding:0 2px;font-size:11px;line-height:1.5;}
+.vsn-narrative h3{
+  color:var(--navy);font-size:12px;margin-bottom:4px;
+  border-bottom:1px solid var(--border);padding-bottom:2px;font-weight:700;
+}
+.key-term{background:#EAF5F5;padding:0 3px;border-radius:2px;font-weight:700;color:var(--teal);font-size:10px;}
+.vsn-derivation{
+  background:#F8FBFD;border-left:3px solid var(--teal);
+  padding:8px 10px;margin:8px 0;border-radius:0 6px 6px 0;font-size:10px;
+}
+.vsn-derivation h4{
+  color:var(--teal);font-size:10px;letter-spacing:.5px;margin-bottom:6px;
+  font-family:-apple-system,sans-serif;font-weight:800;
+}
+.vsn-derivation h4::before{content:"📐 ";}
+.vsn-step{display:flex;gap:6px;padding:3px 0;border-bottom:1px dotted var(--border);font-size:10px;}
+.vsn-step:last-child{border:none;}
+.vsn-step-num{
+  background:var(--teal);color:#fff;width:16px;height:16px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;flex-shrink:0;font-family:-apple-system,sans-serif;
+}
+.vsn-step-content{flex:1;font-family:'Cambria Math',serif;font-size:10px;line-height:1.4;}
+.vsn-step-justification{
+  font-size:8px;color:var(--text3);font-style:italic;margin-top:1px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-formula-vault{
+  background:#F8FBFD;border:1.5px solid var(--navy);
+  border-radius:6px;padding:8px 10px;margin:8px 0;position:relative;font-size:10px;
+}
+.vsn-formula-vault::before{
+  content:"📦 FORMULAS";position:absolute;top:-7px;left:8px;
+  background:var(--navy);color:#fff;padding:1px 6px;border-radius:6px;
+  font-size:7px;font-weight:800;letter-spacing:.5px;font-family:-apple-system,sans-serif;
+}
+.vsn-formula-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:6px;margin-top:4px;
+}
+.vsn-formula-item{
+  background:#fff;border:1px solid var(--border);border-radius:4px;
+  padding:6px 8px;text-align:center;font-family:'Cambria Math',serif;
+  font-size:11px;color:var(--navy);font-weight:600;
+}
+.vsn-formula-item .fname{
+  font-size:8px;color:var(--text3);font-family:-apple-system,sans-serif;
+  margin-bottom:2px;font-weight:600;
+}
+.vsn-legend{
+  margin-top:6px;padding-top:4px;border-top:1px solid var(--border);
+  font-size:9px;color:var(--text2);font-family:-apple-system,sans-serif;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:2px 8px;
+}
+.vsn-legend-item{display:flex;gap:4px;padding:1px 0;}
+.vsn-legend-item .sym{
+  font-family:'Cambria Math',serif;font-weight:700;
+  color:var(--teal);min-width:20px;font-size:10px;
+}
+.vsn-hook{
+  background:linear-gradient(135deg,#FFF9EC 0%,#FFF5DC 100%);
+  border-left:3px solid var(--gold);padding:6px 10px;margin:6px 0;
+  border-radius:0 6px 6px 0;font-style:italic;color:var(--text1);
+  font-size:10px;line-height:1.4;
+}
+.vsn-hook::before{
+  content:"💡 HOOK";display:block;font-size:7px;font-weight:800;
+  letter-spacing:1px;color:var(--gold);font-style:normal;margin-bottom:2px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-emphasis{
+  background:#FFF9EC;border:1px solid var(--gold);
+  border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;
+}
+.vsn-emphasis::before{
+  content:"🗣️ TEACHER";display:block;font-size:7px;font-weight:800;
+  letter-spacing:.5px;color:var(--gold);margin-bottom:2px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-emphasis .quote{font-size:10px;font-style:italic;color:var(--text1);line-height:1.4;}
+.vsn-memory{
+  background:linear-gradient(135deg,#EAF5F5 0%,#D4EDED 100%);
+  border-radius:6px;padding:6px 8px;margin:6px 0;
+  border-left:3px solid var(--teal);font-size:10px;
+}
+.vsn-memory::before{
+  content:"🧠 TRICK";display:block;font-size:7px;font-weight:800;
+  letter-spacing:.5px;color:var(--teal);margin-bottom:2px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-misconception{
+  background:#FEF2F2;border:1px solid var(--red);
+  border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;
+}
+.vsn-misconception::before{
+  content:"⚠️ MISTAKE";display:block;font-size:7px;font-weight:800;
+  letter-spacing:.5px;color:var(--red);margin-bottom:2px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-mistake{text-decoration:line-through;color:var(--red);margin-bottom:2px;font-size:9px;}
+.vsn-correction{color:var(--green);font-weight:600;font-size:9px;}
+.vsn-correction::before{content:"✓ ";}
+.vsn-exam-radar{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--teal) 100%);
+  color:#fff;border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;
+}
+.vsn-exam-radar::before{
+  content:"🎯 EXAM";display:block;font-size:7px;font-weight:800;
+  letter-spacing:.5px;color:var(--gold);margin-bottom:2px;
+  font-family:-apple-system,sans-serif;
+}
+.vsn-exam-level{
+  display:inline-block;background:var(--gold);color:var(--navy2);
+  padding:1px 6px;border-radius:6px;font-size:8px;font-weight:800;
+  margin-bottom:3px;font-family:-apple-system,sans-serif;
+}
+.vsn-comparison{margin:8px 0;overflow-x:auto;font-size:10px;}
+.vsn-comparison h4{color:var(--navy);font-size:10px;margin-bottom:4px;font-weight:700;}
+.vsn-comparison table{
+  width:100%;border-collapse:collapse;font-size:9px;
+  background:#fff;border-radius:4px;overflow:hidden;border:1px solid var(--border);
+}
+.vsn-comparison th{
+  background:var(--navy);color:#fff;padding:4px 6px;text-align:left;
+  font-size:8px;letter-spacing:.3px;font-family:-apple-system,sans-serif;font-weight:700;
+}
+.vsn-comparison td{padding:4px 6px;border-bottom:1px solid var(--border);font-size:9px;}
+.vsn-comparison tr:last-child td{border:none;}
+.vsn-comparison tr:nth-child(even) td{background:#F8FBFD;}
+.vsn-diagram{
+  background:#F8FBFD;padding:8px 10px;border-radius:6px;
+  border:1px dashed var(--teal);margin:8px 0;font-size:10px;
+}
+.vsn-diagram h4{
+  color:var(--teal);font-size:10px;margin-bottom:4px;
+  font-family:-apple-system,sans-serif;font-weight:700;
+}
+.vsn-diagram h4::before{content:"📊 ";}
+.vsn-diagram-desc{font-style:italic;color:var(--text2);font-size:9px;line-height:1.4;}
+.vsn-diagram-labels{margin-top:4px;font-size:8px;color:var(--text3);font-family:-apple-system,sans-serif;}
+.vsn-flowchart{margin:8px 0;font-size:10px;}
+.vsn-flowchart h4{
+  color:var(--navy);font-size:10px;margin-bottom:6px;
+  font-family:-apple-system,sans-serif;font-weight:700;
+}
+.vsn-flowchart h4::before{content:"🔄 ";}
+.vsn-flow-step{display:flex;align-items:center;gap:4px;padding:2px 0;}
+.vsn-flow-node{
+  background:var(--teal);color:#fff;padding:3px 8px;border-radius:10px;
+  font-size:9px;font-weight:600;font-family:-apple-system,sans-serif;
+}
+.vsn-flow-arrow{color:var(--teal);font-weight:700;font-size:10px;}
+.vsn-2col{column-count:2;column-gap:10px;}
 
-  /* ── Hero ── */
-  .hero {
-    background: linear-gradient(135deg, var(--navy) 60%, var(--teal));
-    border-radius: var(--radius);
-    padding: 22px 20px;
-    margin-bottom: 14px;
-    color: white;
-  }
-  .hero-tag {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; }
-  .hero p { font-size: 14px; opacity: 0.8; line-height: 1.5; }
+/* ══════════════════════════════════════════════════════════
+   PARENT SUMMARY MODULE
+   ══════════════════════════════════════════════════════════ */
+.ps-container{padding:8px;}
+.ps-header{
+  background:linear-gradient(135deg,#2D7D5A,var(--teal));
+  color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;
+}
+.ps-header h2{font-size:15px;margin-bottom:2px;}
+.ps-header .ps-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
+.ps-section{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:12px;margin-bottom:10px;box-shadow:var(--shadow);
+}
+.ps-section-title{
+  font-size:11px;font-weight:800;color:var(--green);
+  letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;
+  border-bottom:1px dashed var(--border);
+  display:flex;align-items:center;gap:6px;
+}
+.ps-section-title::before{font-size:13px;}
+.ps-section.ps-today .ps-section-title::before{content:"📅";}
+.ps-section.ps-concepts .ps-section-title::before{content:"📚";}
+.ps-section.ps-why .ps-section-title::before{content:"💡";}
+.ps-section.ps-homework .ps-section-title::before{content:"📝";}
+.ps-section.ps-suggest .ps-section-title::before{content:"👨‍👩‍👧";}
+.ps-section.ps-upcoming .ps-section-title::before{content:"➡️";}
+.ps-class-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;}
+.ps-class-item{background:var(--bg);padding:6px 8px;border-radius:4px;}
+.ps-class-item b{display:block;font-size:9px;color:var(--text3);letter-spacing:.5px;margin-bottom:1px;font-weight:700;}
+.ps-class-item span{color:var(--text1);font-weight:600;}
+.ps-concept-list{list-style:none;padding:0;}
+.ps-concept-list li{
+  padding:5px 8px;margin:3px 0;background:var(--bg);
+  border-radius:4px;font-size:11px;line-height:1.4;
+  border-left:3px solid var(--green);
+}
+.ps-concept-list li::before{content:"✓ ";color:var(--green);font-weight:700;}
+.ps-why-text{font-size:11px;line-height:1.5;color:var(--text1);}
+.ps-hw-grid{display:grid;grid-template-columns:1fr;gap:6px;}
+.ps-hw-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:6px 10px;background:var(--bg);border-radius:4px;font-size:11px;
+}
+.ps-hw-item b{color:var(--navy);font-size:10px;}
+.ps-hw-item span{color:var(--text2);font-size:10px;flex:1;margin:0 8px;}
+.ps-hw-badge{
+  background:var(--gold);color:var(--navy2);padding:1px 6px;
+  border-radius:8px;font-size:9px;font-weight:700;
+}
+.ps-suggest-list{list-style:none;padding:0;}
+.ps-suggest-list li{
+  padding:5px 8px;margin:3px 0;background:#FFF9EC;
+  border-radius:4px;font-size:11px;line-height:1.4;
+  border-left:3px solid var(--gold);
+}
+.ps-suggest-list li::before{content:"→ ";color:var(--gold);font-weight:700;}
+.ps-upcoming-box{
+  background:linear-gradient(135deg,#EAF5F5,#D4EDED);
+  padding:10px;border-radius:6px;font-size:12px;
+  font-weight:600;color:var(--navy);text-align:center;
+}
 
-  /* ── API Key ── */
-  .key-section { background: #EAF5F5; border: 1.5px solid var(--teal); }
-  .key-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--teal); margin-bottom: 8px; }
-  .key-input {
-    width: 100%;
-    background: white;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 15px;
-    color: var(--text1);
-    outline: none;
-    transition: border 0.2s;
-  }
-  .key-input:focus { border-color: var(--teal); }
-  .key-status { font-size: 12px; margin-top: 6px; }
-  .key-ok { color: var(--green); font-weight: 600; }
-  .key-hint { color: var(--text3); }
+/* ══════════════════════════════════════════════════════════
+   CHAPTER COVERAGE MODULE
+   ══════════════════════════════════════════════════════════ */
+.cc-container{padding:8px;}
+.cc-header{
+  background:linear-gradient(135deg,var(--navy),var(--purple));
+  color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;
+}
+.cc-header h2{font-size:15px;margin-bottom:2px;}
+.cc-header .cc-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
+.cc-progress-card{
+  background:#fff;border:1.5px solid var(--border);border-radius:8px;
+  padding:14px;margin-bottom:12px;box-shadow:var(--shadow);text-align:center;
+}
+.cc-percent{font-size:32px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:6px;}
+.cc-percent small{font-size:14px;color:var(--text3);}
+.cc-progress-bar{
+  height:10px;background:var(--bg);border-radius:5px;overflow:hidden;
+  margin:8px 0;border:1px solid var(--border);
+}
+.cc-progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--teal),var(--green));
+  border-radius:5px;transition:width .6s;
+}
+.cc-progress-label{
+  font-size:10px;color:var(--text3);letter-spacing:.5px;
+  font-weight:700;text-transform:uppercase;
+}
+.cc-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.cc-stat{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:10px;box-shadow:var(--shadow);
+}
+.cc-stat-label{
+  font-size:9px;color:var(--text3);font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;
+}
+.cc-stat-value{font-size:14px;font-weight:800;color:var(--navy);}
+.cc-stat-value.diff-easy{color:var(--green);}
+.cc-stat-value.diff-medium{color:var(--gold);}
+.cc-stat-value.diff-hard{color:var(--red);}
+.cc-section{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:12px;margin-bottom:10px;box-shadow:var(--shadow);
+}
+.cc-section-title{
+  font-size:11px;font-weight:800;color:var(--purple);
+  letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;
+  border-bottom:1px dashed var(--border);
+}
+.cc-list{list-style:none;padding:0;}
+.cc-list li{padding:4px 8px;margin:2px 0;background:var(--bg);border-radius:4px;font-size:11px;line-height:1.4;}
+.cc-list.completed li{border-left:3px solid var(--green);}
+.cc-list.completed li::before{content:"✓ ";color:var(--green);font-weight:700;}
+.cc-list.pending li{border-left:3px solid var(--gold);}
+.cc-list.pending li::before{content:"◌ ";color:var(--gold);font-weight:700;}
+.cc-list.prereq li{border-left:3px solid var(--navy);}
+.cc-list.prereq li::before{content:"⚓ ";color:var(--navy);font-weight:700;}
+.cc-planning-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.cc-plan-item{background:var(--bg);padding:8px;border-radius:6px;}
+.cc-plan-item b{display:block;font-size:9px;color:var(--text3);letter-spacing:.5px;margin-bottom:2px;font-weight:700;}
+.cc-plan-item span{font-size:11px;color:var(--text1);font-weight:600;}
 
-  /* ── Suggest cards ── */
-  .suggest {
-    border: 1.5px solid var(--gold);
-    background: #FFF9EC;
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .suggest-text { font-size: 14px; color: var(--text1); line-height: 1.4; }
-  .suggest-text b { display: block; font-size: 15px; margin-bottom: 2px; }
+/* ══════════════════════════════════════════════════════════
+   DPP MODULE
+   ══════════════════════════════════════════════════════════ */
+.dpp-container{padding:8px;}
+.dpp-header{
+  background:linear-gradient(135deg,var(--navy),var(--teal));
+  color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;
+}
+.dpp-header h2{font-size:14px;margin-bottom:2px;}
+.dpp-header .dpp-meta{font-size:10px;opacity:.9;letter-spacing:.3px;}
+.dpp-section{margin-bottom:14px;}
+.dpp-section-header{
+  display:flex;align-items:center;gap:8px;padding:6px 10px;
+  background:var(--bg);border-left:3px solid var(--navy);
+  border-radius:0 6px 6px 0;margin-bottom:8px;
+}
+.dpp-section-header.sec-a{border-left-color:var(--navy);}
+.dpp-section-header.sec-b{border-left-color:var(--teal);}
+.dpp-section-header.sec-c{border-left-color:var(--gold);}
+.dpp-section-header.sec-d{border-left-color:var(--purple);}
+.dpp-section-header.sec-e{border-left-color:var(--red);}
+.dpp-section-title{font-size:11px;font-weight:800;color:var(--navy);letter-spacing:.3px;}
+.dpp-section-sub{font-size:9px;color:var(--text3);margin-top:1px;}
+.dpp-q{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;
+}
+.dpp-q-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:6px;gap:6px;flex-wrap:wrap;
+}
+.dpp-q-num{
+  background:var(--navy);color:#fff;padding:2px 8px;
+  border-radius:8px;font-size:9px;font-weight:700;
+}
+.dpp-diff{font-size:8px;font-weight:700;padding:2px 6px;border-radius:8px;}
+.dpp-diff.easy{background:#E6F4EA;color:var(--green);}
+.dpp-diff.medium{background:#FFF3E0;color:#B87514;}
+.dpp-diff.challenging,.dpp-diff.hard{background:#FEF2F2;color:var(--red);}
+.dpp-q-text{font-size:12px;font-weight:600;margin-bottom:6px;line-height:1.4;color:var(--text1);}
+.dpp-options{list-style:none;padding:0;margin-bottom:6px;}
+.dpp-options li{
+  padding:4px 8px;margin:2px 0;background:var(--bg);
+  border-radius:4px;font-size:11px;border-left:2px solid transparent;
+}
+.dpp-options li.correct{background:#E6F4EA;color:var(--green);font-weight:600;border-left-color:var(--green);}
+.dpp-fill-blank{font-size:12px;line-height:1.6;margin-bottom:6px;}
+.dpp-blank{
+  display:inline-block;min-width:60px;border-bottom:2px solid var(--teal);
+  padding:0 6px;color:var(--teal);font-weight:700;font-size:11px;
+}
+.dpp-tf-badge{
+  display:inline-block;padding:3px 10px;border-radius:12px;
+  font-size:10px;font-weight:800;margin-bottom:6px;
+}
+.dpp-tf-badge.true{background:#E6F4EA;color:var(--green);}
+.dpp-tf-badge.false{background:#FEF2F2;color:var(--red);}
+.dpp-ar-block{background:#F8FBFD;border-radius:6px;padding:8px;margin-bottom:6px;}
+.dpp-ar-block .ar-label{font-size:8px;font-weight:800;letter-spacing:.5px;color:var(--purple);margin-bottom:2px;}
+.dpp-ar-block .ar-text{font-size:11px;line-height:1.4;color:var(--text1);}
+.dpp-ar-options{margin-top:6px;font-size:10px;line-height:1.5;}
+.dpp-ar-options .ar-opt{padding:3px 6px;margin:2px 0;background:var(--bg);border-radius:3px;}
+.dpp-ar-options .ar-opt.correct{background:#E6F4EA;color:var(--green);font-weight:600;}
+.dpp-stmt-block{background:#F8FBFD;border-radius:6px;padding:8px;margin-bottom:6px;}
+.dpp-stmt-block .stmt-label{font-size:8px;font-weight:800;letter-spacing:.5px;color:var(--red);margin-bottom:2px;}
+.dpp-stmt-block .stmt-text{font-size:11px;line-height:1.4;}
+.dpp-explanation{
+  margin-top:6px;padding:6px 8px;background:#F8FBFD;
+  border-left:2px solid var(--teal);border-radius:0 4px 4px 0;
+  font-size:10px;color:var(--text2);line-height:1.4;
+}
+.dpp-explanation::before{content:"💡 ";}
+.dpp-concept-tag{
+  display:inline-block;background:var(--bg);color:var(--text2);
+  font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;
+}
 
-  /* ── Buttons ── */
-  .btn {
-    border: none;
-    border-radius: 10px;
-    padding: 12px 20px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity 0.15s, transform 0.1s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
-    justify-content: center;
-  }
-  .btn:active { transform: scale(0.97); }
-  .btn-primary { background: var(--navy); color: white; width: 100%; padding: 16px; font-size: 17px; }
-  .btn-teal { background: var(--teal); color: white; }
-  .btn-gold { background: var(--gold); color: var(--navy2); }
-  .btn-ghost { background: transparent; color: var(--navy); border: 1.5px solid var(--border); }
-  .btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
-  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* ══════════════════════════════════════════════════════════
+   ASSIGNMENT MODULE
+   ══════════════════════════════════════════════════════════ */
+.asgn-container{padding:8px;}
+.asgn-header{
+  background:linear-gradient(135deg,var(--purple),var(--navy));
+  color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;
+}
+.asgn-header h2{font-size:14px;margin-bottom:2px;}
+.asgn-header .asgn-meta{
+  display:flex;gap:8px;font-size:9px;opacity:.9;
+  letter-spacing:.3px;flex-wrap:wrap;margin-top:4px;
+}
+.asgn-section-title{
+  font-size:12px;font-weight:800;color:var(--navy);
+  margin:12px 0 8px;padding:6px 10px;background:var(--bg);
+  border-left:3px solid var(--purple);border-radius:0 6px 6px 0;letter-spacing:.3px;
+}
+.asgn-q{
+  background:#fff;border:1px solid var(--border);border-radius:8px;
+  padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;
+}
+.asgn-q-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:6px;gap:6px;flex-wrap:wrap;
+}
+.asgn-q-num{
+  background:var(--purple);color:#fff;padding:2px 8px;
+  border-radius:8px;font-size:9px;font-weight:700;
+}
+.asgn-marks{
+  background:var(--gold);color:var(--navy2);padding:2px 8px;
+  border-radius:8px;font-size:9px;font-weight:700;
+}
+.asgn-q-text{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:6px;}
+.asgn-options{list-style:none;padding:0;margin:6px 0;}
+.asgn-options li{padding:4px 8px;margin:2px 0;background:var(--bg);border-radius:4px;font-size:11px;}
+.asgn-type-tag{
+  display:inline-block;font-size:8px;font-weight:700;
+  padding:1px 6px;border-radius:8px;background:var(--bg);
+  color:var(--text2);margin-right:4px;
+}
+.asgn-answer-key{
+  background:#FFF9EC;border:1.5px solid var(--gold);
+  border-radius:8px;padding:12px;margin-top:16px;
+}
+.asgn-answer-key h3{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:.3px;}
+.asgn-answer-key h3::before{content:"🔑 ";}
+.asgn-ak-section{margin-bottom:10px;}
+.asgn-ak-section h4{font-size:10px;font-weight:700;color:var(--purple);margin-bottom:4px;letter-spacing:.3px;}
+.asgn-ak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:4px;}
+.asgn-ak-item{
+  background:#fff;padding:4px 8px;border-radius:4px;
+  font-size:10px;border:1px solid var(--border);
+}
+.asgn-ak-item b{color:var(--purple);margin-right:2px;}
+.asgn-ak-subjective{
+  font-size:10px;line-height:1.4;color:var(--text2);
+  padding:4px 0;border-bottom:1px dashed var(--border);
+}
+.asgn-ak-subjective:last-child{border:none;}
+.asgn-ak-subjective b{color:var(--navy);}
 
-  /* ── Session page ── */
-  .session-status {
-    text-align: center;
-    padding: 32px 20px;
-  }
-  .rec-indicator {
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    background: var(--red);
-    margin: 0 auto 20px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 32px;
-    animation: pulse 1.5s infinite;
-    box-shadow: 0 0 0 0 rgba(192,57,43,0.4);
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(192,57,43,0.4); }
-    70% { box-shadow: 0 0 0 20px rgba(192,57,43,0); }
-    100% { box-shadow: 0 0 0 0 rgba(192,57,43,0); }
-  }
-  .rec-label { font-size: 20px; font-weight: 700; color: var(--text1); margin-bottom: 8px; }
-  .rec-sub { font-size: 14px; color: var(--text3); margin-bottom: 6px; }
-  .rec-timer { font-size: 36px; font-weight: 800; color: var(--navy); font-variant-numeric: tabular-nums; }
-  .transcript-preview {
-    background: var(--bg);
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 13px;
-    color: var(--text2);
-    min-height: 60px;
-    max-height: 120px;
-    overflow-y: auto;
-    margin-top: 14px;
-    line-height: 1.6;
-    text-align: left;
-  }
+/* ══════════════════════════════════════════════════════════
+   FLASHCARDS & TEST
+   ══════════════════════════════════════════════════════════ */
+.flashcard{
+  background:#fff;border:1.5px solid var(--navy);border-radius:8px;
+  padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;
+}
+.flashcard-q{
+  font-weight:700;color:var(--navy);font-size:12px;
+  margin-bottom:6px;padding-bottom:4px;border-bottom:1px dashed var(--border);
+}
+.flashcard-q::before{content:"Q: ";color:var(--gold);}
+.flashcard-a{color:var(--text1);font-size:11px;line-height:1.4;}
+.flashcard-a::before{content:"A: ";color:var(--teal);font-weight:700;}
+.flashcard-tag{
+  display:inline-block;background:var(--bg);color:var(--text2);
+  font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;
+}
+.test-header{
+  background:linear-gradient(135deg,var(--red),var(--navy));
+  color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;
+}
+.test-header h2{font-size:14px;margin-bottom:2px;}
+.test-header .test-meta{font-size:9px;opacity:.9;letter-spacing:.3px;}
 
-  /* ── Session config ── */
-  .config-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-  .config-item label { font-size: 11px; font-weight: 700; color: var(--text3); letter-spacing: 0.5px; display: block; margin-bottom: 5px; }
-  .config-item select, .config-item input {
-    width: 100%;
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-size: 14px;
-    color: var(--text1);
-    background: white;
-    outline: none;
-  }
-  .config-item select:focus, .config-item input:focus { border-color: var(--teal); }
-  .config-full { grid-column: 1 / -1; }
-
-  /* ── Generation steps ── */
-  .gen-steps { margin: 16px 0; }
-  .gen-step {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 0;
-    font-size: 14px; color: var(--text3);
-    border-bottom: 1px solid var(--border);
-  }
-  .gen-step:last-child { border: none; }
-  .gen-step.active { color: var(--teal); font-weight: 600; }
-  .gen-step.done { color: var(--green); }
-  .gen-step-icon { font-size: 16px; width: 24px; text-align: center; }
-
-  /* ── Outputs ── */
-  .output-tabs {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    margin-bottom: 14px;
-    scrollbar-width: none;
-  }
-  .output-tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    white-space: nowrap;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    border: 1.5px solid var(--border);
-    background: white;
-    color: var(--text2);
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .tab-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
-  .output-body {
-    background: white;
-    border-radius: var(--radius);
-    padding: 18px;
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--text1);
-    white-space: pre-wrap;
-    word-break: break-word;
-    min-height: 200px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-  }
-  .output-actions { display: flex; gap: 10px; margin-top: 12px; }
-  .output-actions .btn { flex: 1; }
-
-  /* ── History ── */
-  .history-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
-  .h-tab {
-    flex: 1; text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 14px; font-weight: 600;
-    border: 1.5px solid var(--border);
-    background: white;
-    color: var(--text2);
-    cursor: pointer;
-  }
-  .h-tab.active { background: var(--navy); color: white; border-color: var(--navy); }
-  .session-item {
-    background: white;
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    transition: transform 0.1s;
-  }
-  .session-item:active { transform: scale(0.98); }
-  .session-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .session-item p { font-size: 13px; color: var(--text3); }
-  .session-badge {
-    display: inline-block;
-    background: var(--teal);
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 20px;
-    margin-top: 6px;
-    letter-spacing: 0.5px;
-  }
-
-  /* ── Toast ── */
-  .toast {
-    position: fixed;
-    bottom: 24px; left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: var(--navy2);
-    color: white;
-    padding: 12px 24px;
-    border-radius: 24px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: transform 0.3s;
-    z-index: 9999;
-    white-space: nowrap;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* ── Empty state ── */
-  .empty { text-align: center; padding: 48px 20px; }
-  .empty-icon { font-size: 48px; margin-bottom: 14px; }
-  .empty h3 { font-size: 18px; font-weight: 700; color: var(--text2); margin-bottom: 6px; }
-  .empty p { font-size: 14px; color: var(--text3); line-height: 1.6; }
-
-  /* ── Weekly card ── */
-  .weekly-item {
-    background: white;
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 10px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-  }
-  .weekly-item h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-  .weekly-item p { font-size: 12px; color: var(--text3); }
-
-  .divider { height: 1px; background: var(--border); margin: 16px 0; }
-
-  /* ── PWA install bar ── */
-  .install-bar {
-    background: var(--navy);
-    color: white;
-    text-align: center;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
-  .install-bar a { color: var(--gold); text-decoration: none; font-weight: 600; }
+@media print {
+  body{max-width:100%;background:#fff;}
+  .header,.install-bar,.preview-actions,.output-actions,.btn{display:none !important;}
+  .vsn-page{padding:0;}
+}
 </style>
 </head>
 <body>
 
-<div class="install-bar">
-  <b>Save as app:</b> Chrome menu → "Add to Home Screen"
-</div>
+<div class="install-bar"><b>Save as app:</b> Chrome menu → "Add to Home Screen"</div>
 
-<!-- ═══════ HEADER ═══════ -->
 <div class="header">
   <div class="logo">Class<span>Pulse</span></div>
+  <button class="header-btn" onclick="goTo('settings')">⚙</button>
   <button class="header-btn" onclick="goTo('history')">History</button>
 </div>
 
-<!-- ═══════ HOME PAGE ═══════ -->
+<!-- HOME -->
 <div id="page-home" class="page active">
-
   <div class="hero">
-    <div class="hero-tag">AI Teaching Companion</div>
+    <div class="hero-tag">AI Teaching Companion · VSN-2.0 LOI</div>
     <h1>Ready for class?</h1>
-    <p>Record → Teach → Get notes, DPP, test paper & more</p>
+    <p>Record → Teach → Get high-density notes, DPP, assignment & more</p>
   </div>
-
-  <!-- API Key -->
   <div class="card key-section">
     <div class="key-label">GROQ API KEY (FREE)</div>
-    <input type="password" id="groq-key" class="key-input"
-      placeholder="gsk_..." oninput="saveKey()"/>
+    <input type="password" id="groq-key" class="key-input" placeholder="gsk_..." oninput="saveKey()"/>
     <div class="key-status" id="key-status">
       <span class="key-hint">Get free key at console.groq.com · Stays on your device only</span>
     </div>
   </div>
-
-  <!-- Suggestions -->
-  <div id="suggestions"></div>
-
-  <!-- Start Session -->
-  <button class="btn btn-primary" id="start-btn" onclick="goToSession()">
-    ▶ Start new session
-  </button>
-
+  <button class="btn btn-primary" onclick="goToSession()">▶ Start new session</button>
   <div style="margin-top:10px;">
-    <button class="btn btn-ghost" style="width:100%;" onclick="goTo('history')">
-      Session history
-    </button>
+    <button class="btn btn-ghost" style="width:100%;" onclick="goTo('history')">Session history</button>
   </div>
-
 </div>
 
-<!-- ═══════ SESSION CONFIG PAGE ═══════ -->
-<div id="page-config" class="page">
-  <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+<!-- SETTINGS -->
+<div id="page-settings" class="page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
     <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
-    <h2 style="font-size:18px; font-weight:800;">New Session</h2>
+    <h2 style="font-size:18px;font-weight:800;">Settings</h2>
   </div>
-
   <div class="card">
-    <div class="card-title">Session Details</div>
+    <div class="settings-section">
+      <h3>🎨 VSN-2.0 RENDERING</h3>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Formula Vaults</div><div class="toggle-sub">Compressed formula grids</div></div>
+        <div class="toggle on" data-setting="formulaVault" onclick="toggleSetting(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Teacher's Voice</div><div class="toggle-sub">Capture emphasis & quotes</div></div>
+        <div class="toggle on" data-setting="teacherVoice" onclick="toggleSetting(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Memory Tricks</div><div class="toggle-sub">Mnemonics & analogies</div></div>
+        <div class="toggle on" data-setting="memoryTricks" onclick="toggleSetting(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Misconception Alerts</div><div class="toggle-sub">Common mistakes highlighted</div></div>
+        <div class="toggle on" data-setting="misconceptions" onclick="toggleSetting(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Exam Radar</div><div class="toggle-sub">Importance scoring per exam</div></div>
+        <div class="toggle on" data-setting="examRadar" onclick="toggleSetting(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Derivation Steps</div><div class="toggle-sub">Step-by-step proofs</div></div>
+        <div class="toggle on" data-setting="derivations" onclick="toggleSetting(this)"></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <h3>📝 DPP & ASSIGNMENT</h3>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Include PYQ patterns</div><div class="toggle-sub">Previous year question style</div></div>
+        <div class="toggle on" data-setting="pyqPatterns" onclick="toggleSetting(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Bloom's Taxonomy levels</div><div class="toggle-sub">Cognitive difficulty progression</div></div>
+        <div class="toggle on" data-setting="bloomsTaxonomy" onclick="toggleSetting(this)"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIG -->
+<div id="page-config" class="page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <h2 style="font-size:18px;font-weight:800;">New Session</h2>
+  </div>
+  <div class="card">
+    <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--text3);margin-bottom:10px;">SESSION DETAILS</div>
     <div class="config-grid">
       <div class="config-item">
         <label>CLASS</label>
         <select id="cfg-class">
-          <option>Class 8</option>
-          <option>Class 9</option>
-          <option>Class 10</option>
-          <option selected>Class 11</option>
-          <option>Class 12</option>
+          <option>Class 8</option><option>Class 9</option><option>Class 10</option>
+          <option selected>Class 11</option><option>Class 12</option>
         </select>
       </div>
       <div class="config-item">
         <label>SUBJECT</label>
         <select id="cfg-subject">
-          <option>Physics</option>
-          <option>Chemistry</option>
-          <option>Mathematics</option>
-          <option>Biology</option>
-          <option>Science</option>
+          <option>Physics</option><option>Chemistry</option><option>Mathematics</option>
+          <option>Biology</option><option>Science</option>
         </select>
       </div>
       <div class="config-item config-full">
         <label>CHAPTER / TOPIC</label>
-        <input type="text" id="cfg-chapter" placeholder="e.g. Units and Dimensions"/>
+        <input type="text" id="cfg-chapter" placeholder="e.g. Electrostatics"/>
       </div>
       <div class="config-item">
         <label>BOARD</label>
         <select id="cfg-board">
-          <option>CBSE</option>
-          <option>ICSE</option>
-          <option>Karnataka</option>
-          <option>Tamil Nadu</option>
-          <option>Telangana</option>
-          <option>Other</option>
+          <option>CBSE</option><option>ICSE</option><option>Karnataka</option>
+          <option>Tamil Nadu</option><option>Telangana</option><option>Other</option>
         </select>
       </div>
       <div class="config-item">
         <label>EXAM TARGET</label>
         <select id="cfg-exam">
-          <option>Board</option>
-          <option>JEE</option>
-          <option>NEET</option>
-          <option>KCET</option>
-          <option>JEE + Board</option>
-          <option>NEET + Board</option>
+          <option>Board</option><option>NEET</option><option>JEE Main</option><option>JEE Advanced</option>
+          <option>KCET</option><option>NEET + Board</option><option>JEE + Board</option>
         </select>
       </div>
     </div>
   </div>
-
-  <button class="btn btn-primary" onclick="startSession()">
-    🎙 Start Recording
-  </button>
+  <button class="btn btn-primary" onclick="startSession()">🎙 Start Recording</button>
 </div>
 
-<!-- ═══════ RECORDING PAGE ═══════ -->
+<!-- RECORDING -->
 <div id="page-recording" class="page">
   <div class="session-status">
-    <div class="rec-indicator" id="rec-dot">🎙</div>
+    <div class="rec-indicator">🎙</div>
     <div class="rec-label">Recording in progress</div>
     <div class="rec-sub" id="rec-info">Listening to your class...</div>
     <div class="rec-timer" id="rec-timer">0:00</div>
-    <div class="transcript-preview" id="transcript-preview">
-      Speak naturally — ClassPulse is listening...
-    </div>
+    <div class="transcript-preview" id="transcript-preview">Speak naturally — ClassPulse is listening...</div>
   </div>
-  <button class="btn btn-primary" style="background:var(--red);" onclick="stopSession()">
-    ⏹ Stop &amp; Generate Outputs
-  </button>
+  <button class="btn btn-red" style="width:100%;" onclick="stopSession()">⏹ Stop & Generate Outputs</button>
 </div>
 
-<!-- ═══════ GENERATING PAGE ═══════ -->
+<!-- GENERATING -->
 <div id="page-generating" class="page">
-  <div style="text-align:center; padding:24px 0 16px;">
-    <div style="font-size:40px; margin-bottom:12px;">⚡</div>
-    <h2 id="gen-title" style="font-size:20px; font-weight:800; margin-bottom:6px;">Generating outputs...</h2>
-    <p id="gen-sub" style="font-size:14px; color:var(--text3);">This takes 15–30 seconds</p>
+  <div style="text-align:center;padding:24px 0 16px;">
+    <div style="font-size:40px;margin-bottom:12px;">⚡</div>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Knowledge Rendering Engine</h2>
+    <p style="font-size:14px;color:var(--text3);">VSN-2.0 · LOI · Parent Summary · Coverage · DPP · Assignment</p>
   </div>
-  <div class="card gen-steps" id="gen-steps"></div>
+  <div class="card" id="gen-steps"></div>
 </div>
 
-<!-- ═══════ OUTPUTS PAGE ═══════ -->
+<!-- OUTPUTS -->
 <div id="page-outputs" class="page">
-  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
     <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Home</button>
     <div>
-      <div style="font-size:16px; font-weight:800;" id="out-title">Class Notes</div>
-      <div style="font-size:12px; color:var(--text3);" id="out-sub"></div>
+      <div style="font-size:16px;font-weight:800;" id="out-title">Outputs</div>
+      <div style="font-size:12px;color:var(--text3);" id="out-sub"></div>
     </div>
   </div>
-
   <div class="output-tabs" id="output-tabs"></div>
   <div class="output-body" id="output-body"></div>
   <div class="output-actions">
+    <button class="btn btn-gold btn-sm" id="preview-btn" onclick="openPreview()" style="display:none;">📄 PDF</button>
     <button class="btn btn-ghost" onclick="copyOutput()">📋 Copy</button>
     <button class="btn btn-teal" onclick="shareOutput()">↗ Share</button>
   </div>
 </div>
 
-<!-- ═══════ HISTORY PAGE ═══════ -->
-<div id="page-history" class="page">
-  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
-    <h2 style="font-size:18px; font-weight:800;">History</h2>
+<!-- NOTES PREVIEW -->
+<div id="page-preview" class="page">
+  <div class="preview-header">
+    <button class="btn btn-ghost btn-sm" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2);" onclick="goTo('outputs')">← Back</button>
+    <h2>Preview & Export</h2>
   </div>
-  <div class="history-tabs">
-    <div class="h-tab active" onclick="switchHistoryTab('sessions', this)">Sessions</div>
-    <div class="h-tab" onclick="switchHistoryTab('weekly', this)">Weekly</div>
+  <div class="preview-actions">
+    <button class="btn btn-gold btn-sm" onclick="downloadPDF()">📄 Download PDF</button>
+    <button class="btn btn-teal btn-sm" onclick="window.print()">🖨 Print</button>
+  </div>
+  <div class="preview-frame">
+    <iframe id="notes-iframe" class="preview-iframe" title="Notes Preview"></iframe>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div id="page-history" class="page">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <h2 style="font-size:18px;font-weight:800;">History</h2>
   </div>
   <div id="history-body"></div>
 </div>
 
-<!-- ═══════ SESSION VIEW PAGE ═══════ -->
+<!-- SESSION VIEW -->
 <div id="page-session-view" class="page">
-  <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
     <button class="btn btn-ghost btn-sm" onclick="goTo('history')">← Back</button>
-    <h2 style="font-size:18px; font-weight:800;" id="sv-title">Session</h2>
+    <h2 style="font-size:18px;font-weight:800;" id="sv-title">Session</h2>
   </div>
   <div class="output-tabs" id="sv-tabs"></div>
   <div class="output-body" id="sv-body"></div>
   <div class="output-actions">
+    <button class="btn btn-gold btn-sm" id="sv-preview-btn" onclick="openPreviewFromSV()" style="display:none;">📄 PDF</button>
     <button class="btn btn-ghost" onclick="copySV()">📋 Copy</button>
     <button class="btn btn-teal" onclick="shareSV()">↗ Share</button>
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- ═══════════════════════════════════════════════════════════
-     JAVASCRIPT
-═══════════════════════════════════════════════════════════ -->
 <script>
-// ── State ──────────────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════
 let S = {
-  sessions: JSON.parse(localStorage.getItem('cp_sessions') || '[]'),
-  weekly:   JSON.parse(localStorage.getItem('cp_weekly')   || '[]'),
-  current: null,   // current session being recorded
-  outputs: {},
-  outputTabs: [],
-  activeTab: '',
-  svSession: null,
-  svTab: '',
-  timerInterval: null,
-  historyTab: 'sessions',
+  sessions: JSON.parse(localStorage.getItem('cp_sessions')||'[]'),
+  settings: JSON.parse(localStorage.getItem('cp_settings')||'{}'),
+  current: null, outputs:{}, outputTabs:[], activeTab:'',
+  svSession:null, svTab:'',
+  notesHtml:'',
 };
 
-// ── Boot ───────────────────────────────────────────────────────────────────
-window.onload = () => {
-  const k = localStorage.getItem('cp_groq');
-  if (k) {
-    document.getElementById('groq-key').value = k;
-    document.getElementById('key-status').innerHTML =
-      '<span class="key-ok">✓ Key saved</span>';
+const DEFAULT_SETTINGS = {
+  formulaVault:true, teacherVoice:true, memoryTricks:true,
+  misconceptions:true, examRadar:true, derivations:true,
+  pyqPatterns:true, bloomsTaxonomy:true
+};
+S.settings = {...DEFAULT_SETTINGS, ...S.settings};
+
+window.onload=()=>{
+  const k=localStorage.getItem('cp_groq');
+  if(k){
+    document.getElementById('groq-key').value=k;
+    document.getElementById('key-status').innerHTML='<span class="key-ok">✓ Key saved</span>';
   }
-  renderHome();
+  applySettingsUI();
 };
 
-// ── Navigation ─────────────────────────────────────────────────────────────
-function goTo(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  window.scrollTo(0, 0);
-  if (id === 'home') renderHome();
-  if (id === 'history') renderHistory(S.historyTab);
+function applySettingsUI(){
+  document.querySelectorAll('.toggle[data-setting]').forEach(t=>{
+    const key=t.dataset.setting;
+    if(S.settings[key]) t.classList.add('on'); else t.classList.remove('on');
+  });
+}
+function toggleSetting(el){
+  const key=el.dataset.setting;
+  S.settings[key]=!S.settings[key];
+  el.classList.toggle('on');
+  localStorage.setItem('cp_settings',JSON.stringify(S.settings));
 }
 
-function goToSession() {
-  if (!getKey()) { showToast('⚠ Please enter your Groq API key first'); return; }
+function goTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='history')renderHistory();
+}
+function goToSession(){
+  if(!getKey()){showToast('⚠ Please enter your Groq API key first');return;}
   goTo('config');
 }
-
-// ── API Key ────────────────────────────────────────────────────────────────
-function saveKey() {
-  const v = document.getElementById('groq-key').value.trim();
-  if (v.length > 10) {
-    localStorage.setItem('cp_groq', v);
-    document.getElementById('key-status').innerHTML =
-      '<span class="key-ok">✓ Key saved</span>';
+function saveKey(){
+  const v=document.getElementById('groq-key').value.trim();
+  if(v.length>10){
+    localStorage.setItem('cp_groq',v);
+    document.getElementById('key-status').innerHTML='<span class="key-ok">✓ Key saved</span>';
   }
 }
-function getKey() {
-  return localStorage.getItem('cp_groq') ||
-         document.getElementById('groq-key').value.trim();
-}
+function getKey(){return localStorage.getItem('cp_groq')||document.getElementById('groq-key').value.trim();}
 
-// ── Home render ────────────────────────────────────────────────────────────
-function renderHome() {
-  const el = document.getElementById('suggestions');
-  el.innerHTML = '';
-
-  if (!S.sessions.length) return;
-
-  // Weekly suggestion — if 3+ sessions this week
-  const weekStart = new Date();
-  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-  weekStart.setHours(0,0,0,0);
-  const thisWeek = S.sessions.filter(s => new Date(s.date) >= weekStart);
-
-  if (thisWeek.length >= 3) {
-    el.innerHTML += `
-      <div class="suggest">
-        <div class="suggest-text">
-          <b>${thisWeek.length} sessions this week</b>
-          Generate weekly assignment + coverage report?
-        </div>
-        <button class="btn btn-gold btn-sm" onclick="triggerWeekly()">Generate</button>
-      </div>`;
-  }
-
-  // Topic suggestions — chapters with 2+ sessions
-  const chapterMap = {};
-  S.sessions.forEach(s => {
-    if (!s.chapter) return;
-    const key = s.chapter + '|' + s.class + '|' + s.subject + '|' + s.exam;
-    if (!chapterMap[key]) chapterMap[key] = [];
-    chapterMap[key].push(s);
-  });
-
-  Object.entries(chapterMap).forEach(([key, arr]) => {
-    if (arr.length >= 2 && !arr[0].topicDone) {
-      const [ch, cls, subj] = key.split('|');
-      el.innerHTML += `
-        <div class="suggest">
-          <div class="suggest-text">
-            <b>${ch}</b>
-            ${arr.length} sessions complete — generate topic assignment?
-          </div>
-          <button class="btn btn-teal btn-sm"
-            onclick="quickTopicGen('${ch.replace(/'/g,"\\'")}')">Generate</button>
-        </div>`;
-    }
-  });
-}
-
-// ── Session start ──────────────────────────────────────────────────────────
-function startSession() {
-  const chapter = document.getElementById('cfg-chapter').value.trim();
-  if (!chapter) { showToast('Please enter a chapter name'); return; }
-
-  S.current = {
-    id: Date.now(),
-    date: new Date().toISOString(),
-    class:   document.getElementById('cfg-class').value,
-    subject: document.getElementById('cfg-subject').value,
-    chapter: chapter,
-    board:   document.getElementById('cfg-board').value,
-    exam:    document.getElementById('cfg-exam').value,
-    transcript: '',
-    duration: 0,
-    outputs: {},
-    topicDone: false,
+// ══════════════════════════════════════════════════════════
+// SESSION & RECORDING
+// ══════════════════════════════════════════════════════════
+function startSession(){
+  const chapter=document.getElementById('cfg-chapter').value.trim();
+  if(!chapter){showToast('Please enter a chapter name');return;}
+  S.current={
+    id:Date.now(),date:new Date().toISOString(),
+    class:document.getElementById('cfg-class').value,
+    subject:document.getElementById('cfg-subject').value,
+    chapter,
+    board:document.getElementById('cfg-board').value,
+    exam:document.getElementById('cfg-exam').value,
+    transcript:'',duration:0,outputs:{},
   };
-
   goTo('recording');
-  document.getElementById('rec-info').textContent =
-    `${S.current.subject} · ${S.current.chapter} · ${S.current.class}`;
-
-  startRecognition();
-  startTimer();
+  document.getElementById('rec-info').textContent=`${S.current.subject} · ${S.current.chapter} · ${S.current.class}`;
+  startRecognition();startTimer();
 }
 
-// ── Speech recognition ─────────────────────────────────────────────────────
-let recognition = null;
-let recognitionActive = false;
-
-function startRecognition() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    showToast('Speech recognition not supported on this browser');
-    return;
-  }
-  recognition = new SR();
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.lang = 'en-IN';
-  recognitionActive = true;
-
-  recognition.onresult = (e) => {
-    let interim = '';
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const t = e.results[i][0].transcript;
-      if (e.results[i].isFinal) {
-        S.current.transcript += t + ' ';
-      } else {
-        interim = t;
-      }
+let recognition=null,recognitionActive=false;
+function startRecognition(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){showToast('Speech recognition not supported');return;}
+  recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-IN';
+  recognitionActive=true;
+  recognition.onresult=(e)=>{
+    let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal)S.current.transcript+=t+' ';
+      else interim=t;
     }
-    const preview = document.getElementById('transcript-preview');
-    if (preview) {
-      const display = S.current.transcript.slice(-300) + interim;
-      preview.textContent = display || 'Listening...';
-      preview.scrollTop = preview.scrollHeight;
-    }
+    const p=document.getElementById('transcript-preview');
+    if(p){p.textContent=(S.current.transcript.slice(-300)+interim)||'Listening...';p.scrollTop=p.scrollHeight;}
   };
-
-  recognition.onend = () => {
-    if (recognitionActive) {
-      try { recognition.start(); } catch(e) {}
-    }
-  };
-
-  recognition.onerror = (e) => {
-    if (e.error !== 'no-speech') {
-      console.warn('Speech error:', e.error);
-    }
-  };
-
-  try { recognition.start(); } catch(e) { console.warn(e); }
+  recognition.onend=()=>{if(recognitionActive)try{recognition.start();}catch(e){}};
+  recognition.onerror=(e)=>{if(e.error!=='no-speech')console.warn(e.error);};
+  try{recognition.start();}catch(e){}
 }
+function stopRecognition(){recognitionActive=false;if(recognition){try{recognition.stop();}catch(e){}recognition=null;}}
 
-function stopRecognition() {
-  recognitionActive = false;
-  if (recognition) {
-    try { recognition.stop(); } catch(e) {}
-    recognition = null;
-  }
-}
-
-// ── Timer ──────────────────────────────────────────────────────────────────
-let timerSeconds = 0;
-function startTimer() {
-  timerSeconds = 0;
-  S.timerInterval = setInterval(() => {
+let timerSeconds=0;
+function startTimer(){
+  timerSeconds=0;
+  S.timerInterval=setInterval(()=>{
     timerSeconds++;
-    const m = Math.floor(timerSeconds / 60);
-    const s = timerSeconds % 60;
-    const el = document.getElementById('rec-timer');
-    if (el) el.textContent = `${m}:${s.toString().padStart(2,'0')}`;
-  }, 1000);
+    const m=Math.floor(timerSeconds/60),s=timerSeconds%60;
+    document.getElementById('rec-timer').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+  },1000);
 }
-function stopTimer() {
+
+function stopSession(){
   clearInterval(S.timerInterval);
-  if (S.current) S.current.duration = timerSeconds;
-}
-
-// ── Stop session ───────────────────────────────────────────────────────────
-function stopSession() {
   stopRecognition();
-  stopTimer();
-  goTo('generating');
-  runGeneration();
-}
-
-// ── Generation steps display ───────────────────────────────────────────────
-const STEPS = [
-  { icon: '📝', label: 'Analysing transcript' },
-  { icon: '📚', label: 'Writing class notes' },
-  { icon: '❓', label: 'Generating DPP' },
-  { icon: '📊', label: 'Building coverage report' },
-  { icon: '✅', label: 'Finalising all outputs' },
-];
-function renderSteps(active) {
-  document.getElementById('gen-steps').innerHTML = STEPS.map((s, i) => `
-    <div class="gen-step ${i < active ? 'done' : i === active ? 'active' : ''}">
-      <span class="gen-step-icon">${i < active ? '✓' : s.icon}</span>
-      ${s.label}
-    </div>`).join('');
-}
-const delay = ms => new Promise(r => setTimeout(r, ms));
-
-// ── Main generation ────────────────────────────────────────────────────────
-async function runGeneration() {
-  renderSteps(0);
-  const sess = S.current;
-  const today = new Date().toLocaleDateString('en-IN');
-  const dur = Math.floor((sess.duration || timerSeconds) / 60);
-
-  const ctx = `Class: ${sess.class} | Subject: ${sess.subject} | Chapter: ${sess.chapter} | Board: ${sess.board} | Exam: ${sess.exam} | Duration: ${dur} min | Date: ${today}`;
-
-  const transcript = sess.transcript.trim() ||
-    `[No transcript captured — browser speech recognition may not have been active. Generate based on context: ${ctx}]`;
-
-  for (let i = 0; i <= 4; i++) { renderSteps(i); await delay(500); }
-
-  const prompt = `You are ClassPulse, an AI assistant for a ${sess.subject} teacher in India. A class just ended. Generate real, complete, usable content — not templates or descriptions. Use the transcript and context to write specific content for this class.
-
-CONTEXT: ${ctx}
-DATE: ${today}
-
-TRANSCRIPT:
-"""
-${transcript.substring(0, 4000)}
-"""
-
-Return ONLY a valid JSON object with exactly these 5 keys. Write actual content — no placeholders, no instructions inside the values.
-
-{
-  "notes": "CLASS NOTES\\n${sess.chapter}\\nClass: ${sess.class} | Subject: ${sess.subject} | Date: ${today}\\n\\nKEY CONCEPTS COVERED TODAY:\\n[Write 3-5 actual concepts from the transcript with explanations]\\n\\nIMPORTANT FORMULAE:\\n[Write actual formulae discussed with symbol meanings]\\n\\nEXAMPLES SOLVED:\\n[Write actual examples or problems from today's class]\\n\\nKEY TAKEAWAYS FOR ${sess.exam}:\\n[Write 3-4 exam-relevant points from today]",
-
-  "dpp": "DAILY PRACTICE PROBLEMS\\n${sess.chapter} | ${today} | Target: ${sess.exam}\\n\\n1. [Easy] Write an actual question based on today's concepts in ${sess.chapter}.\\n2. [Easy] Write an actual question based on today's concepts in ${sess.chapter}.\\n3. [Easy] Write a definition or fill-in-the-blank question on ${sess.chapter}.\\n4. [Easy] Write an actual conceptual question on ${sess.chapter}.\\n5. [Medium] Write an application question on ${sess.chapter}.\\n6. [Medium] MCQ: Write question? (a) option1 (b) option2 (c) option3 (d) option4\\n7. [Medium] MCQ: Write question? (a) option1 (b) option2 (c) option3 (d) option4\\n8. [Medium] Write a numerical problem with given data for ${sess.chapter}.\\n9. [Hard] Write a complex numerical requiring multiple steps for ${sess.chapter}.\\n10. [Hard] Write a higher-order thinking question on ${sess.chapter}.",
-
-  "coverage": "COVERAGE LOG\\nDate: ${today} | Class: ${sess.class} | Subject: ${sess.subject}\\nChapter: ${sess.chapter} | Board: ${sess.board} | Duration: ${dur} min\\n\\nTopics covered today:\\n[List actual topics from the transcript]\\n\\nFormulae discussed:\\n[List actual formulae]\\n\\nExamples solved: [number and brief description]\\n\\nEstimated chapter coverage: [X% of chapter]\\n\\nNext session should begin with:\\n[Specific next topic to continue]",
-
-  "parent": "Dear Parent,\\n\\nIn today's ${sess.subject} class (${sess.class}), your child studied ${sess.chapter}.\\n\\n[Write 2-3 sentences explaining what was actually taught today in simple language a parent understands — no jargon. Use the transcript context.]\\n\\nAsk your child to explain [write one specific concept from today] in their own words — that is the best way to check understanding.\\n\\nHomework: 10 Daily Practice Problems have been assigned. Please ensure completion before the next class.\\n\\nNext class: We will continue with [next topic in ${sess.chapter}].\\n\\nRegards,\\n${sess.subject} Teacher",
-
-  "teaching": "TEACHING LOG (Private)\\nDate: ${today} | Duration: ${dur} min\\nClass: ${sess.class} | Chapter: ${sess.chapter}\\n\\nWhat went well today:\\n[Write 1-2 actual observations from this session based on transcript]\\n\\nConcepts that needed more time:\\n[Write specific concept that was rushed or needs revisiting]\\n\\nStudent signals noticed:\\n[Write actual observations or: None observed in this session]\\n\\nTo revisit next class:\\n[Specific point to pick up from]\\n\\nPersonal note:\\n[One honest reflection on today's teaching]"
-}`;
-
-  try {
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + getKey()
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 3000,
-        temperature: 0.7,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await resp.json();
-
-    if (data.error) {
-      throw new Error(data.error.message || 'API error');
-    }
-
-    let raw = ((data.choices || [])[0]?.message?.content || '')
-      .replace(/```json|```/g, '').trim();
-
-    const parsed = JSON.parse(raw);
-
-    sess.outputs = parsed;
-    S.sessions.unshift(sess);
-    localStorage.setItem('cp_sessions', JSON.stringify(S.sessions));
-
-    S.outputs = parsed;
-    S.outputTabs = [
-      { key: 'notes',    label: 'Class Notes' },
-      { key: 'dpp',      label: 'DPP' },
-      { key: 'coverage', label: 'Coverage' },
-      { key: 'parent',   label: 'Parent' },
-      { key: 'teaching', label: 'Teaching Log' },
-    ];
-    S.activeTab = 'notes';
-
-    goTo('outputs');
-    document.getElementById('out-title').textContent = sess.chapter;
-    document.getElementById('out-sub').textContent =
-      `${sess.class} · ${sess.subject} · ${today}`;
-    renderOutputTabs();
-    renderOutputBody();
-
-  } catch(err) {
-    console.error('Generation error:', err);
-    showToast('⚠ Generation failed: ' + (err.message || 'Check API key'));
-    goTo('home');
+  S.current.duration=timerSeconds;
+  if(S.current.transcript.trim().length < 20){
+    showToast('⚠ Recording too short');
+    goTo('config');return;
   }
-}
-
-// ── Output rendering ───────────────────────────────────────────────────────
-function renderOutputTabs() {
-  document.getElementById('output-tabs').innerHTML =
-    S.outputTabs.map(t => `
-      <button class="tab-btn ${t.key === S.activeTab ? 'active' : ''}"
-        onclick="switchTab('${t.key}')">${t.label}</button>
-    `).join('');
-}
-function switchTab(key) {
-  S.activeTab = key;
-  renderOutputTabs();
-  renderOutputBody();
-}
-function renderOutputBody() {
-  document.getElementById('output-body').textContent =
-    S.outputs[S.activeTab] || '';
-}
-function copyOutput() {
-  const text = S.outputs[S.activeTab] || '';
-  navigator.clipboard.writeText(text).then(() => showToast('Copied!'));
-}
-function shareOutput() {
-  const text = S.outputs[S.activeTab] || '';
-  if (navigator.share) {
-    navigator.share({ text });
-  } else {
-    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
-  }
-}
-
-// ── Topic assignment ───────────────────────────────────────────────────────
-function quickTopicGen(chapter) {
-  const sess = S.sessions.find(s => s.chapter === chapter);
-  if (!sess) return;
-  generateTopicFor(chapter, sess.class, sess.subject, sess.exam, sess.board);
-}
-
-async function generateTopicFor(chapter, cls, subject, exam, board) {
   goTo('generating');
-  document.getElementById('gen-title').textContent = 'Generating topic assignment...';
-  document.getElementById('gen-sub').textContent = `Chapter: ${chapter}`;
-
-  for (let i = 0; i <= 4; i++) { renderSteps(i); await delay(400); }
-
-  const today = new Date().toLocaleDateString('en-IN');
-
-  const prompt = `You are an expert ${subject} teacher preparing for ${exam} exam. Generate a complete topic assignment and test paper for Chapter: ${chapter}, Class: ${cls}, Board: ${board}.
-
-CRITICAL: Write FULLY FORMED actual questions. Every question must be complete, specific to ${chapter}, and immediately usable by a student. Do not use placeholders.
-
-Return ONLY valid JSON — no markdown, no text outside the JSON object:
-
-{
-  "assignment": "TOPIC ASSIGNMENT\\nChapter: ${chapter}\\nClass: ${cls} | Subject: ${subject} | Board: ${board}\\nDate: ${today} | Target: ${exam} | Total: 25 marks\\n\\nSECTION A — Conceptual Questions (5 x 1 = 5 marks)\\n[Write 5 complete conceptual questions numbered 1-5, specific to ${chapter}]\\n\\nSECTION B — Application Questions (5 x 2 = 10 marks)\\n[Write 5 complete application questions numbered 6-10. Include 2 MCQs with 4 options each]\\n\\nSECTION C — Numerical Problems (3 x 3 = 9 marks)\\n[Write 3 complete numerical problems numbered 11-13, with given data]\\n\\nSECTION D — Long Answer (1 x 1 mark)\\n14. [Write one comprehensive question on ${chapter} combining theory and numerical application]",
-
-  "test_paper": "TEST PAPER\\nChapter: ${chapter} | Class: ${cls} | Board: ${board} | Exam: ${exam}\\nDate: ${today} | Time: 45 minutes | Total: 30 marks\\n\\nSECTION A — MCQ (10 x 1 = 10 marks)\\n[Write 10 complete MCQs on ${chapter}, each with 4 options (a)(b)(c)(d), numbered 1-10]\\n\\nAnswer Key: [Provide answer key for all 10]\\n\\nSECTION B — Short Answer (4 x 5 = 20 marks)\\n[Write 4 complete short answer questions numbered 11-14. Mix: theory, numerical, diagram, higher order thinking]"
-}`;
-
-  try {
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + getKey()
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 3500,
-        temperature: 0.7,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await resp.json();
-    if (data.error) throw new Error(data.error.message);
-
-    let raw = ((data.choices || [])[0]?.message?.content || '')
-      .replace(/```json|```/g, '').trim();
-
-    const parsed = JSON.parse(raw);
-
-    // Mark sessions as topic done
-    S.sessions.forEach(s => {
-      if (s.chapter === chapter) s.topicDone = true;
-    });
-    localStorage.setItem('cp_sessions', JSON.stringify(S.sessions));
-
-    S.outputs = { ...S.outputs, ...parsed };
-    if (!S.outputTabs.find(t => t.key === 'assignment')) {
-      S.outputTabs.push({ key: 'assignment', label: 'Topic Assignment' });
-      S.outputTabs.push({ key: 'test_paper', label: 'Test Paper' });
-    }
-    S.activeTab = 'assignment';
-    goTo('outputs');
-    document.getElementById('out-title').textContent = chapter;
-    document.getElementById('out-sub').textContent = `${cls} · ${subject} · Topic Complete`;
-    renderOutputTabs();
-    renderOutputBody();
-
-  } catch(err) {
-    console.error(err);
-    showToast('⚠ Generation failed: ' + (err.message || 'Check API key'));
-    goTo('home');
-  }
+  runKRE();
 }
 
-// ── Weekly generation ──────────────────────────────────────────────────────
-async function triggerWeekly() {
-  goTo('generating');
-  document.getElementById('gen-title').textContent = 'Generating weekly report...';
-  document.getElementById('gen-sub').textContent = 'Combining all sessions this week';
+// ══════════════════════════════════════════════════════════
+// KNOWLEDGE RENDERING ENGINE — 8 STAGES
+// ══════════════════════════════════════════════════════════
+async function runKRE(){
+  const stepsEl=document.getElementById('gen-steps');
+  const stages=[
+    {label:'Reconstructing teaching flow...',icon:'🎓'},
+    {label:'Building VSN-2.0 high-density notes...',icon:'📐'},
+    {label:'Generating Parent Summary...',icon:'👨‍👩‍👧'},
+    {label:'Estimating Chapter Coverage...',icon:'📊'},
+    {label:'Generating DPP (10 questions, 5 sections)...',icon:'📝'},
+    {label:'Generating Assignment (20 questions)...',icon:'📚'},
+    {label:'Creating flashcards & chapter test...',icon:'🎴'},
+    {label:'Finalizing outputs...',icon:'✨'}
+  ];
+  stepsEl.innerHTML=stages.map((s,i)=>
+    `<div class="gen-step" id="step-${i}"><div class="gen-step-icon">${s.icon}</div>${s.label}</div>`
+  ).join('');
 
-  for (let i = 0; i <= 4; i++) { renderSteps(i); await delay(400); }
+  const key=getKey();
+  const ctx=S.current;
+  const transcript=ctx.transcript.slice(0,12000);
 
-  const weekStart = new Date();
-  weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-  weekStart.setHours(0,0,0,0);
+  try{
+    // Stage 0: Teaching flow
+    await activateStep(0);
+    await new Promise(r=>setTimeout(r,400));
+    await completeStep(0);
 
-  const thisWeek = S.sessions.filter(s => new Date(s.date) >= weekStart);
-  const today = new Date().toLocaleDateString('en-IN');
-  const weekLabel = weekStart.toLocaleDateString('en-IN');
+    // Stage 1: VSN-2.0 Notes
+    await activateStep(1);
+    const vsnPrompt=buildVSNPrompt(ctx,transcript);
+    const vsnData=await callGroq(key,vsnPrompt);
+    await completeStep(1);
 
-  const chapSummary = [...new Set(thisWeek.map(s => s.chapter))].join(', ');
-  const subjSummary = [...new Set(thisWeek.map(s => s.subject))].join(', ');
-  const cls = thisWeek[0]?.class || 'Class 11';
-  const exam = thisWeek[0]?.exam || 'Board';
-  const totalTime = thisWeek.reduce((a,s) => a + (s.duration || 0), 0);
+    // Stage 2: Parent Summary
+    await activateStep(2);
+    const psPrompt=buildParentSummaryPrompt(ctx,vsnData,transcript);
+    const parentSummaryData=await callGroq(key,psPrompt);
+    await completeStep(2);
 
-  const combinedTranscripts = thisWeek
-    .map(s => `[${s.subject} - ${s.chapter}]:\n${(s.transcript || '').substring(0, 800)}`)
-    .join('\n\n').substring(0, 5000);
+    // Stage 3: Chapter Coverage
+    await activateStep(3);
+    const ccPrompt=buildChapterCoveragePrompt(ctx,vsnData,transcript);
+    const chapterCoverageData=await callGroq(key,ccPrompt);
+    await completeStep(3);
 
-  const prompt = `You are ClassPulse. Generate a complete weekly assignment and coverage report for a teacher.
+    // Stage 4: DPP
+    await activateStep(4);
+    const dppPrompt=buildDppPrompt(ctx,vsnData,transcript);
+    const dppData=await callGroq(key,dppPrompt);
+    await completeStep(4);
 
-WEEK: ${weekLabel} to ${today}
-CLASS: ${cls} | EXAM: ${exam}
-TOPICS COVERED: ${chapSummary}
-SUBJECTS: ${subjSummary}
-SESSIONS: ${thisWeek.length} | TOTAL TIME: ${Math.floor(totalTime/60)} minutes
+    // Stage 5: Assignment
+    await activateStep(5);
+    const asgnPrompt=buildAssignmentPrompt(ctx,vsnData,transcript);
+    const asgnData=await callGroq(key,asgnPrompt);
+    await completeStep(5);
 
-SESSION TRANSCRIPTS:
-"""
-${combinedTranscripts}
-"""
+    // Stage 6: Flashcards + Chapter Test
+    await activateStep(6);
+    const extraPrompt=buildExtraPrompt(ctx,vsnData);
+    const extraData=await callGroq(key,extraPrompt);
+    await completeStep(6);
 
-Return ONLY valid JSON with these 2 keys. Write ACTUAL content — real questions, real coverage data. No templates.
+    // Stage 7: Finalize
+    await activateStep(7);
+    await new Promise(r=>setTimeout(r,400));
+    await completeStep(7);
 
-{
-  "weekly_assign": "WEEKLY ASSIGNMENT\\nWeek: ${weekLabel} | Class: ${cls} | Exam: ${exam}\\nTopics: ${chapSummary}\\nTotal: 40 marks\\n\\nSECTION A — Concept Questions (8 x 1 = 8 marks)\\n[Write 8 complete conceptual questions covering all topics this week, numbered 1-8]\\n\\nSECTION B — Numerical Problems (8 x 2 = 16 marks)\\n[Write 8 complete numerical problems from this week's topics, numbered 9-16]\\n\\nSECTION C — Higher Order Thinking (4 x 4 = 16 marks)\\n[Write 4 complete application and analysis questions, numbered 17-20]",
-
-  "weekly_coverage": "WEEKLY COVERAGE REPORT\\nWeek: ${weekLabel} to ${today}\\nClass: ${cls} | Sessions: ${thisWeek.length} | Total Time: ${Math.floor(totalTime/60)} min\\n\\nCHAPTERS COVERED:\\n[List each chapter covered this week with brief description of what was taught]\\n\\nFORMULAE COVERED THIS WEEK:\\n[List key formulae taught]\\n\\nCUMULATIVE COVERAGE:\\n[For each chapter, estimate percentage of full chapter completed]\\n\\nRECOMMENDATIONS FOR NEXT WEEK:\\n[Specific topics to cover next week based on syllabus progression]"
-}`;
-
-  try {
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + getKey()
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 3500,
-        temperature: 0.7,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await resp.json();
-    if (data.error) throw new Error(data.error.message);
-
-    let raw = ((data.choices || [])[0]?.message?.content || '')
-      .replace(/```json|```/g, '').trim();
-
-    const parsed = JSON.parse(raw);
-
-    const weeklyRecord = {
-      date: new Date().toISOString(),
-      weekLabel,
-      sessions: thisWeek.length,
-      chapters: chapSummary,
-      ...parsed
+    ctx.outputs={
+      vsn:vsnData,
+      parentSummary:parentSummaryData,
+      chapterCoverage:chapterCoverageData,
+      dpp:dppData,
+      assignment:asgnData,
+      flashcards:extraData.flashcards||[],
+      test:extraData.test||null,
+      summary:buildSummary(vsnData,dppData,asgnData)
     };
-    S.weekly.unshift(weeklyRecord);
-    localStorage.setItem('cp_weekly', JSON.stringify(S.weekly));
 
-    S.outputs = { ...S.outputs, ...parsed };
-    if (!S.outputTabs.find(t => t.key === 'weekly_assign')) {
-      S.outputTabs.push({ key: 'weekly_assign',    label: 'Weekly Assignment' });
-      S.outputTabs.push({ key: 'weekly_coverage',  label: 'Weekly Coverage' });
-    }
-    S.activeTab = 'weekly_assign';
-    goTo('outputs');
-    document.getElementById('out-title').textContent = 'Weekly Report';
-    document.getElementById('out-sub').textContent = `Week of ${weekLabel} · ${thisWeek.length} sessions`;
-    renderOutputTabs();
-    renderOutputBody();
+    S.sessions.unshift(ctx);
+    if(S.sessions.length>50)S.sessions.pop();
+    localStorage.setItem('cp_sessions',JSON.stringify(S.sessions));
 
-  } catch(err) {
-    console.error(err);
-    showToast('⚠ Generation failed: ' + (err.message || 'Check API key'));
-    goTo('home');
+    showOutputs();
+  }catch(e){
+    console.error(e);
+    showToast('❌ '+e.message);
+    goTo('config');
   }
 }
 
-// ── History ────────────────────────────────────────────────────────────────
-function switchHistoryTab(tab, el) {
-  S.historyTab = tab;
-  document.querySelectorAll('.h-tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
-  renderHistory(tab);
+async function activateStep(i){document.getElementById('step-'+i).classList.add('active');}
+async function completeStep(i){
+  const el=document.getElementById('step-'+i);
+  el.classList.remove('active');el.classList.add('done');
 }
 
-function renderHistory(tab) {
-  const el = document.getElementById('history-body');
+async function callGroq(key,prompt){
+  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'llama-3.3-70b-versatile',
+      messages:[{role:'user',content:prompt}],
+      temperature:0.3,
+      response_format:{type:'json_object'}
+    })
+  });
+  const data=await res.json();
+  if(data.error) throw new Error(data.error.message||'API error');
+  let content=data.choices[0].message.content;
+  try{return JSON.parse(content);}
+  catch(e){
+    const m=content.match(/\{[\s\S]*\}/);
+    if(m) return JSON.parse(m[0]);
+    throw new Error('Invalid JSON response');
+  }
+}
 
-  if (tab === 'sessions') {
-    if (!S.sessions.length) {
-      el.innerHTML = `<div class="empty">
-        <div class="empty-icon">📋</div>
-        <h3>No sessions yet</h3>
-        <p>Start your first session to see it here</p>
+// ── PROMPT 1: VSN-2.0 with LOI ──
+function buildVSNPrompt(ctx,transcript){
+  const enabledBlocks=Object.entries(S.settings)
+    .filter(([k,v])=>v && ['formulaVault','teacherVoice','memoryTricks','misconceptions','examRadar','derivations'].includes(k))
+    .map(([k])=>k);
+
+  return `You are the Visual Notes Standard (VSN-2.0) Knowledge Rendering Engine with Layout Optimization Intelligence (LOI).
+Generate HIGH-DENSITY educational notes optimized for maximum learning per square inch.
+
+CONTEXT:
+- Class: ${ctx.class} | Subject: ${ctx.subject}
+- Chapter: ${ctx.chapter} | Board: ${ctx.board}
+- Exam Target: ${ctx.exam}
+
+LECTURE TRANSCRIPT:
+"""
+${transcript}
+"""
+
+═══════════════════════════════════════════════════
+LAYOUT OPTIMIZATION INTELLIGENCE (LOI)
+═══════════════════════════════════════════════════
+
+Think like an educational publisher, not a document editor.
+
+DENSITY TARGETS:
+- 30-45 min lecture ≈ 1 A4 page
+- 60 min lecture ≈ 2 A4 pages
+- 90 min lecture ≈ 2-3 A4 pages
+
+COMPRESSION STRATEGY:
+- Formulas → Group into compact grids/tables
+- Comparisons → Use tables instead of paragraphs
+- Memory tricks → Compact floating boxes
+- Definitions → Inline or sidebar
+- Derivations → Step-by-step but compact
+
+MULTI-COLUMN LAYOUT:
+Mark blocks with "layout" property:
+- "full" → Full width (major concepts, derivations)
+- "half" → 50% width (can share space)
+- "sidebar" → Floating side content (tricks, tips)
+
+VISUAL PRIORITY:
+Assign each block a priority (1-4):
+- Priority 1: Major concepts (large rendering)
+- Priority 2: Derivations (medium-large)
+- Priority 3: Supporting info (medium)
+- Priority 4: Memory aids (compact)
+
+═══════════════════════════════════════════════════
+BLOCK TYPES
+═══════════════════════════════════════════════════
+
+1. "hook" — Teacher's opening
+   {type:"hook", content:"...", layout:"full", priority:3}
+
+2. "narrative" — Core concept
+   {type:"narrative", heading:"...", content:"...", keyTerms:[], layout:"full", priority:1}
+
+3. "formula_vault" — COMPRESSED formula grid
+   {type:"formula_vault", title:"...", 
+    formulas:[{expr:"...", name:"..."}],
+    legend:[{symbol:"...", meaning:"..."}],
+    layout:"full", priority:2}
+
+4. "derivation" — Step-by-step proof
+   {type:"derivation", title:"...", 
+    steps:[{step:1, expr:"...", justification:"..."}],
+    layout:"full", priority:2}
+
+5. "teacher_emphasis" — Floating sidebar
+   {type:"teacher_emphasis", quote:"...", context:"...", layout:"sidebar", priority:4}
+
+6. "memory_trick" — Compact floating
+   {type:"memory_trick", title:"...", content:"...", layout:"sidebar", priority:4}
+
+7. "misconception_alert" — Compact
+   {type:"misconception_alert", mistake:"...", correction:"...", layout:"half", priority:3}
+
+8. "exam_radar" — Compact
+   {type:"exam_radar", level:"high|medium|low", exam:"${ctx.exam}", content:"...", layout:"half", priority:3}
+
+9. "comparison_table" — Dense table
+   {type:"comparison_table", title:"...", headers:[], rows:[], layout:"full", priority:2}
+
+10. "diagram" — Compact
+    {type:"diagram", title:"...", description:"...", labels:[], layout:"full", priority:2}
+
+11. "flowchart" — Compact
+    {type:"flowchart", title:"...", steps:[], layout:"full", priority:3}
+
+ENABLED BLOCKS: ${enabledBlocks.join(', ')}
+
+SUBJECT INTELLIGENCE:
+- Physics: Heavy on derivation, vector notation, diagrams
+- Chemistry: Comparison tables, exceptions, memory tricks
+- Mathematics: Step-by-step derivation, worked examples
+- Biology: Diagram blocks, flowcharts, labeled structures
+
+EXAM INTELLIGENCE (${ctx.exam}):
+- JEE Advanced: derivation, edge cases, multi-concept links
+- JEE Main: formula-focused, shortcuts, direct applications
+- NEET: memory tricks, factual accuracy, NCERT alignment
+- Boards: step-marking friendly, definitions, standard derivations
+
+═══════════════════════════════════════════════════
+OUTPUT JSON:
+═══════════════════════════════════════════════════
+{
+  "metadata":{
+    "topic":"Main topic name",
+    "subtopic":"Specific subtopic",
+    "class":"${ctx.class}",
+    "subject":"${ctx.subject}",
+    "exam":"${ctx.exam}",
+    "lectureFlow":"00:00 - ${Math.floor(ctx.duration/60)}:${(ctx.duration%60).toString().padStart(2,'0')}"
+  },
+  "blocks":[
+    // Array of blocks with layout and priority properties
+  ]
+}
+
+CRITICAL RULES:
+- Generate 10-20 blocks for high density
+- Use "sidebar" layout for memory tricks, teacher emphasis
+- Use "half" layout for misconceptions, exam radar
+- Use "full" layout for major concepts, derivations, formula vaults
+- Target 90-95% page utilization
+- Use proper math notation (E⃗ for vectors, ² for squares, ₃ for subscripts)`;
+}
+
+// ── PROMPT 2: PARENT SUMMARY ──
+function buildParentSummaryPrompt(ctx,vsnData,transcript){
+  const conceptsCovered=vsnData.blocks
+    .filter(b=>b.type==='narrative'||b.type==='formula_vault')
+    .map(b=>b.heading||b.title||'')
+    .filter(Boolean).slice(0,8);
+
+  return `You are a friendly academic coordinator writing a brief update for parents.
+Parents have NO technical background. Use simple, warm, encouraging language.
+Avoid jargon. Explain importance in everyday terms.
+
+CONTEXT:
+- Class: ${ctx.class} | Subject: ${ctx.subject}
+- Chapter: ${ctx.chapter} | Board: ${ctx.board}
+- Exam Target: ${ctx.exam}
+- Lecture Duration: ${Math.floor(ctx.duration/60)} min ${ctx.duration%60} sec
+
+CONCEPTS COVERED IN CLASS:
+${conceptsCovered.map((c,i)=>`${i+1}. ${c}`).join('\n')}
+
+LECTURE EXCERPT:
+"""
+${transcript.slice(0,3000)}
+"""
+
+═══════════════════════════════════════════════════
+TASK: Generate a Parent Summary
+═══════════════════════════════════════════════════
+
+RULES:
+- Write like a caring teacher messaging a parent
+- Keep concepts in plain English (e.g., "how charges push/pull" not "Coulomb's Law vector form")
+- Be encouraging but honest
+- Suggestions should be actionable and specific
+- Homework section should reference the DPP/Assignment/Test
+- Keep "Why This Topic Matters" to 2-3 sentences maximum
+
+OUTPUT JSON:
+{
+  "todayClass":{
+    "topic":"${ctx.chapter}",
+    "duration":"${Math.floor(ctx.duration/60)} minutes",
+    "teacher":"Class Teacher",
+    "class":"${ctx.class}",
+    "subject":"${ctx.subject}"
+  },
+  "conceptsLearned":[
+    "Simple explanation of concept 1",
+    "Simple explanation of concept 2",
+    "Simple explanation of concept 3"
+  ],
+  "whyThisMatters":"2-3 sentences explaining why this topic matters for future studies and exams, in parent-friendly language.",
+  "homework":{
+    "dpp":"10-question practice sheet (to be solved today)",
+    "assignment":"20-question assignment (to be completed this week)",
+    "test":"Chapter test scheduled for revision"
+  },
+  "parentSuggestions":[
+    "Specific actionable suggestion 1",
+    "Specific actionable suggestion 2",
+    "Specific actionable suggestion 3",
+    "Specific actionable suggestion 4"
+  ],
+  "upcomingClass":"Next topic that will likely be covered"
+}
+
+CRITICAL:
+- 4-6 concepts in conceptsLearned
+- 4 parent suggestions
+- All language must be parent-friendly (no technical terms without explanation)`;
+}
+
+// ── PROMPT 3: CHAPTER COVERAGE ──
+function buildChapterCoveragePrompt(ctx,vsnData,transcript){
+  const conceptsCovered=vsnData.blocks
+    .filter(b=>['narrative','formula_vault','derivation'].includes(b.type))
+    .map(b=>b.heading||b.title||'')
+    .filter(Boolean);
+
+  const derivationCount=vsnData.blocks.filter(b=>b.type==='derivation').length;
+  const formulaCount=vsnData.blocks.filter(b=>b.type==='formula_vault').length;
+
+  return `You are an academic progress analyst. Estimate how much of the chapter has been covered based on the classroom teaching.
+
+CONTEXT:
+- Class: ${ctx.class} | Subject: ${ctx.subject}
+- Chapter: ${ctx.chapter} | Board: ${ctx.board}
+- Exam Target: ${ctx.exam}
+- Lecture Duration: ${Math.floor(ctx.duration/60)} min
+
+CONCEPTS COVERED IN THIS LECTURE:
+${conceptsCovered.map((c,i)=>`- ${c}`).join('\n')}
+
+TEACHING SIGNALS:
+- Derivations completed: ${derivationCount}
+- Formula groups covered: ${formulaCount}
+- Lecture duration: ${Math.floor(ctx.duration/60)} minutes
+
+═══════════════════════════════════════════════════
+COVERAGE ESTIMATION LOGIC
+═══════════════════════════════════════════════════
+
+Coverage is NOT based on time elapsed. It is based on:
+- Concepts completed vs. total chapter concepts
+- Teacher emphasis (repeated topics = deeper coverage)
+- Derivations completed (indicates thorough treatment)
+- Numericals/examples discussed
+- DPP and Assignment generated (indicates practice readiness)
+
+For ${ctx.subject} (${ctx.class}, ${ctx.board}):
+- Estimate total concepts in the chapter (typically 8-15 for a standard chapter)
+- Match what was taught against the expected chapter scope
+- Assign a realistic coverage percentage
+
+DIFFICULTY LEVELS:
+- "easy" — Foundational/introductory concepts
+- "medium" — Core chapter concepts
+- "hard" — Advanced/competitive-level concepts
+
+═══════════════════════════════════════════════════
+OUTPUT JSON:
+═══════════════════════════════════════════════════
+{
+  "chapterName":"${ctx.chapter}",
+  "coveragePercentage":75,
+  "conceptsCompleted":["concept 1","concept 2","concept 3"],
+  "conceptsRemaining":["concept X","concept Y"],
+  "estimatedClassesRemaining":3,
+  "estimatedCompletionDate":"YYYY-MM-DD (approx 2 weeks from now)",
+  "difficultyLevel":"easy|medium|hard",
+  "pyqCoverage":60,
+  "nextObjective":"What the next class should focus on",
+  "pendingConcepts":["concept 1","concept 2"],
+  "prerequisites":["What students should revise before next class"],
+  "expectedHomework":"Brief description of expected homework",
+  "expectedTestDate":"Approximate date for chapter test"
+}
+
+RULES:
+- coveragePercentage must be 0-100, realistic based on concepts covered
+- conceptsCompleted: list what was actually taught (from the lecture)
+- conceptsRemaining: list typical remaining topics for this chapter
+- estimatedClassesRemaining: realistic number (1-10)
+- estimatedCompletionDate: date string, approx 1-3 weeks out
+- pyqCoverage: 0-100, how much of PYQ-relevant content is covered
+- difficultyLevel: based on how advanced the covered concepts are
+- Keep lists concise (3-6 items each)`;
+}
+
+// ── PROMPT 4: DPP (STRICT 10-QUESTION PATTERN) ──
+function buildDppPrompt(ctx,vsnData,transcript){
+  const topicSummary=vsnData.blocks.slice(0,8).map(b=>{
+    if(b.type==='formula_vault') return 'Formulas: '+b.formulas.map(f=>f.expr).join('; ');
+    if(b.type==='narrative') return b.heading+': '+b.content.slice(0,200);
+    if(b.type==='misconception_alert') return 'Mistake: '+b.mistake+' → '+b.correction;
+    if(b.type==='teacher_emphasis') return 'Emphasis: '+b.quote;
+    return '';
+  }).filter(Boolean).join('\n');
+
+  return `You are an expert ${ctx.subject} faculty at a top ${ctx.exam} coaching institute.
+Generate a CLASSROOM-SPECIFIC Daily Practice Problem (DPP) worksheet.
+
+CONTEXT:
+- Class: ${ctx.class} | Subject: ${ctx.subject}
+- Chapter: ${ctx.chapter} | Board: ${ctx.board}
+- Exam Target: ${ctx.exam}
+
+LECTURE CONTENT:
+${topicSummary}
+
+TRANSCRIPT EXCERPT:
+"""
+${transcript.slice(0,4000)}
+"""
+
+═══════════════════════════════════════════════════
+DPP SPECIFICATION (10 Questions)
+═══════════════════════════════════════════════════
+
+DIFFICULTY: 30% Easy / 50% Medium / 20% Challenging
+MINIMUM STANDARD: NEET Level
+
+SECTION A — MCQ (3 questions)
+SECTION B — Fill in the Blanks (2 questions)
+SECTION C — True or False (2 questions)
+SECTION D — Assertion & Reasoning (2 questions)
+SECTION E — Statement I & II (1 question)
+
+FOR EVERY QUESTION INCLUDE:
+- Question, Options (if applicable), Correct Answer
+- One-line Explanation
+- Concept Tested
+- Difficulty: "easy" | "medium" | "challenging"
+- Bloom's level: "remember" | "understand" | "apply" | "analyze" | "evaluate"
+
+OUTPUT JSON:
+{
+  "title":"Daily Practice Problem — ${ctx.chapter}",
+  "subject":"${ctx.subject}",
+  "class":"${ctx.class}",
+  "exam":"${ctx.exam}",
+  "totalQuestions":10,
+  "sections":{
+    "A_MCQ":[{"num":1,"q":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"B","explanation":"...","concept":"...","difficulty":"easy","blooms":"understand"}],
+    "B_Fill":[{"num":4,"q":"The electric field inside a conductor is ______.","answer":"zero","explanation":"...","concept":"...","difficulty":"easy","blooms":"remember"}],
+    "C_TF":[{"num":6,"q":"Statement","answer":"True","explanation":"...","concept":"...","difficulty":"medium","blooms":"understand"}],
+    "D_AR":[{"num":8,"assertion":"...","reason":"...","answer":"A","explanation":"...","concept":"...","difficulty":"medium","blooms":"analyze"}],
+    "E_Statement":[{"num":10,"statement1":"...","statement2":"...","answer":"B","explanation":"...","concept":"...","difficulty":"challenging","blooms":"evaluate"}]
+  }
+}
+
+RULES:
+- Exactly 10 questions (3+2+2+2+1)
+- Classroom-specific, not generic
+- Include questions based on teacher emphasis and misconceptions`;
+}
+
+// ── PROMPT 5: ASSIGNMENT (20 QUESTIONS) ──
+function buildAssignmentPrompt(ctx,vsnData,transcript){
+  const topicSummary=vsnData.blocks.slice(0,8).map(b=>{
+    if(b.type==='formula_vault') return 'Formulas: '+b.formulas.map(f=>f.expr).join('; ');
+    if(b.type==='narrative') return b.heading+': '+b.content.slice(0,200);
+    if(b.type==='derivation') return 'Derivation: '+b.title;
+    return '';
+  }).filter(Boolean).join('\n');
+
+  return `Generate a comprehensive ASSIGNMENT for ${ctx.class} ${ctx.subject}: ${ctx.chapter}.
+Target exam: ${ctx.exam}
+
+CONTENT:
+${topicSummary}
+
+SPECIFICATION (20 Questions):
+- Section I — Objective: 16 questions (MCQs, conceptual, application, numerical)
+- Section II — Subjective: 4 questions (short answer, derivation, numerical, reasoning)
+- Total marks: 40
+- Duration: 60 min
+
+FOR EVERY QUESTION:
+- Question number, text, concept tested
+- Difficulty: "easy" | "medium" | "hard"
+- Marks (1-5)
+- Options (for MCQs)
+- Type tag
+
+ANSWER KEY:
+- Objective: correct options only
+- Subjective: brief hints (1 line each)
+
+OUTPUT JSON:
+{
+  "title":"Assignment — ${ctx.chapter}",
+  "subject":"${ctx.subject}",
+  "class":"${ctx.class}",
+  "exam":"${ctx.exam}",
+  "duration":"60 min",
+  "maxMarks":40,
+  "objective":[{"num":1,"q":"...","options":["A) ...","B) ...","C) ...","D) ..."],"type":"conceptual","concept":"...","difficulty":"easy","marks":1,"blooms":"remember"}],
+  "subjective":[{"num":17,"q":"...","type":"derivation","concept":"...","difficulty":"hard","marks":5,"blooms":"evaluate"}],
+  "answerKey":{"objective":["B","A","C","D","B","A","C","D","B","A","C","D","B","A","C","D"],"subjective":["Hint 1","Hint 2","Hint 3","Hint 4"]}
+}
+
+RULES:
+- Exactly 20 questions (16 objective + 4 subjective)
+- Gradually increasing difficulty
+- Classroom-specific, not generic`;
+}
+
+// ── PROMPT 6: Flashcards + Chapter Test ──
+function buildExtraPrompt(ctx,vsnData){
+  return `Generate flashcards and chapter test for ${ctx.class} ${ctx.subject}: ${vsnData.metadata.topic}.
+Target exam: ${ctx.exam}
+
+OUTPUT JSON:
+{
+  "flashcards":[{"q":"Question","a":"Answer","tag":"concept"}],
+  "test":{
+    "title":"Chapter Test — ${ctx.chapter}",
+    "duration":"45 min",
+    "maxMarks":30,
+    "pattern":"${ctx.exam} pattern",
+    "questions":[{"num":1,"q":"...","type":"MCQ","marks":4,"options":["A) ...","B) ...","C) ...","D) ..."]}]
+  }
+}
+
+RULES:
+- 10 flashcards (quick recall)
+- 10 test questions matching ${ctx.exam} pattern`;
+}
+
+function buildSummary(vsnData,dppData,asgnData){
+  const blocks=vsnData.blocks;
+  const formulaCount=blocks.filter(b=>b.type==='formula_vault').length;
+  const emphasisCount=blocks.filter(b=>b.type==='teacher_emphasis').length;
+  const misconceptionCount=blocks.filter(b=>b.type==='misconception_alert').length;
+  const examRadarCount=blocks.filter(b=>b.type==='exam_radar').length;
+
+  return `📊 VSN-2.0 Analysis Summary
+━━━━━━━━━━━━━━━━━━━━━━━
+Topic: ${vsnData.metadata.topic}
+Duration: ${vsnData.metadata.lectureFlow}
+
+📐 NOTES (High-Density)
+  Formula Vaults: ${formulaCount}
+  Teacher Emphasis: ${emphasisCount}
+  Misconceptions: ${misconceptionCount}
+  Exam Radars: ${examRadarCount}
+  Total Blocks: ${blocks.length}
+
+📝 DPP: 10 questions (5 sections)
+📚 Assignment: ${(asgnData.objective||[]).length + (asgnData.subjective||[]).length} questions
+
+Rendered using VSN-2.0 with Layout Optimization Intelligence.`;
+}
+
+// ══════════════════════════════════════════════════════════
+// VSN-2.0 RENDERER WITH LOI
+// ══════════════════════════════════════════════════════════
+function renderVSN(vsnData){
+  const {metadata,blocks}=vsnData;
+  let html=`<div class="vsn-page">`;
+
+  html+=`
+    <div class="vsn-header">
+      <h1>${escapeHtml(metadata.topic)}</h1>
+      ${metadata.subtopic?`<div class="vsn-sub">${escapeHtml(metadata.subtopic)}</div>`:''}
+      <div class="vsn-meta">
+        <span class="vsn-tag">${metadata.class}</span>
+        <span class="vsn-tag">${metadata.subject}</span>
+        <span class="vsn-tag">${metadata.exam}</span>
+        ${metadata.lectureFlow?`<span class="vsn-tag">⏱ ${metadata.lectureFlow}</span>`:''}
+      </div>
+    </div>
+  `;
+
+  const fullBlocks=[];
+  const halfBlocks=[];
+
+  blocks.forEach(b=>{
+    const layout=b.layout||'full';
+    if(layout==='half') halfBlocks.push(b);
+    else fullBlocks.push(b);
+  });
+
+  fullBlocks.forEach(b=>{html+=renderBlock(b);});
+
+  if(halfBlocks.length>0){
+    html+=`<div class="vsn-2col">`;
+    halfBlocks.forEach(b=>{html+=renderBlock(b);});
+    html+=`</div>`;
+  }
+
+  html+=`</div>`;
+  return html;
+}
+
+function renderBlock(b){
+  switch(b.type){
+    case 'hook':
+      return `<div class="vsn-hook">${escapeHtml(b.content)}</div>`;
+    case 'narrative':
+      let content=escapeHtml(b.content);
+      (b.keyTerms||[]).forEach(term=>{
+        const re=new RegExp(`\\b${escapeRegex(term)}\\b`,'g');
+        content=content.replace(re,`<span class="key-term">${term}</span>`);
+      });
+      return `<div class="vsn-narrative"><h3>${escapeHtml(b.heading||'Concept')}</h3><p>${content}</p></div>`;
+    case 'formula_vault':
+      const formulas=(b.formulas||[]).map(f=>
+        `<div class="vsn-formula-item">
+          ${f.name?`<div class="fname">${escapeHtml(f.name)}</div>`:''}
+          ${escapeHtml(f.expr)}
+        </div>`
+      ).join('');
+      const legend=(b.legend||[]).map(l=>
+        `<div class="vsn-legend-item"><span class="sym">${escapeHtml(l.symbol)}</span><span>${escapeHtml(l.meaning)}</span></div>`
+      ).join('');
+      return `<div class="vsn-formula-vault">
+        ${b.title?`<div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-family:sans-serif;font-size:10px;">${escapeHtml(b.title)}</div>`:''}
+        <div class="vsn-formula-grid">${formulas}</div>
+        ${legend?`<div class="vsn-legend">${legend}</div>`:''}
       </div>`;
-      return;
-    }
-    el.innerHTML = S.sessions.map((s, i) => {
-      const d = new Date(s.date).toLocaleDateString('en-IN');
-      const dur = Math.floor((s.duration || 0) / 60);
-      return `<div class="session-item" onclick="viewSession(${i})">
-        <h3>${s.chapter || 'Untitled Session'}</h3>
-        <p>${s.class} · ${s.subject} · ${d} · ${dur} min</p>
-        <span class="session-badge">${s.exam}</span>
-        ${s.topicDone ? '<span class="session-badge" style="background:var(--green); margin-left:4px;">Topic Done</span>' : ''}
+    case 'derivation':
+      const steps=(b.steps||[]).map(s=>
+        `<div class="vsn-step">
+          <div class="vsn-step-num">${s.step}</div>
+          <div>
+            <div class="vsn-step-content">${escapeHtml(s.expr)}</div>
+            ${s.justification?`<div class="vsn-step-justification">${escapeHtml(s.justification)}</div>`:''}
+          </div>
+        </div>`
+      ).join('');
+      return `<div class="vsn-derivation"><h4>${escapeHtml(b.title||'DERIVATION')}</h4>${steps}</div>`;
+    case 'teacher_emphasis':
+      return `<div class="vsn-emphasis">
+        <div class="quote">"${escapeHtml(b.quote)}"</div>
+        ${b.context?`<div style="font-size:8px;color:var(--text3);margin-top:2px;font-family:sans-serif;">— ${escapeHtml(b.context)}</div>`:''}
       </div>`;
+    case 'memory_trick':
+      return `<div class="vsn-memory">
+        ${b.title?`<div style="font-weight:700;margin-bottom:2px;font-size:10px;">${escapeHtml(b.title)}</div>`:''}
+        <div style="font-size:9px;">${escapeHtml(b.content)}</div>
+      </div>`;
+    case 'misconception_alert':
+      return `<div class="vsn-misconception">
+        <div class="vsn-mistake">${escapeHtml(b.mistake)}</div>
+        <div class="vsn-correction">${escapeHtml(b.correction)}</div>
+      </div>`;
+    case 'exam_radar':
+      const levelText={high:'🔥 HIGH',medium:'⚡ MED',low:'📘 LOW'}[b.level]||'📘 STD';
+      return `<div class="vsn-exam-radar">
+        <span class="vsn-exam-level">${levelText} · ${escapeHtml(b.exam||'')}</span>
+        <div style="font-size:9px;line-height:1.3;">${escapeHtml(b.content)}</div>
+      </div>`;
+    case 'comparison_table':
+      const headers=(b.headers||[]).map(h=>`<th>${escapeHtml(h)}</th>`).join('');
+      const rows=(b.rows||[]).map(row=>
+        `<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`
+      ).join('');
+      return `<div class="vsn-comparison"><h4>${escapeHtml(b.title||'Comparison')}</h4>
+        <table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+    case 'diagram':
+      return `<div class="vsn-diagram">
+        <h4>${escapeHtml(b.title||'Diagram')}</h4>
+        <div class="vsn-diagram-desc">${escapeHtml(b.description)}</div>
+        ${b.labels&&b.labels.length?`<div class="vsn-diagram-labels"><b>Labels:</b> ${b.labels.map(escapeHtml).join(' · ')}</div>`:''}
+      </div>`;
+    case 'flowchart':
+      const flowSteps=(b.steps||[]).map((s,i,arr)=>
+        `<div class="vsn-flow-step">
+          <div class="vsn-flow-node">${escapeHtml(s)}</div>
+          ${i<arr.length-1?'<div class="vsn-flow-arrow">→</div>':''}
+        </div>`
+      ).join('');
+      return `<div class="vsn-flowchart"><h4>${escapeHtml(b.title||'Process Flow')}</h4><div>${flowSteps}</div></div>`;
+    default:
+      return '';
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// PARENT SUMMARY RENDERER
+// ══════════════════════════════════════════════════════════
+function renderParentSummary(ps){
+  if(!ps) return '<p style="color:var(--text3);text-align:center;padding:20px;">No parent summary generated.</p>';
+
+  const tc=ps.todayClass||{};
+  const concepts=ps.conceptsLearned||[];
+  const hw=ps.homework||{};
+  const suggestions=ps.parentSuggestions||[];
+
+  let html=`<div class="ps-container">`;
+
+  html+=`
+    <div class="ps-header">
+      <h2>👨‍👩‍👧 Parent Summary</h2>
+      <div class="ps-meta">A simple update on today's class for parents</div>
+    </div>
+  `;
+
+  html+=`
+    <div class="ps-section ps-today">
+      <div class="ps-section-title">Today's Class</div>
+      <div class="ps-class-grid">
+        <div class="ps-class-item"><b>TOPIC</b><span>${escapeHtml(tc.topic||'')}</span></div>
+        <div class="ps-class-item"><b>DURATION</b><span>${escapeHtml(tc.duration||'')}</span></div>
+        <div class="ps-class-item"><b>CLASS</b><span>${escapeHtml(tc.class||'')}</span></div>
+        <div class="ps-class-item"><b>SUBJECT</b><span>${escapeHtml(tc.subject||'')}</span></div>
+      </div>
+    </div>
+  `;
+
+  if(concepts.length){
+    html+=`
+      <div class="ps-section ps-concepts">
+        <div class="ps-section-title">Concepts Learned</div>
+        <ul class="ps-concept-list">
+          ${concepts.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if(ps.whyThisMatters){
+    html+=`
+      <div class="ps-section ps-why">
+        <div class="ps-section-title">Why This Topic Matters</div>
+        <div class="ps-why-text">${escapeHtml(ps.whyThisMatters)}</div>
+      </div>
+    `;
+  }
+
+  html+=`
+    <div class="ps-section ps-homework">
+      <div class="ps-section-title">Homework</div>
+      <div class="ps-hw-grid">
+        ${hw.dpp?`<div class="ps-hw-item"><b>📝 DPP</b><span>${escapeHtml(hw.dpp)}</span><span class="ps-hw-badge">Today</span></div>`:''}
+        ${hw.assignment?`<div class="ps-hw-item"><b>📚 Assignment</b><span>${escapeHtml(hw.assignment)}</span><span class="ps-hw-badge">This Week</span></div>`:''}
+        ${hw.test?`<div class="ps-hw-item"><b>🎯 Test</b><span>${escapeHtml(hw.test)}</span><span class="ps-hw-badge">Upcoming</span></div>`:''}
+      </div>
+    </div>
+  `;
+
+  if(suggestions.length){
+    html+=`
+      <div class="ps-section ps-suggest">
+        <div class="ps-section-title">Parent Suggestions</div>
+        <ul class="ps-suggest-list">
+          ${suggestions.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if(ps.upcomingClass){
+    html+=`
+      <div class="ps-section ps-upcoming">
+        <div class="ps-section-title">Upcoming Class</div>
+        <div class="ps-upcoming-box">➡️ ${escapeHtml(ps.upcomingClass)}</div>
+      </div>
+    `;
+  }
+
+  html+=`</div>`;
+  return html;
+}
+
+// ══════════════════════════════════════════════════════════
+// CHAPTER COVERAGE RENDERER
+// ══════════════════════════════════════════════════════════
+function renderChapterCoverage(cc){
+  if(!cc) return '<p style="color:var(--text3);text-align:center;padding:20px;">No coverage data generated.</p>';
+
+  const pct=Math.max(0,Math.min(100,cc.coveragePercentage||0));
+  const diffClass={easy:'diff-easy',medium:'diff-medium',hard:'diff-hard'}[cc.difficultyLevel]||'diff-medium';
+  const diffLabel={easy:'Easy',medium:'Medium',hard:'Hard'}[cc.difficultyLevel]||'Medium';
+
+  let html=`<div class="cc-container">`;
+
+  html+=`
+    <div class="cc-header">
+      <h2>📊 Chapter Coverage</h2>
+      <div class="cc-meta">${escapeHtml(cc.chapterName||'')} · ${escapeHtml(S.current?.exam||'')}</div>
+    </div>
+  `;
+
+  html+=`
+    <div class="cc-progress-card">
+      <div class="cc-percent">${pct}<small>%</small></div>
+      <div class="cc-progress-bar">
+        <div class="cc-progress-fill" style="width:${pct}%;"></div>
+      </div>
+      <div class="cc-progress-label">Chapter Completion</div>
+    </div>
+  `;
+
+  html+=`
+    <div class="cc-stats-grid">
+      <div class="cc-stat">
+        <div class="cc-stat-label">Classes Remaining</div>
+        <div class="cc-stat-value">${cc.estimatedClassesRemaining||'—'}</div>
+      </div>
+      <div class="cc-stat">
+        <div class="cc-stat-label">Difficulty Level</div>
+        <div class="cc-stat-value ${diffClass}">${diffLabel}</div>
+      </div>
+      <div class="cc-stat">
+        <div class="cc-stat-label">PYQ Coverage</div>
+        <div class="cc-stat-value">${cc.pyqCoverage||0}%</div>
+      </div>
+      <div class="cc-stat">
+        <div class="cc-stat-label">Expected Completion</div>
+        <div class="cc-stat-value" style="font-size:11px;">${escapeHtml(cc.estimatedCompletionDate||'—')}</div>
+      </div>
+    </div>
+  `;
+
+  if(cc.conceptsCompleted && cc.conceptsCompleted.length){
+    html+=`
+      <div class="cc-section">
+        <div class="cc-section-title">✓ Concepts Completed (${cc.conceptsCompleted.length})</div>
+        <ul class="cc-list completed">
+          ${cc.conceptsCompleted.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  if(cc.conceptsRemaining && cc.conceptsRemaining.length){
+    html+=`
+      <div class="cc-section">
+        <div class="cc-section-title">◌ Concepts Remaining (${cc.conceptsRemaining.length})</div>
+        <ul class="cc-list pending">
+          ${cc.conceptsRemaining.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
+  html+=`
+    <div class="cc-section">
+      <div class="cc-section-title">🗓 Future Planning</div>
+      <div class="cc-planning-grid">
+        ${cc.nextObjective?`<div class="cc-plan-item"><b>NEXT OBJECTIVE</b><span>${escapeHtml(cc.nextObjective)}</span></div>`:''}
+        ${cc.expectedTestDate?`<div class="cc-plan-item"><b>EXPECTED TEST</b><span>${escapeHtml(cc.expectedTestDate)}</span></div>`:''}
+        ${cc.expectedHomework?`<div class="cc-plan-item"><b>EXPECTED HOMEWORK</b><span>${escapeHtml(cc.expectedHomework)}</span></div>`:''}
+        ${cc.prerequisites&&cc.prerequisites.length?`<div class="cc-plan-item"><b>PREREQUISITES</b><span>${escapeHtml(cc.prerequisites.join(', '))}</span></div>`:''}
+      </div>
+    </div>
+  `;
+
+  html+=`</div>`;
+  return html;
+}
+
+// ══════════════════════════════════════════════════════════
+// DPP RENDERER
+// ══════════════════════════════════════════════════════════
+function renderDPP(dpp){
+  if(!dpp||!dpp.sections) return '<p style="color:var(--text3);text-align:center;padding:20px;">No DPP generated.</p>';
+
+  const sections=dpp.sections;
+  let html=`<div class="dpp-container">`;
+
+  html+=`
+    <div class="dpp-header">
+      <h2>${escapeHtml(dpp.title||'Daily Practice Problem')}</h2>
+      <div class="dpp-meta">
+        ${escapeHtml(dpp.subject||'')} · ${escapeHtml(dpp.class||'')} · ${escapeHtml(dpp.exam||'')}
+        ${dpp.totalQuestions?` · ${dpp.totalQuestions} Q`:''}
+      </div>
+    </div>
+  `;
+
+  if(sections.A_MCQ && sections.A_MCQ.length){
+    html+=`<div class="dpp-section">
+      <div class="dpp-section-header sec-a">
+        <div><div class="dpp-section-title">SECTION A — MCQ</div>
+        <div class="dpp-section-sub">${sections.A_MCQ.length} questions</div></div>
+      </div>
+      ${sections.A_MCQ.map(q=>renderMCQ(q)).join('')}
+    </div>`;
+  }
+
+  if(sections.B_Fill && sections.B_Fill.length){
+    html+=`<div class="dpp-section">
+      <div class="dpp-section-header sec-b">
+        <div><div class="dpp-section-title">SECTION B — Fill in the Blanks</div>
+        <div class="dpp-section-sub">${sections.B_Fill.length} questions</div></div>
+      </div>
+      ${sections.B_Fill.map(q=>renderFill(q)).join('')}
+    </div>`;
+  }
+
+  if(sections.C_TF && sections.C_TF.length){
+    html+=`<div class="dpp-section">
+      <div class="dpp-section-header sec-c">
+        <div><div class="dpp-section-title">SECTION C — True or False</div>
+        <div class="dpp-section-sub">${sections.C_TF.length} questions</div></div>
+      </div>
+      ${sections.C_TF.map(q=>renderTF(q)).join('')}
+    </div>`;
+  }
+
+  if(sections.D_AR && sections.D_AR.length){
+    html+=`<div class="dpp-section">
+      <div class="dpp-section-header sec-d">
+        <div><div class="dpp-section-title">SECTION D — Assertion & Reasoning</div>
+        <div class="dpp-section-sub">${sections.D_AR.length} questions</div></div>
+      </div>
+      ${sections.D_AR.map(q=>renderAR(q)).join('')}
+    </div>`;
+  }
+
+  if(sections.E_Statement && sections.E_Statement.length){
+    html+=`<div class="dpp-section">
+      <div class="dpp-section-header sec-e">
+        <div><div class="dpp-section-title">SECTION E — Statement I & II</div>
+        <div class="dpp-section-sub">${sections.E_Statement.length} question</div></div>
+      </div>
+      ${sections.E_Statement.map(q=>renderStatement(q)).join('')}
+    </div>`;
+  }
+
+  html+=`</div>`;
+  return html;
+}
+
+function renderMCQ(q){
+  const options=(q.options||[]).map(opt=>{
+    const letter=opt.match(/^[A-D]/)?.[0];
+    const isCorrect=letter===q.answer;
+    return `<li class="${isCorrect?'correct':''}">${escapeHtml(opt)}</li>`;
+  }).join('');
+  return `
+    <div class="dpp-q">
+      <div class="dpp-q-head">
+        <span class="dpp-q-num">Q${q.num}</span>
+        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+      </div>
+      <div class="dpp-q-text">${escapeHtml(q.q)}</div>
+      <ul class="dpp-options">${options}</ul>
+      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
+      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+    </div>
+  `;
+}
+
+function renderFill(q){
+  let qText=escapeHtml(q.q);
+  qText=qText.replace(/_{2,}|____+|\\[blank\\]/g,'<span class="dpp-blank">'+escapeHtml(q.answer||'')+'</span>');
+  return `
+    <div class="dpp-q">
+      <div class="dpp-q-head">
+        <span class="dpp-q-num">Q${q.num}</span>
+        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+      </div>
+      <div class="dpp-fill-blank">${qText}</div>
+      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
+      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+    </div>
+  `;
+}
+
+function renderTF(q){
+  const isTrue=q.answer && q.answer.toLowerCase()==='true';
+  return `
+    <div class="dpp-q">
+      <div class="dpp-q-head">
+        <span class="dpp-q-num">Q${q.num}</span>
+        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+      </div>
+      <div class="dpp-q-text">${escapeHtml(q.q)}</div>
+      <div class="dpp-tf-badge ${isTrue?'true':'false'}">Answer: ${isTrue?'✓ TRUE':'✗ FALSE'}</div>
+      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
+      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+    </div>
+  `;
+}
+
+function renderAR(q){
+  const arOptions=[
+    {key:'A',text:'Both A and R are true, and R is the correct explanation of A'},
+    {key:'B',text:'Both A and R are true, but R is NOT the correct explanation of A'},
+    {key:'C',text:'A is true but R is false'},
+    {key:'D',text:'A is false but R is true'}
+  ];
+  const optionsHtml=arOptions.map(o=>
+    `<div class="ar-opt ${o.key===q.answer?'correct':''}"><b>${o.key})</b> ${o.text}</div>`
+  ).join('');
+  return `
+    <div class="dpp-q">
+      <div class="dpp-q-head">
+        <span class="dpp-q-num">Q${q.num}</span>
+        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+      </div>
+      <div class="dpp-ar-block">
+        <div class="ar-label">ASSERTION (A)</div>
+        <div class="ar-text">${escapeHtml(q.assertion)}</div>
+      </div>
+      <div class="dpp-ar-block">
+        <div class="ar-label">REASON (R)</div>
+        <div class="ar-text">${escapeHtml(q.reason)}</div>
+      </div>
+      <div class="dpp-ar-options">${optionsHtml}</div>
+      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
+      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+    </div>
+  `;
+}
+
+function renderStatement(q){
+  const stOptions=[
+    {key:'A',text:'Both Statement I and Statement II are correct'},
+    {key:'B',text:'Statement I is correct but Statement II is incorrect'},
+    {key:'C',text:'Statement I is incorrect but Statement II is correct'},
+    {key:'D',text:'Both Statement I and Statement II are incorrect'}
+  ];
+  const optionsHtml=stOptions.map(o=>
+    `<div class="ar-opt ${o.key===q.answer?'correct':''}"><b>${o.key})</b> ${o.text}</div>`
+  ).join('');
+  return `
+    <div class="dpp-q">
+      <div class="dpp-q-head">
+        <span class="dpp-q-num">Q${q.num}</span>
+        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+      </div>
+      <div class="dpp-stmt-block">
+        <div class="stmt-label">STATEMENT I</div>
+        <div class="stmt-text">${escapeHtml(q.statement1)}</div>
+      </div>
+      <div class="dpp-stmt-block" style="margin-top:6px;">
+        <div class="stmt-label">STATEMENT II</div>
+        <div class="stmt-text">${escapeHtml(q.statement2)}</div>
+      </div>
+      <div class="dpp-ar-options" style="margin-top:6px;">${optionsHtml}</div>
+      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
+      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════════════════════════
+// ASSIGNMENT RENDERER
+// ══════════════════════════════════════════════════════════
+function renderAssignment(asgn){
+  if(!asgn) return '<p style="color:var(--text3);text-align:center;padding:20px;">No assignment generated.</p>';
+
+  let html=`<div class="asgn-container">`;
+
+  html+=`
+    <div class="asgn-header">
+      <h2>${escapeHtml(asgn.title||'Assignment')}</h2>
+      <div class="asgn-meta">
+        <span>📚 ${escapeHtml(asgn.subject||'')}</span>
+        <span>🎓 ${escapeHtml(asgn.class||'')}</span>
+        <span>🎯 ${escapeHtml(asgn.exam||'')}</span>
+        <span>⏱ ${escapeHtml(asgn.duration||'60 min')}</span>
+        <span>📊 Max: ${asgn.maxMarks||40}</span>
+      </div>
+    </div>
+  `;
+
+  if(asgn.objective && asgn.objective.length){
+    html+=`<div class="asgn-section-title">SECTION I — OBJECTIVE (${asgn.objective.length} Q)</div>`;
+    html+=asgn.objective.map(q=>{
+      const optionsHtml=(q.options||[]).map(opt=>`<li>${escapeHtml(opt)}</li>`).join('');
+      return `
+        <div class="asgn-q">
+          <div class="asgn-q-head">
+            <span class="asgn-q-num">Q${q.num}</span>
+            <div>
+              <span class="asgn-type-tag">${escapeHtml(q.type||'MCQ')}</span>
+              <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+              <span class="asgn-marks">${q.marks||1}m</span>
+            </div>
+          </div>
+          <div class="asgn-q-text">${escapeHtml(q.q)}</div>
+          ${optionsHtml?`<ul class="asgn-options">${optionsHtml}</ul>`:''}
+          ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+        </div>
+      `;
     }).join('');
   }
 
-  if (tab === 'weekly') {
-    if (!S.weekly.length) {
-      el.innerHTML = `<div class="empty">
-        <div class="empty-icon">📅</div>
-        <h3>No weekly reports yet</h3>
-        <p>Complete 3+ sessions in a week to generate a weekly report</p>
-      </div>`;
-      return;
-    }
-    el.innerHTML = S.weekly.map((w, i) => `
-      <div class="weekly-item" onclick="viewWeekly(${i})">
-        <h3>Week of ${w.weekLabel || new Date(w.date).toLocaleDateString('en-IN')}</h3>
-        <p>${w.sessions} sessions · ${w.chapters}</p>
-      </div>`).join('');
+  if(asgn.subjective && asgn.subjective.length){
+    html+=`<div class="asgn-section-title">SECTION II — SUBJECTIVE (${asgn.subjective.length} Q)</div>`;
+    html+=asgn.subjective.map(q=>`
+      <div class="asgn-q">
+        <div class="asgn-q-head">
+          <span class="asgn-q-num">Q${q.num}</span>
+          <div>
+            <span class="asgn-type-tag">${escapeHtml(q.type||'Short Answer')}</span>
+            <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
+            <span class="asgn-marks">${q.marks||4}m</span>
+          </div>
+        </div>
+        <div class="asgn-q-text">${escapeHtml(q.q)}</div>
+        ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+      </div>
+    `).join('');
   }
+
+  if(asgn.answerKey){
+    html+=`<div class="asgn-answer-key"><h3>ANSWER KEY</h3>`;
+
+    if(asgn.answerKey.objective && asgn.answerKey.objective.length){
+      html+=`<div class="asgn-ak-section">
+        <h4>SECTION I</h4>
+        <div class="asgn-ak-grid">
+          ${asgn.answerKey.objective.map((ans,i)=>`
+            <div class="asgn-ak-item"><b>Q${i+1}:</b> ${escapeHtml(ans)}</div>
+          `).join('')}
+        </div>
+      </div>`;
+    }
+
+    if(asgn.answerKey.subjective && asgn.answerKey.subjective.length){
+      const startNum=(asgn.objective||[]).length+1;
+      html+=`<div class="asgn-ak-section">
+        <h4>SECTION II (Hints)</h4>
+        ${asgn.answerKey.subjective.map((hint,i)=>`
+          <div class="asgn-ak-subjective"><b>Q${startNum+i}:</b> ${escapeHtml(hint)}</div>
+        `).join('')}
+      </div>`;
+    }
+
+    html+=`</div>`;
+  }
+
+  html+=`</div>`;
+  return html;
 }
 
-function viewSession(index) {
-  const sess = S.sessions[index];
-  if (!sess) return;
-  S.svSession = sess;
+// ══════════════════════════════════════════════════════════
+// FLASHCARDS & TEST
+// ══════════════════════════════════════════════════════════
+function renderFlashcards(cards){
+  if(!cards||!cards.length) return '<p style="color:var(--text3);text-align:center;padding:20px;">No flashcards.</p>';
+  return cards.map(c=>`
+    <div class="flashcard">
+      <div class="flashcard-q">${escapeHtml(c.q)}</div>
+      <div class="flashcard-a">${escapeHtml(c.a)}</div>
+      ${c.tag?`<span class="flashcard-tag">${escapeHtml(c.tag)}</span>`:''}
+    </div>
+  `).join('');
+}
 
-  const tabs = [
-    { key: 'notes',    label: 'Notes' },
-    { key: 'dpp',      label: 'DPP' },
-    { key: 'coverage', label: 'Coverage' },
-    { key: 'parent',   label: 'Parent' },
-    { key: 'teaching', label: 'Teaching' },
-  ].filter(t => sess.outputs && sess.outputs[t.key]);
+function renderTest(test){
+  if(!test) return '<p style="color:var(--text3);text-align:center;padding:20px;">No test.</p>';
 
-  if (!tabs.length) {
-    showToast('No outputs saved for this session');
+  let html=`<div class="test-header">
+    <h2>${escapeHtml(test.title||'Chapter Test')}</h2>
+    <div class="test-meta">
+      ⏱ ${escapeHtml(test.duration||'45 min')} · 📊 Max: ${test.maxMarks||30} · 🎯 ${escapeHtml(test.pattern||'')}
+    </div>
+  </div>`;
+
+  html+=(test.questions||[]).map(q=>{
+    const optionsHtml=(q.options||[]).map(opt=>`<li>${escapeHtml(opt)}</li>`).join('');
+    return `
+      <div class="asgn-q">
+        <div class="asgn-q-head">
+          <span class="asgn-q-num">Q${q.num}</span>
+          <div>
+            <span class="asgn-type-tag">${escapeHtml(q.type||'MCQ')}</span>
+            <span class="asgn-marks">${q.marks||4}m</span>
+          </div>
+        </div>
+        <div class="asgn-q-text">${escapeHtml(q.q)}</div>
+        ${optionsHtml?`<ul class="asgn-options">${optionsHtml}</ul>`:''}
+      </div>
+    `;
+  }).join('');
+
+  return html;
+}
+
+// ══════════════════════════════════════════════════════════
+// OUTPUT DISPLAY
+// ══════════════════════════════════════════════════════════
+function showOutputs(){
+  S.outputTabs=['Notes','Parent Summary','Chapter Coverage','DPP','Assignment','Flashcards','Chapter Test','Summary'];
+  S.activeTab='Notes';
+  document.getElementById('out-title').textContent=`${S.current.subject}: ${S.current.chapter}`;
+  document.getElementById('out-sub').textContent=`${S.current.class} · ${S.current.board} · ${S.current.exam}`;
+  renderOutputTabs();
+  goTo('outputs');
+}
+
+function renderOutputTabs(){
+  const tabsEl=document.getElementById('output-tabs');
+  tabsEl.innerHTML=S.outputTabs.map(t=>
+    `<div class="tab-btn ${t===S.activeTab?'active':''}" onclick="switchTab('${t}')">${t}</div>`
+  ).join('');
+
+  const body=document.getElementById('output-body');
+  const outputs=S.current.outputs;
+
+  if(S.activeTab==='Notes') body.innerHTML=renderVSN(outputs.vsn);
+  else if(S.activeTab==='Parent Summary') body.innerHTML=renderParentSummary(outputs.parentSummary);
+  else if(S.activeTab==='Chapter Coverage') body.innerHTML=renderChapterCoverage(outputs.chapterCoverage);
+  else if(S.activeTab==='DPP') body.innerHTML=renderDPP(outputs.dpp);
+  else if(S.activeTab==='Assignment') body.innerHTML=renderAssignment(outputs.assignment);
+  else if(S.activeTab==='Flashcards') body.innerHTML=renderFlashcards(outputs.flashcards);
+  else if(S.activeTab==='Chapter Test') body.innerHTML=renderTest(outputs.test);
+  else if(S.activeTab==='Summary') body.innerHTML=`<pre style="white-space:pre-wrap;font-family:inherit;padding:16px;">${escapeHtml(outputs.summary)}</pre>`;
+
+  const prevBtn=document.getElementById('preview-btn');
+  prevBtn.style.display = S.activeTab==='Notes' ? 'inline-flex' : 'none';
+}
+
+function switchTab(t){S.activeTab=t;renderOutputTabs();}
+
+function copyOutput(){
+  const text=document.getElementById('output-body').innerText;
+  navigator.clipboard.writeText(text).then(()=>showToast('✓ Copied!')).catch(()=>showToast('Copy failed'));
+}
+function shareOutput(){
+  const text=document.getElementById('output-body').innerText;
+  if(navigator.share){navigator.share({title:'ClassPulse Output',text}).catch(()=>{});}
+  else{copyOutput();}
+}
+
+// ══════════════════════════════════════════════════════════
+// PDF EXPORT
+// ══════════════════════════════════════════════════════════
+function openPreview(){
+  const vsnHtml=renderVSN(S.current.outputs.vsn);
+  const fullHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>${S.current.subject} - ${S.current.chapter}</title>
+<style>
+body{font-family:Georgia,serif;padding:20px;max-width:800px;margin:auto;color:#1A2A3A;line-height:1.7;}
+${extractVSNCSS()}
+</style></head><body>${vsnHtml}</body></html>`;
+
+  S.notesHtml=fullHtml;
+  document.getElementById('notes-iframe').srcdoc=fullHtml;
+  goTo('preview');
+}
+
+function extractVSNCSS(){
+  let css='';
+  document.querySelectorAll('style').forEach(s=>{
+    if(s.textContent.includes('.vsn-')) css+=s.textContent;
+  });
+  return css;
+}
+
+function downloadPDF(){
+  showToast('Opening print dialog...');
+  const w=window.open('','','height=800,width=800');
+  w.document.write(S.notesHtml);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+function openPreviewFromSV(){
+  S.current=S.svSession;
+  openPreview();
+}
+
+// ══════════════════════════════════════════════════════════
+// HISTORY
+// ══════════════════════════════════════════════════════════
+function renderHistory(){
+  const body=document.getElementById('history-body');
+  if(!S.sessions.length){
+    body.innerHTML=`<div class="empty"><div class="empty-icon">📂</div><h3>No sessions yet</h3><p>Your recorded classes will appear here.</p></div>`;
     return;
   }
+  body.innerHTML=S.sessions.map(s=>`
+    <div class="session-item" onclick="viewSession(${s.id})">
+      <h3>${escapeHtml(s.subject)}: ${escapeHtml(s.chapter)}</h3>
+      <p>${new Date(s.date).toLocaleDateString()} · ${Math.floor(s.duration/60)}m ${s.duration%60}s</p>
+      <span class="session-badge">${s.class} · ${s.exam}</span>
+    </div>
+  `).join('');
+}
 
-  S.svTab = tabs[0].key;
-  document.getElementById('sv-title').textContent = sess.chapter;
-  document.getElementById('sv-tabs').innerHTML = tabs.map(t =>
-    `<button class="tab-btn ${t.key === S.svTab ? 'active' : ''}"
-      onclick="switchSVTab('${t.key}')">${t.label}</button>`
-  ).join('');
-  document.getElementById('sv-body').textContent = sess.outputs[S.svTab] || '';
+function viewSession(id){
+  const s=S.sessions.find(x=>x.id===id);
+  if(!s)return;
+  S.svSession=s;
+  S.current=s;
+  S.outputTabs=['Notes','Parent Summary','Chapter Coverage','DPP','Assignment','Flashcards','Chapter Test','Summary'];
+  S.activeTab='Notes';
+  document.getElementById('sv-title').textContent=`${s.subject}: ${s.chapter}`;
+  renderSVTabs();
   goTo('session-view');
 }
 
-function viewWeekly(index) {
-  const w = S.weekly[index];
-  if (!w) return;
-  S.svSession = w;
-  S.svTab = 'weekly_assign';
-
-  const tabs = [
-    { key: 'weekly_assign',   label: 'Assignment' },
-    { key: 'weekly_coverage', label: 'Coverage' },
-  ].filter(t => w[t.key]);
-
-  document.getElementById('sv-title').textContent =
-    `Week of ${w.weekLabel || ''}`;
-  document.getElementById('sv-tabs').innerHTML = tabs.map(t =>
-    `<button class="tab-btn ${t.key === S.svTab ? 'active' : ''}"
-      onclick="switchSVTab('${t.key}')">${t.label}</button>`
+function renderSVTabs(){
+  document.getElementById('sv-tabs').innerHTML=S.outputTabs.map(t=>
+    `<div class="tab-btn ${t===S.activeTab?'active':''}" onclick="switchSVTab('${t}')">${t}</div>`
   ).join('');
-  document.getElementById('sv-body').textContent = w[S.svTab] || '';
-  goTo('session-view');
+
+  const body=document.getElementById('sv-body');
+  const outputs=S.svSession.outputs;
+  if(S.activeTab==='Notes') body.innerHTML=renderVSN(outputs.vsn);
+  else if(S.activeTab==='Parent Summary') body.innerHTML=renderParentSummary(outputs.parentSummary);
+  else if(S.activeTab==='Chapter Coverage') body.innerHTML=renderChapterCoverage(outputs.chapterCoverage);
+  else if(S.activeTab==='DPP') body.innerHTML=renderDPP(outputs.dpp);
+  else if(S.activeTab==='Assignment') body.innerHTML=renderAssignment(outputs.assignment);
+  else if(S.activeTab==='Flashcards') body.innerHTML=renderFlashcards(outputs.flashcards);
+  else if(S.activeTab==='Chapter Test') body.innerHTML=renderTest(outputs.test);
+  else if(S.activeTab==='Summary') body.innerHTML=`<pre style="white-space:pre-wrap;font-family:inherit;padding:16px;">${escapeHtml(outputs.summary)}</pre>`;
+
+  document.getElementById('sv-preview-btn').style.display = S.activeTab==='Notes' ? 'inline-flex' : 'none';
 }
 
-function switchSVTab(key) {
-  S.svTab = key;
-  const data = S.svSession[key] || S.svSession?.outputs?.[key] || '';
-  document.getElementById('sv-body').textContent = data;
-  document.querySelectorAll('#sv-tabs .tab-btn').forEach(b => {
-    b.classList.toggle('active', b.textContent.trim() ===
-      ['Notes','DPP','Coverage','Parent','Teaching','Assignment','Coverage']
-        .find(l => key.includes(l.toLowerCase().replace(' ','_'))) ||
-      b.onclick?.toString().includes(`'${key}'`));
-  });
-  document.getElementById('sv-tabs').querySelectorAll('.tab-btn').forEach(b => {
-    b.classList.remove('active');
-    if (b.getAttribute('onclick')?.includes(`'${key}'`)) b.classList.add('active');
-  });
+function switchSVTab(t){S.activeTab=t;renderSVTabs();}
+function copySV(){
+  const text=document.getElementById('sv-body').innerText;
+  navigator.clipboard.writeText(text).then(()=>showToast('✓ Copied!')).catch(()=>showToast('Copy failed'));
+}
+function shareSV(){
+  const text=document.getElementById('sv-body').innerText;
+  if(navigator.share){navigator.share({title:'ClassPulse Output',text}).catch(()=>{});}
+  else{copySV();}
 }
 
-function copySV() {
-  const text = document.getElementById('sv-body').textContent;
-  navigator.clipboard.writeText(text).then(() => showToast('Copied!'));
+// ══════════════════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════════════════
+function escapeHtml(s){
+  if(!s) return '';
+  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function shareSV() {
-  const text = document.getElementById('sv-body').textContent;
-  if (navigator.share) { navigator.share({ text }); }
-  else { navigator.clipboard.writeText(text).then(() => showToast('Copied!')); }
-}
-
-// ── Toast ──────────────────────────────────────────────────────────────────
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
+function escapeRegex(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 </script>
 </body>
 </html>
-Done
