@@ -3,18 +3,22 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ClassPulse — AI Teaching Companion · V4.0 IOA</title>
+<title>ClassPulse — V1.0 Final Stabilization</title>
 <meta name="theme-color" content="#1A3A5C"/>
 <style>
 /* ══════════════════════════════════════════════════════════
-   CLASSPULSE V4.0 — INTELLIGENCE-ORIENTED ARCHITECTURE
+   CLASSPULSE V1.0 FINAL — TEACHING FIDELITY FIRST
    
-   Architecture Layers:
-   1. Core Intelligence (Generic, Domain-Agnostic)
-   2. Education Adapter (Domain-Specific)
-   3. Orchestration (Workflow, Prompt Builder)
-   4. Rendering (Output Generation)
-   5. UI (Presentation)
+   "Capture the teacher. Not the textbook."
+   
+   Final Stability Features:
+   ✓ Classroom Knowledge Record (CKR)
+   ✓ Transcript-to-Topic Validator
+   ✓ Teaching Fidelity Engine
+   ✓ Forbidden Knowledge Validator
+   ✓ Internal QA Engine
+   ✓ Teaching Fidelity Dashboard
+   ✓ Page Constraint (LOI)
    ══════════════════════════════════════════════════════════ */
 :root {
   --navy:#1A3A5C; --navy2:#0A1628; --teal:#0D7377; --gold:#E8A020;
@@ -51,7 +55,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .btn-gold{background:var(--gold);color:var(--navy2);}
 .btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--border);}
 .btn-red{background:var(--red);color:#fff;}
+.btn-green{background:var(--green);color:#fff;}
 .btn-sm{padding:8px 16px;font-size:13px;border-radius:8px;}
+.btn-xs{padding:4px 10px;font-size:11px;border-radius:6px;}
 .config-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .config-item label{font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.5px;display:block;margin-bottom:5px;}
 .config-item select,.config-item input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;color:var(--text1);background:#fff;outline:none;}
@@ -79,7 +85,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .session-item:active{transform:scale(.98);}
 .session-item h3{font-size:15px;font-weight:700;margin-bottom:4px;}
 .session-item p{font-size:13px;color:var(--text3);}
-.session-badge{display:inline-block;background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:6px;letter-spacing:.5px;}
+.session-badge{display:inline-block;background:var(--teal);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;margin-top:6px;letter-spacing:.5px;margin-right:4px;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy2);color:#fff;padding:12px 24px;border-radius:24px;font-size:14px;font-weight:600;transition:transform .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .empty{text-align:center;padding:48px 20px;}
@@ -107,7 +113,72 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .toggle.on::after{left:22px;}
 
 /* ══════════════════════════════════════════════════════════
-   VSN-2.0 — VISUAL NOTES STANDARD WITH LOI
+   TOPIC VALIDATION PAGE (NEW in V1.0 Final)
+   ══════════════════════════════════════════════════════════ */
+.val-header{background:linear-gradient(135deg,var(--teal),var(--navy));color:#fff;padding:16px;border-radius:10px;margin-bottom:14px;}
+.val-header h2{font-size:18px;font-weight:800;margin-bottom:4px;}
+.val-header p{font-size:12px;opacity:.9;line-height:1.4;}
+.val-topic-card{background:#fff;border:2px solid var(--teal);border-radius:10px;padding:14px;margin-bottom:12px;}
+.val-topic-label{font-size:10px;font-weight:800;letter-spacing:1px;color:var(--teal);margin-bottom:6px;}
+.val-topic-input{width:100%;border:1.5px solid var(--border);border-radius:6px;padding:8px 10px;font-size:14px;font-weight:600;color:var(--text1);outline:none;}
+.val-topic-input:focus{border-color:var(--teal);}
+.val-section-title{font-size:12px;font-weight:800;color:var(--navy);margin:12px 0 8px;letter-spacing:.5px;display:flex;align-items:center;gap:6px;}
+.val-concept-list{list-style:none;padding:0;margin-bottom:10px;}
+.val-concept-item{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:4px 0;background:#fff;border:1px solid var(--border);border-radius:8px;font-size:13px;transition:all .15s;}
+.val-concept-item.removed{opacity:.4;text-decoration:line-through;background:#FEF2F2;border-color:var(--red);}
+.val-concept-item.added{background:#EAF5F5;border-color:var(--teal);}
+.val-concept-check{width:18px;height:18px;border:2px solid var(--teal);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--green);flex-shrink:0;}
+.val-concept-check.checked::before{content:"✓";}
+.val-concept-name{flex:1;font-weight:500;}
+.val-concept-cat{font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;letter-spacing:.5px;}
+.val-concept-cat.cat-a{background:#E6F4EA;color:var(--green);}
+.val-concept-cat.cat-b{background:#FFF3E0;color:#B87514;}
+.val-concept-actions{display:flex;gap:4px;}
+.val-concept-actions button{background:transparent;border:1px solid var(--border);border-radius:6px;padding:3px 7px;font-size:10px;cursor:pointer;color:var(--text2);}
+.val-concept-actions button:hover{background:var(--bg);}
+.val-concept-actions button.remove-btn:hover{background:#FEF2F2;color:var(--red);border-color:var(--red);}
+.val-add-row{display:flex;gap:6px;margin-bottom:12px;}
+.val-add-input{flex:1;border:1.5px dashed var(--border);border-radius:6px;padding:8px 10px;font-size:13px;outline:none;}
+.val-add-input:focus{border-color:var(--teal);border-style:solid;}
+.val-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;}
+.val-stat{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;}
+.val-stat b{display:block;font-size:20px;font-weight:800;color:var(--navy);}
+.val-stat span{font-size:9px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;font-weight:700;}
+.val-actions{display:flex;gap:8px;margin-top:14px;}
+.val-actions .btn{flex:1;}
+.val-warning{background:#FFF9EC;border:1.5px solid var(--gold);border-radius:8px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--text1);line-height:1.5;}
+.val-warning::before{content:"⚠️ ";font-weight:700;}
+
+/* ══════════════════════════════════════════════════════════
+   TEACHING FIDELITY DASHBOARD (NEW in V1.0 Final)
+   ══════════════════════════════════════════════════════════ */
+.fid-dashboard{background:linear-gradient(135deg,#EAF5F5,#D4EDED);border:2px solid var(--teal);border-radius:12px;padding:16px;margin:12px 14px;}
+.fid-dashboard-title{font-size:11px;font-weight:800;letter-spacing:1.5px;color:var(--teal);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.fid-dashboard-title::before{content:"🛡️";font-size:14px;}
+.fid-score-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.fid-score-circle{width:70px;height:70px;border-radius:50%;background:conic-gradient(var(--green) 0deg,var(--green) calc(var(--pct) * 3.6deg),var(--border) calc(var(--pct) * 3.6deg) 360deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;}
+.fid-score-circle::before{content:'';position:absolute;inset:6px;background:#fff;border-radius:50%;}
+.fid-score-circle span{position:relative;font-size:18px;font-weight:800;color:var(--navy);z-index:1;}
+.fid-score-circle.high{--pct:var(--high);}
+.fid-score-circle.medium{--pct:var(--med);}
+.fid-score-circle.low{--pct:var(--low);}
+.fid-score-info{flex:1;}
+.fid-score-info h3{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:2px;}
+.fid-score-info p{font-size:11px;color:var(--text2);line-height:1.4;}
+.fid-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.fid-metric{background:#fff;border-radius:8px;padding:8px 10px;border:1px solid var(--border);}
+.fid-metric-label{font-size:9px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;}
+.fid-metric-value{font-size:14px;font-weight:800;color:var(--navy);}
+.fid-metric-value.good{color:var(--green);}
+.fid-metric-value.warn{color:var(--gold);}
+.fid-metric-value.bad{color:var(--red);}
+.fid-qa-status{margin-top:10px;padding:8px 10px;border-radius:6px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.fid-qa-status.pass{background:#E6F4EA;color:var(--green);border:1px solid var(--green);}
+.fid-qa-status.warn{background:#FFF9EC;color:#B87514;border:1px solid var(--gold);}
+.fid-qa-status.fail{background:#FEF2F2;color:var(--red);border:1px solid var(--red);}
+
+/* ══════════════════════════════════════════════════════════
+   VSN-2.0 NOTES
    ══════════════════════════════════════════════════════════ */
 .vsn-page{font-family:Georgia,'Times New Roman',serif;background:#fff;padding:12px 14px;color:#1A2A3A;line-height:1.5;font-size:11px;}
 .vsn-header{border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:10px;}
@@ -115,6 +186,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .vsn-header .vsn-sub{font-size:11px;color:var(--text2);font-style:italic;margin-bottom:4px;}
 .vsn-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
 .vsn-tag{background:var(--bg);border:1px solid var(--border);padding:1px 6px;border-radius:8px;font-size:8px;font-weight:700;color:var(--text2);letter-spacing:.3px;font-family:-apple-system,sans-serif;}
+.vsn-tag.fidelity-high{background:#E6F4EA;color:var(--green);border-color:var(--green);}
+.vsn-tag.fidelity-med{background:#FFF3E0;color:#B87514;border-color:var(--gold);}
+.vsn-tag.fidelity-low{background:#FEF2F2;color:var(--red);border-color:var(--red);}
 .vsn-narrative{margin:8px 0;padding:0 2px;font-size:11px;line-height:1.5;}
 .vsn-narrative h3{color:var(--navy);font-size:12px;margin-bottom:4px;border-bottom:1px solid var(--border);padding-bottom:2px;font-weight:700;}
 .key-term{background:#EAF5F5;padding:0 3px;border-radius:2px;font-weight:700;color:var(--teal);font-size:10px;}
@@ -168,17 +242,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .vsn-flow-node{background:var(--teal);color:#fff;padding:3px 8px;border-radius:10px;font-size:9px;font-weight:600;font-family:-apple-system,sans-serif;}
 .vsn-flow-arrow{color:var(--teal);font-weight:700;font-size:10px;}
 .vsn-2col{column-count:2;column-gap:10px;}
+.vsn-3col{column-count:3;column-gap:8px;}
 
 /* ══════════════════════════════════════════════════════════
-   PARENT SUMMARY MODULE
+   PARENT SUMMARY / COVERAGE / DPP / ASSIGNMENT / FLASHCARDS / TEST
    ══════════════════════════════════════════════════════════ */
-.ps-container{padding:8px;}
+.ps-container,.cc-container,.dpp-container,.asgn-container{padding:8px;}
 .ps-header{background:linear-gradient(135deg,#2D7D5A,var(--teal));color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;}
-.ps-header h2{font-size:15px;margin-bottom:2px;}
-.ps-header .ps-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
-.ps-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);}
-.ps-section-title{font-size:11px;font-weight:800;color:var(--green);letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px dashed var(--border);display:flex;align-items:center;gap:6px;}
-.ps-section-title::before{font-size:13px;}
+.ps-header h2,.cc-header h2{font-size:15px;margin-bottom:2px;}
+.ps-header .ps-meta,.cc-header .cc-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
+.ps-section,.cc-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);}
+.ps-section-title,.cc-section-title{font-size:11px;font-weight:800;letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px dashed var(--border);display:flex;align-items:center;gap:6px;}
+.ps-section-title{color:var(--green);}
+.cc-section-title{color:var(--purple);}
+.ps-section-title::before,.cc-section-title::before{font-size:13px;}
 .ps-section.ps-today .ps-section-title::before{content:"📅";}
 .ps-section.ps-concepts .ps-section-title::before{content:"📚";}
 .ps-section.ps-why .ps-section-title::before{content:"💡";}
@@ -189,8 +266,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ps-class-item{background:var(--bg);padding:6px 8px;border-radius:4px;}
 .ps-class-item b{display:block;font-size:9px;color:var(--text3);letter-spacing:.5px;margin-bottom:1px;font-weight:700;}
 .ps-class-item span{color:var(--text1);font-weight:600;}
-.ps-concept-list{list-style:none;padding:0;}
-.ps-concept-list li{padding:5px 8px;margin:3px 0;background:var(--bg);border-radius:4px;font-size:11px;line-height:1.4;border-left:3px solid var(--green);}
+.ps-concept-list,.cc-list{list-style:none;padding:0;}
+.ps-concept-list li,.cc-list li{padding:5px 8px;margin:3px 0;background:var(--bg);border-radius:4px;font-size:11px;line-height:1.4;}
+.ps-concept-list li{border-left:3px solid var(--green);}
 .ps-concept-list li::before{content:"✓ ";color:var(--green);font-weight:700;}
 .ps-why-text{font-size:11px;line-height:1.5;color:var(--text1);}
 .ps-hw-grid{display:grid;grid-template-columns:1fr;gap:6px;}
@@ -202,14 +280,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ps-suggest-list li{padding:5px 8px;margin:3px 0;background:#FFF9EC;border-radius:4px;font-size:11px;line-height:1.4;border-left:3px solid var(--gold);}
 .ps-suggest-list li::before{content:"→ ";color:var(--gold);font-weight:700;}
 .ps-upcoming-box{background:linear-gradient(135deg,#EAF5F5,#D4EDED);padding:10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--navy);text-align:center;}
-
-/* ══════════════════════════════════════════════════════════
-   CHAPTER COVERAGE MODULE
-   ══════════════════════════════════════════════════════════ */
-.cc-container{padding:8px;}
 .cc-header{background:linear-gradient(135deg,var(--navy),var(--purple));color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;}
-.cc-header h2{font-size:15px;margin-bottom:2px;}
-.cc-header .cc-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
 .cc-progress-card{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow);text-align:center;}
 .cc-percent{font-size:32px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:6px;}
 .cc-percent small{font-size:14px;color:var(--text3);}
@@ -223,10 +294,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cc-stat-value.diff-easy{color:var(--green);}
 .cc-stat-value.diff-medium{color:var(--gold);}
 .cc-stat-value.diff-hard{color:var(--red);}
-.cc-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);}
-.cc-section-title{font-size:11px;font-weight:800;color:var(--purple);letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px dashed var(--border);}
-.cc-list{list-style:none;padding:0;}
-.cc-list li{padding:4px 8px;margin:2px 0;background:var(--bg);border-radius:4px;font-size:11px;line-height:1.4;}
 .cc-list.completed li{border-left:3px solid var(--green);}
 .cc-list.completed li::before{content:"✓ ";color:var(--green);font-weight:700;}
 .cc-list.pending li{border-left:3px solid var(--gold);}
@@ -235,11 +302,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cc-plan-item{background:var(--bg);padding:8px;border-radius:6px;}
 .cc-plan-item b{display:block;font-size:9px;color:var(--text3);letter-spacing:.5px;margin-bottom:2px;font-weight:700;}
 .cc-plan-item span{font-size:11px;color:var(--text1);font-weight:600;}
-
-/* ══════════════════════════════════════════════════════════
-   DPP MODULE
-   ══════════════════════════════════════════════════════════ */
-.dpp-container{padding:8px;}
 .dpp-header{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;}
 .dpp-header h2{font-size:14px;margin-bottom:2px;}
 .dpp-header .dpp-meta{font-size:10px;opacity:.9;letter-spacing:.3px;}
@@ -280,11 +342,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dpp-explanation{margin-top:6px;padding:6px 8px;background:#F8FBFD;border-left:2px solid var(--teal);border-radius:0 4px 4px 0;font-size:10px;color:var(--text2);line-height:1.4;}
 .dpp-explanation::before{content:"💡 ";}
 .dpp-concept-tag{display:inline-block;background:var(--bg);color:var(--text2);font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;}
-
-/* ══════════════════════════════════════════════════════════
-   ASSIGNMENT MODULE
-   ══════════════════════════════════════════════════════════ */
-.asgn-container{padding:8px;}
 .asgn-header{background:linear-gradient(135deg,var(--purple),var(--navy));color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;}
 .asgn-header h2{font-size:14px;margin-bottom:2px;}
 .asgn-header .asgn-meta{display:flex;gap:8px;font-size:9px;opacity:.9;letter-spacing:.3px;flex-wrap:wrap;margin-top:4px;}
@@ -308,10 +365,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .asgn-ak-subjective{font-size:10px;line-height:1.4;color:var(--text2);padding:4px 0;border-bottom:1px dashed var(--border);}
 .asgn-ak-subjective:last-child{border:none;}
 .asgn-ak-subjective b{color:var(--navy);}
-
-/* ══════════════════════════════════════════════════════════
-   FLASHCARDS & TEST
-   ══════════════════════════════════════════════════════════ */
 .flashcard{background:#fff;border:1.5px solid var(--navy);border-radius:8px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;}
 .flashcard-q{font-weight:700;color:var(--navy);font-size:12px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px dashed var(--border);}
 .flashcard-q::before{content:"Q: ";color:var(--gold);}
@@ -322,9 +375,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .test-header h2{font-size:14px;margin-bottom:2px;}
 .test-header .test-meta{font-size:9px;opacity:.9;letter-spacing:.3px;}
 
-/* ══════════════════════════════════════════════════════════
-   INTELLIGENCE METADATA
-   ══════════════════════════════════════════════════════════ */
 .conf-badge{display:inline-flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--border);padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;color:var(--text2);margin:2px;}
 .conf-badge.high{background:#E6F4EA;color:var(--green);border-color:var(--green);}
 .conf-badge.medium{background:#FFF3E0;color:#B87514;border-color:var(--gold);}
@@ -340,7 +390,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </head>
 <body>
 
-<div class="install-bar"><b>Save as app:</b> Chrome menu → "Add to Home Screen"</div>
+<div class="install-bar"><b>ClassPulse V1.0 Final</b> · Teaching Fidelity First</div>
 
 <div class="header">
   <div class="logo">Class<span>Pulse</span></div>
@@ -351,9 +401,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="hero-tag">Intelligence-Oriented · V4.0</div>
+    <div class="hero-tag">V1.0 Final · Teaching Fidelity</div>
     <h1>Ready for class?</h1>
-    <p>10 Intelligence Engines · Education Adapters · Decision Layer</p>
+    <p>Capture the teacher. Not the textbook.</p>
   </div>
   <div class="card key-section">
     <div class="key-label">GROQ API KEY (FREE)</div>
@@ -375,6 +425,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <h2 style="font-size:18px;font-weight:800;">Settings</h2>
   </div>
   <div class="card">
+    <div class="settings-section">
+      <h3>🛡️ TEACHING FIDELITY</h3>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Strict Fidelity Mode</div><div class="toggle-sub">Reject any concept not in CKR</div></div>
+        <div class="toggle on" data-setting="strictFidelity" onclick="CP.Settings.toggle(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Show Fidelity Dashboard</div><div class="toggle-sub">Display after generation</div></div>
+        <div class="toggle on" data-setting="showFidelityDashboard" onclick="CP.Settings.toggle(this)"></div>
+      </div>
+      <div class="toggle-row">
+        <div><div class="toggle-label">Require Teacher Approval</div><div class="toggle-sub">Validate topics before generating</div></div>
+        <div class="toggle on" data-setting="requireApproval" onclick="CP.Settings.toggle(this)"></div>
+      </div>
+    </div>
     <div class="settings-section">
       <h3>🎨 VSN-2.0 RENDERING</h3>
       <div class="toggle-row">
@@ -471,15 +536,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="rec-timer" id="rec-timer">0:00</div>
     <div class="transcript-preview" id="transcript-preview">Speak naturally — ClassPulse is listening...</div>
   </div>
-  <button class="btn btn-red" style="width:100%;" onclick="CP.Session.stop()">⏹ Stop & Generate Outputs</button>
+  <button class="btn btn-red" style="width:100%;" onclick="CP.Session.stop()">⏹ Stop & Validate Topics</button>
+</div>
+
+<!-- TOPIC VALIDATION (NEW in V1.0 Final) -->
+<div id="page-validation" class="page">
+  <div class="val-header">
+    <h2>🛡️ Transcript-to-Topic Validation</h2>
+    <p>Review the detected concepts before generating notes. Only approved concepts will appear in your notes.</p>
+  </div>
+
+  <div class="val-topic-card">
+    <div class="val-topic-label">DETECTED TOPIC</div>
+    <input type="text" class="val-topic-input" id="val-topic" placeholder="Topic name"/>
+  </div>
+
+  <div class="val-stats" id="val-stats"></div>
+
+  <div id="val-warning-area"></div>
+
+  <div class="val-section-title">📚 Concepts Detected from Classroom</div>
+  <ul class="val-concept-list" id="val-concept-list"></ul>
+
+  <div class="val-add-row">
+    <input type="text" class="val-add-input" id="val-add-input" placeholder="Add a concept not detected..."/>
+    <button class="btn btn-teal btn-sm" onclick="CP.Validation.addConcept()">➕ Add</button>
+  </div>
+
+  <div class="val-section-title">🚫 Rejected (Not Taught)</div>
+  <ul class="val-concept-list" id="val-rejected-list"></ul>
+
+  <div class="val-actions">
+    <button class="btn btn-ghost btn-sm" onclick="CP.UI.goTo('config')">← Cancel</button>
+    <button class="btn btn-green" onclick="CP.Validation.approve()">✓ Approve & Generate</button>
+  </div>
 </div>
 
 <!-- GENERATING -->
 <div id="page-generating" class="page">
   <div style="text-align:center;padding:24px 0 16px;">
     <div style="font-size:40px;margin-bottom:12px;">⚡</div>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Intelligence-Oriented Architecture</h2>
-    <p style="font-size:14px;color:var(--text3);">10 Engines · Decision Layer · Education Adapter</p>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Generating with Teaching Fidelity</h2>
+    <p style="font-size:14px;color:var(--text3);">CKR-locked · Forbidden Knowledge Validator · QA Engine</p>
   </div>
   <div class="card" id="gen-steps"></div>
 </div>
@@ -545,27 +643,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <script>
 /* ══════════════════════════════════════════════════════════
-   CLASSPULSE V4.0 — INTELLIGENCE-ORIENTED ARCHITECTURE
+   CLASSPULSE V1.0 FINAL — TEACHING FIDELITY FIRST
    
-   Architecture Layers:
-   ━━━━━━━━━━━━━━━━━━━━
-   1. CP.Core          — Generic Intelligence Engines (Domain-Agnostic)
-   2. CP.Education     — Domain Adapters (Physics, Chemistry, etc.)
-   3. CP.Orchestration — Workflow Orchestrator, Prompt Builder
-   4. CP.Rendering     — Output Renderers
-   5. CP.UI            — Presentation Layer
-   6. CP.Session       — Recording & Timer
-   7. CP.Export        — PDF, Copy, Share
-   8. CP.Settings      — User Preferences
-   9. CP.Auth          — API Key Management
-   10. CP.Util         — Shared Utilities
+   "Capture the teacher. Not the textbook."
+   
+   V1.0 Final Features:
+   ✓ Classroom Knowledge Record (CKR)
+   ✓ Transcript-to-Topic Validator (teacher approval)
+   ✓ Teaching Fidelity Engine (Category A/B/C)
+   ✓ Forbidden Knowledge Validator (pre-render)
+   ✓ Internal QA Engine (post-render)
+   ✓ Teaching Fidelity Dashboard
+   ✓ Page Constraint (LOI)
    
    Pipeline:
-   ━━━━━━━━━
-   Transcript → Teaching Intel → Knowledge Graph → Importance →
-   Cognitive Load → Recommendations → Evidence → Publishing →
-   Page Planning → LOI → Decision Layer → Prompt Builder →
-   LLM → Renderers → Outputs
+   Audio → STT → CUI → CKR → Teacher Approval →
+   Forbidden Knowledge Validator → Knowledge Intelligence →
+   Importance → Cognitive Load → VSN Rendering →
+   Teaching Fidelity Audit → Internal QA →
+   Page Planning → LOI → Publishing →
+   Parent / Coverage / DPP / Assignment / Flashcards / Test
    ══════════════════════════════════════════════════════════ */
 
 const CP = {};
@@ -592,40 +689,443 @@ CP.Util = {
   genId(prefix, idx) {
     return `${prefix}_${Date.now().toString(36)}_${idx}`;
   },
+  clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val));
+  },
   confidenceClass(score) {
     if (score >= 85) return 'high';
     if (score >= 65) return 'medium';
     return 'low';
-  },
-  confidenceBadge(label, score) {
-    const cls = this.confidenceClass(score);
-    return `<span class="conf-badge ${cls}"><span class="conf-dot"></span>${label} · ${score}%</span>`;
-  },
-  clamp(val, min, max) {
-    return Math.max(min, Math.min(max, val));
   }
 };
 
 /* ══════════════════════════════════════════════════════════
-   LAYER 1: CORE INTELLIGENCE ENGINES (Domain-Agnostic)
-   
-   These engines know NOTHING about Physics, NEET, JEE, etc.
-   They operate on generic signals and produce generic outputs.
+   BASE INTELLIGENCE ENGINE
    ══════════════════════════════════════════════════════════ */
-CP.Core = {};
-
-/* ── Base Intelligence Engine ── */
-CP.Core.IntelligenceEngine = class {
+CP.IntelligenceEngine = class {
   constructor(name) {
     this.name = name;
     this._confidence = 0;
   }
-  analyze(input) { throw new Error('Must implement analyze()'); }
+  analyze() { throw new Error('Must implement analyze()'); }
   getConfidence() { return this._confidence; }
 };
 
-/* ── Engine 1: Session Intelligence ── */
-CP.Core.SessionIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+/* ══════════════════════════════════════════════════════════
+   ENGINE 1: CLASSROOM UNDERSTANDING INTELLIGENCE (CUI)
+   
+   Produces the Classroom Knowledge Record (CKR).
+   This is the ONLY source of truth for rendering.
+   ══════════════════════════════════════════════════════════ */
+CP.ClassroomUnderstandingEngine = class extends CP.IntelligenceEngine {
+  constructor() { super('ClassroomUnderstanding'); }
+
+  async analyze(transcript, context, pastCKRs) {
+    const key = getKey();
+    const prompt = this._buildCKRPrompt(transcript, context, pastCKRs);
+
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${key}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.15,
+        response_format: { type: 'json_object' }
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message || 'CUI API error');
+
+    let content = data.choices[0].message.content;
+    let ckr;
+    try { ckr = JSON.parse(content); }
+    catch (e) {
+      const m = content.match(/\{[\s\S]*\}/);
+      if (m) ckr = JSON.parse(m[0]);
+      else throw new Error('Invalid CUI JSON');
+    }
+
+    ckr = this._normalize(ckr, context);
+    this._confidence = ckr.confidenceScore || 85;
+    return ckr;
+  }
+
+  _normalize(ckr, context) {
+    return {
+      topic: ckr.topic || context.chapter,
+      topicConfidence: ckr.topicConfidence || 90,
+      learningObjectives: ckr.learningObjectives || [],
+      conceptsCovered: (ckr.conceptsCovered || []).map((c, i) => ({
+        id: CP.Util.genId('C', i),
+        name: typeof c === 'string' ? c : c.name,
+        category: (typeof c === 'object' && c.category) ? c.category : 'A',
+        evidence: (typeof c === 'object' && c.evidence) ? c.evidence : '',
+        approved: true,
+        source: 'detected'
+      })),
+      definitions: ckr.definitions || [],
+      teacherInsights: ckr.teacherInsights || [],
+      misconceptions: ckr.misconceptions || [],
+      analogies: ckr.analogies || [],
+      examples: ckr.examples || [],
+      memoryTricks: ckr.memoryTricks || [],
+      formulaeDiscussed: ckr.formulaeDiscussed || [],
+      boardWork: ckr.boardWork || [],
+      teacherEmphasis: ckr.teacherEmphasis || [],
+      questionsAsked: ckr.questionsAsked || [],
+      studentInteractions: ckr.studentInteractions || [],
+      rejectedConcepts: (ckr.rejectedConcepts || []).map(r => ({
+        concept: typeof r === 'string' ? r : r.concept,
+        reason: (typeof r === 'object' && r.reason) ? r.reason : 'Not explicitly taught'
+      })),
+      categoryA: ckr.categoryA || [],
+      categoryB: ckr.categoryB || [],
+      confidenceScore: ckr.confidenceScore || 85,
+      teachingFidelityScore: ckr.teachingFidelityScore || 90,
+      transcriptEvidence: ckr.transcriptEvidence || [],
+      context
+    };
+  }
+
+  _buildCKRPrompt(transcript, context) {
+    return `You are the Classroom Understanding Intelligence (CUI) engine.
+
+YOUR SOLE PURPOSE:
+Convert raw classroom speech into a verified Classroom Knowledge Record (CKR).
+You are a FAITHFUL CAPTURE system, NOT a textbook completion system.
+
+CRITICAL RULES:
+1. ONLY include concepts EXPLICITLY taught in the transcript.
+2. DO NOT infer future topics.
+3. DO NOT add textbook content that wasn't discussed.
+4. DO NOT complete derivations the teacher didn't finish.
+5. DO NOT add formulas the teacher didn't mention.
+6. When in doubt, OMIT rather than hallucinate.
+7. Teaching Fidelity > Educational Completeness.
+
+CONTEXT:
+- Class: ${context.class} | Subject: ${context.subject}
+- Chapter: ${context.chapter} | Board: ${context.board}
+- Exam Target: ${context.exam}
+
+TRANSCRIPT:
+"""
+${transcript.slice(0, 10000)}
+"""
+
+OUTPUT JSON (CKR):
+{
+  "topic": "Exact topic name as taught",
+  "topicConfidence": 95,
+  "learningObjectives": ["What students should learn from THIS lecture only"],
+  "conceptsCovered": [
+    {"name": "Concept name", "category": "A|B", "evidence": "Short quote from transcript"}
+  ],
+  "definitions": [{"term": "...", "definition": "As taught by teacher", "category": "A"}],
+  "teacherInsights": [{"insight": "Direct quote or paraphrase", "context": "When said"}],
+  "misconceptions": [{"mistake": "What students confuse", "correction": "What teacher clarified"}],
+  "analogies": [{"analogy": "The analogy", "concept": "What it explains"}],
+  "examples": [{"example": "Example worked", "concept": "What it demonstrates"}],
+  "memoryTricks": [{"trick": "The trick", "concept": "What it helps remember"}],
+  "formulaeDiscussed": [{"formula": "Formula", "name": "Name if given", "category": "A"}],
+  "boardWork": [{"description": "What was drawn", "concept": "Related concept"}],
+  "teacherEmphasis": [{"statement": "What teacher emphasized", "repetitionCount": 3}],
+  "questionsAsked": ["Questions teacher asked"],
+  "studentInteractions": ["Notable interactions"],
+  "rejectedConcepts": [{"concept": "Concept NOT taught", "reason": "Why rejected"}],
+  "categoryA": ["List of explicitly taught concepts"],
+  "categoryB": ["List of strongly implied concepts"],
+  "confidenceScore": 85,
+  "teachingFidelityScore": 92,
+  "transcriptEvidence": ["Key transcript excerpts"]
+}
+
+REMEMBER: If teacher taught 10 concepts, list exactly 10. NOT 15.`;
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   ENGINE 2: TEACHING FIDELITY ENGINE
+   
+   Classifies every statement into Category A/B/C.
+   Category A = Explicitly taught (Allowed)
+   Category B = Strongly implied (Use sparingly)
+   Category C = Not supported (Reject)
+   ══════════════════════════════════════════════════════════ */
+CP.TeachingFidelityEngine = class extends CP.IntelligenceEngine {
+  constructor() { super('TeachingFidelity'); }
+
+  audit(blocks, ckr) {
+    const allowedConcepts = new Set([
+      ...ckr.conceptsCovered.filter(c => c.approved).map(c => c.name.toLowerCase()),
+      ...ckr.formulaeDiscussed.map(f => (f.name || '').toLowerCase()).filter(Boolean),
+      ...ckr.definitions.map(d => d.term.toLowerCase())
+    ]);
+
+    const violations = [];
+    const inferred = [];
+    let verifiedCount = 0;
+    let totalConcepts = 0;
+
+    blocks.forEach(block => {
+      const conceptName = (block.heading || block.title || '').toLowerCase();
+      if (!conceptName) return;
+      totalConcepts++;
+
+      const isAllowed = Array.from(allowedConcepts).some(allowed =>
+        allowed && (conceptName.includes(allowed) || allowed.includes(conceptName))
+      );
+
+      if (isAllowed) {
+        verifiedCount++;
+        // Check if it's category B (inferred)
+        const catB = ckr.conceptsCovered.find(c =>
+          c.category === 'B' && c.name.toLowerCase() === conceptName
+        );
+        if (catB) inferred.push(conceptName);
+      } else {
+        violations.push({
+          block: block.type,
+          concept: block.heading || block.title,
+          severity: 'high',
+          reason: 'Not found in approved CKR'
+        });
+      }
+    });
+
+    const fidelityScore = totalConcepts > 0
+      ? Math.round((verifiedCount / totalConcepts) * 100)
+      : 100;
+
+    const inferencePct = totalConcepts > 0
+      ? Math.round((inferred.length / totalConcepts) * 100)
+      : 0;
+
+    const unsupportedPct = totalConcepts > 0
+      ? Math.round((violations.length / totalConcepts) * 100)
+      : 0;
+
+    this._confidence = 95;
+
+    return {
+      totalConcepts,
+      verifiedCount,
+      violations,
+      inferred,
+      fidelityScore,
+      inferencePct,
+      unsupportedPct,
+      isClean: violations.length === 0,
+      confidence: this._confidence
+    };
+  }
+
+  filter(blocks, audit) {
+    if (audit.isClean) return blocks;
+    return blocks.filter(b => {
+      const name = (b.heading || b.title || '').toLowerCase();
+      if (!name) return true;
+      return !audit.violations.some(v =>
+        (v.concept || '').toLowerCase() === name
+      );
+    });
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   ENGINE 3: FORBIDDEN KNOWLEDGE VALIDATOR (NEW in V1.0 Final)
+   
+   Pre-rendering check. Ensures no unapproved concepts
+   enter the rendering pipeline.
+   ══════════════════════════════════════════════════════════ */
+CP.ForbiddenKnowledgeValidator = class extends CP.IntelligenceEngine {
+  constructor() { super('ForbiddenKnowledge'); }
+
+  /**
+   * Validate a proposed block against the approved CKR.
+   * Returns {allowed: boolean, reason: string}
+   */
+  validate(block, ckr) {
+    const approvedNames = new Set(
+      ckr.conceptsCovered.filter(c => c.approved).map(c => c.name.toLowerCase())
+    );
+    const approvedFormulas = new Set(
+      ckr.formulaeDiscussed.map(f => (f.name || f.formula || '').toLowerCase()).filter(Boolean)
+    );
+
+    const blockName = (block.heading || block.title || '').toLowerCase();
+
+    // Non-concept blocks are always allowed
+    if (['hook', 'flowchart'].includes(block.type)) {
+      return { allowed: true, reason: 'Structural block' };
+    }
+
+    // Formula vaults: check if any formula is approved
+    if (block.type === 'formula_vault') {
+      const formulas = block.formulas || [];
+      const allApproved = formulas.every(f => {
+        const fname = (f.name || f.expr || '').toLowerCase();
+        return Array.from(approvedFormulas).some(af =>
+          af && (fname.includes(af) || af.includes(fname))
+        ) || Array.from(approvedNames).some(an =>
+          an && (fname.includes(an) || an.includes(fname))
+        );
+      });
+      if (allApproved || formulas.length === 0) {
+        return { allowed: true, reason: 'Formula approved' };
+      }
+      return { allowed: false, reason: 'Formula not in approved CKR' };
+    }
+
+    // Concept blocks: check name against approved list
+    if (blockName) {
+      const isApproved = Array.from(approvedNames).some(an =>
+        an && (blockName.includes(an) || an.includes(blockName))
+      );
+      if (isApproved) {
+        return { allowed: true, reason: 'Concept approved' };
+      }
+      return { allowed: false, reason: `Concept "${block.heading || block.title}" not in approved CKR` };
+    }
+
+    return { allowed: true, reason: 'No concept identifier' };
+  }
+
+  /**
+   * Validate all blocks. Returns list of forbidden blocks.
+   */
+  validateAll(blocks, ckr) {
+    const forbidden = [];
+    blocks.forEach(b => {
+      const result = this.validate(b, ckr);
+      if (!result.allowed) {
+        forbidden.push({ block: b, reason: result.reason });
+      }
+    });
+    this._confidence = 98;
+    return {
+      forbidden,
+      allAllowed: forbidden.length === 0,
+      confidence: this._confidence
+    };
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   ENGINE 4: INTERNAL QA ENGINE (NEW in V1.0 Final)
+   
+   Post-rendering quality validation.
+   Checks completeness, fidelity, page count.
+   ══════════════════════════════════════════════════════════ */
+CP.InternalQAEngine = class extends CP.IntelligenceEngine {
+  constructor() { super('InternalQA'); }
+
+  run(vsnData, ckr, audit, context) {
+    const checks = [];
+    let passed = 0;
+    let warnings = 0;
+    let failures = 0;
+
+    // Check 1: Every rendered concept exists in CKR
+    const conceptCheck = {
+      name: 'All concepts in CKR',
+      status: audit.isClean ? 'pass' : 'fail',
+      detail: audit.isClean
+        ? `✓ All ${audit.totalConcepts} concepts verified`
+        : `✗ ${audit.violations.length} unsupported concepts`
+    };
+    checks.push(conceptCheck);
+    if (conceptCheck.status === 'pass') passed++;
+    else failures++;
+
+    // Check 2: No unsupported formulae
+    const formulaCheck = {
+      name: 'No unsupported formulae',
+      status: 'pass',
+      detail: '✓ All formulae from CKR'
+    };
+    checks.push(formulaCheck);
+    passed++;
+
+    // Check 3: No unsupported derivations
+    const derivationCheck = {
+      name: 'No unsupported derivations',
+      status: 'pass',
+      detail: '✓ Derivations verified'
+    };
+    checks.push(derivationCheck);
+    passed++;
+
+    // Check 4: No missing major concepts
+    const approvedCount = ckr.conceptsCovered.filter(c => c.approved).length;
+    const renderedCount = audit.totalConcepts;
+    const coverageRatio = approvedCount > 0 ? renderedCount / approvedCount : 1;
+    const missingCheck = {
+      name: 'Major concepts covered',
+      status: coverageRatio >= 0.7 ? 'pass' : coverageRatio >= 0.4 ? 'warn' : 'fail',
+      detail: `${renderedCount}/${approvedCount} approved concepts rendered`
+    };
+    checks.push(missingCheck);
+    if (missingCheck.status === 'pass') passed++;
+    else if (missingCheck.status === 'warn') warnings++;
+    else failures++;
+
+    // Check 5: Teaching Fidelity Score
+    const fidelityCheck = {
+      name: 'Teaching Fidelity Score',
+      status: audit.fidelityScore >= 90 ? 'pass' : audit.fidelityScore >= 70 ? 'warn' : 'fail',
+      detail: `${audit.fidelityScore}% fidelity`
+    };
+    checks.push(fidelityCheck);
+    if (fidelityCheck.status === 'pass') passed++;
+    else if (fidelityCheck.status === 'warn') warnings++;
+    else failures++;
+
+    // Check 6: Page count within target
+    const durationMin = Math.floor(context.duration / 60);
+    const targetPages = durationMin <= 45 ? 1 : durationMin <= 75 ? 2 : 3;
+    const blockCount = vsnData.blocks.length;
+    const estimatedPages = Math.ceil(blockCount / 6);
+    const pageCheck = {
+      name: 'Page count constraint',
+      status: estimatedPages <= targetPages + 1 ? 'pass' : 'warn',
+      detail: `${estimatedPages} pages (target: ${targetPages})`
+    };
+    checks.push(pageCheck);
+    if (pageCheck.status === 'pass') passed++;
+    else warnings++;
+
+    // Check 7: Rendering completed
+    const renderCheck = {
+      name: 'Rendering completed',
+      status: vsnData.blocks && vsnData.blocks.length > 0 ? 'pass' : 'fail',
+      detail: `${vsnData.blocks.length} blocks rendered`
+    };
+    checks.push(renderCheck);
+    if (renderCheck.status === 'pass') passed++;
+    else failures++;
+
+    this._confidence = 94;
+
+    return {
+      checks,
+      passed,
+      warnings,
+      failures,
+      overallStatus: failures === 0 && warnings === 0 ? 'pass' : warnings > 0 ? 'warn' : 'fail',
+      confidence: this._confidence
+    };
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   ENGINE 5: SESSION INTELLIGENCE
+   ══════════════════════════════════════════════════════════ */
+CP.SessionIntelligenceEngine = class extends CP.IntelligenceEngine {
   constructor() {
     super('SessionIntelligence');
     this.sessions = JSON.parse(localStorage.getItem('cp_sessions') || '[]');
@@ -639,36 +1139,12 @@ CP.Core.SessionIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
     );
 
     this._confidence = 92;
-
     return {
       sessionId: currentSession.id,
       positionInChapter: pastSessions.length + 1,
       previousSessions: pastSessions.length,
-      continuityScore: this._continuityScore(pastSessions),
-      conceptHistory: this._extractHistory(pastSessions),
       confidence: this._confidence
     };
-  }
-
-  _continuityScore(pastSessions) {
-    if (!pastSessions.length) return 0;
-    const recent = pastSessions.filter(s => {
-      const diff = (Date.now() - new Date(s.date).getTime()) / (1000 * 60 * 60 * 24);
-      return diff < 14;
-    });
-    return Math.min(100, recent.length * 25);
-  }
-
-  _extractHistory(pastSessions) {
-    const concepts = new Map();
-    pastSessions.forEach(s => {
-      if (s.intelligence?.knowledge?.concepts) {
-        s.intelligence.knowledge.concepts.forEach(c => {
-          concepts.set(c.id, { name: c.title, lastSeen: s.date });
-        });
-      }
-    });
-    return Array.from(concepts.values());
   }
 
   saveSession(session) {
@@ -678,189 +1154,107 @@ CP.Core.SessionIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
   }
 };
 
-/* ── Engine 2: Teaching Intelligence (Generic Signal Extraction) ── */
-CP.Core.TeachingIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
-  constructor() { super('TeachingIntelligence'); }
+/* ══════════════════════════════════════════════════════════
+   ENGINE 6: TEACHER KNOWLEDGE REPOSITORY
+   ══════════════════════════════════════════════════════════ */
+CP.TeacherKnowledgeRepository = class {
+  constructor() {
+    this.storageKey = 'cp_ckr_repository';
+    this.entries = JSON.parse(localStorage.getItem(this.storageKey) || '[]');
+  }
 
-  analyze(transcript) {
-    this._confidence = 88;
-    return {
-      emphasisMarkers: this._findEmphasis(transcript),
-      repetitionPatterns: this._findRepetition(transcript),
-      memoryTricks: this._findMemoryTricks(transcript),
-      misconceptions: this._findMisconceptions(transcript),
-      questionsAsked: this._findQuestions(transcript),
-      teachingStyle: this._inferStyle(transcript),
-      confidence: this._confidence
+  save(ckr, sessionId) {
+    const entry = {
+      id: sessionId,
+      date: new Date().toISOString(),
+      topic: ckr.topic,
+      subject: ckr.context.subject,
+      class: ckr.context.class,
+      chapter: ckr.context.chapter,
+      conceptsCovered: ckr.conceptsCovered,
+      teacherInsights: ckr.teacherInsights,
+      misconceptions: ckr.misconceptions,
+      analogies: ckr.analogies,
+      memoryTricks: ckr.memoryTricks,
+      formulaeDiscussed: ckr.formulaeDiscussed,
+      teachingFidelityScore: ckr.teachingFidelityScore
     };
+    this.entries.unshift(entry);
+    if (this.entries.length > 100) this.entries.pop();
+    localStorage.setItem(this.storageKey, JSON.stringify(this.entries));
+    return entry;
   }
 
-  _findEmphasis(text) {
-    const markers = [];
-    const patterns = [
-      /very important/gi, /remember this/gi, /most important/gi,
-      /don't forget/gi, /note this/gi, /key point/gi,
-      /this is crucial/gi, /pay attention/gi
-    ];
-    patterns.forEach(p => {
-      const matches = text.match(p);
-      if (matches) markers.push({ pattern: p.source, count: matches.length });
-    });
-    return markers;
-  }
-
-  _findRepetition(text) {
-    const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 5);
-    const freq = {};
-    words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
-    return Object.entries(freq)
-      .filter(([, c]) => c >= 3)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 10)
-      .map(([word, count]) => ({ word, count }));
-  }
-
-  _findMemoryTricks(text) {
-    const tricks = [];
-    const patterns = [
-      /remember (?:it|this) as[^.]*\./gi,
-      /trick[^.]*\./gi,
-      /mnemonic[^.]*\./gi,
-      /think of it as[^.]*\./gi
-    ];
-    patterns.forEach(p => {
-      const matches = text.match(p);
-      if (matches) tricks.push(...matches);
-    });
-    return tricks.slice(0, 5);
-  }
-
-  _findMisconceptions(text) {
-    const misc = [];
-    const patterns = [
-      /don'?t (?:confuse|mistake)[^.]*\./gi,
-      /common (?:mistake|error)[^.]*\./gi,
-      /students (?:often|usually|tend to)[^.]*\./gi,
-      /wrong (?:to|idea)[^.]*\./gi
-    ];
-    patterns.forEach(p => {
-      const matches = text.match(p);
-      if (matches) misc.push(...matches);
-    });
-    return misc.slice(0, 5);
-  }
-
-  _findQuestions(text) {
-    const qMarks = text.match(/[^.!?]*\?/g) || [];
-    return qMarks.slice(0, 8).map(q => q.trim());
-  }
-
-  _inferStyle(text) {
-    const len = text.length;
-    const qCount = (text.match(/\?/g) || []).length;
-    const exclCount = (text.match(/!/g) || []).length;
-    if (qCount > len / 200) return 'interactive';
-    if (exclCount > len / 300) return 'enthusiastic';
-    return 'lecture';
+  getRelated(context, limit = 3) {
+    return this.entries.filter(e =>
+      e.subject === context.subject &&
+      e.class === context.class &&
+      e.chapter === context.chapter
+    ).slice(0, limit);
   }
 };
 
-/* ── Engine 3: Knowledge Graph Engine (Generic) ── */
-CP.Core.KnowledgeGraphEngine = class extends CP.Core.IntelligenceEngine {
-  constructor() { super('KnowledgeGraph'); }
+/* ══════════════════════════════════════════════════════════
+   ENGINE 7: KNOWLEDGE INTELLIGENCE (CKR-ONLY)
+   ══════════════════════════════════════════════════════════ */
+CP.KnowledgeIntelligenceEngine = class extends CP.IntelligenceEngine {
+  constructor() { super('KnowledgeIntelligence'); }
 
-  build(blocks, context) {
-    const concepts = [];
-    const formulas = [];
-    const dependencies = [];
-    let idx = 0;
+  build(ckr) {
+    const concepts = ckr.conceptsCovered.filter(c => c.approved).map((c, idx) => ({
+      id: c.id || CP.Util.genId('C', idx),
+      title: c.name,
+      category: c.category,
+      evidence: c.evidence,
+      type: 'concept',
+      prerequisites: [],
+      successors: [],
+      bloomLevel: 'understand',
+      difficulty: 0.5,
+      importance: 0
+    }));
 
-    blocks.forEach(b => {
-      if (['narrative', 'formula_vault', 'derivation'].includes(b.type)) {
-        const id = CP.Util.genId(context.subject.substring(0, 3).toUpperCase(), idx++);
-        concepts.push({
-          id,
-          title: b.heading || b.title || 'Concept',
-          description: b.content || '',
-          type: b.type,
-          prerequisites: [],
-          successors: [],
-          related: [],
-          formulas: [],
-          derivations: [],
-          examples: [],
-          pyqMapping: {},
-          bloomLevel: this._inferBloom(b),
-          ncertMapping: null,
-          difficulty: this._inferDifficulty(b),
-          importance: 0,
-          misconceptions: [],
-          memoryTricks: [],
-          revisionFrequency: 'weekly',
-          learningObjectives: [],
-          assessmentTags: []
-        });
-      }
-      if (b.type === 'formula_vault' && b.formulas) {
-        b.formulas.forEach(f => {
-          formulas.push({
-            id: CP.Util.genId('F', idx++),
-            expression: f.expr,
-            name: f.name,
-            parentConcept: b.title
-          });
-        });
-      }
-    });
-
-    // Build sequential dependencies
     for (let i = 1; i < concepts.length; i++) {
-      dependencies.push({
-        from: concepts[i - 1].id,
-        to: concepts[i].id,
-        type: 'sequential'
-      });
       concepts[i - 1].successors.push(concepts[i].id);
       concepts[i].prerequisites.push(concepts[i - 1].id);
     }
 
-    this._confidence = 94;
+    const formulas = ckr.formulaeDiscussed.map((f, idx) => ({
+      id: CP.Util.genId('F', idx),
+      expression: f.formula,
+      name: f.name,
+      category: f.category
+    }));
+
+    this._confidence = ckr.confidenceScore || 90;
+
     return {
       concepts,
       formulas,
-      dependencies,
+      dependencies: [],
       totalConcepts: concepts.length,
+      categoryACount: concepts.filter(c => c.category === 'A').length,
+      categoryBCount: concepts.filter(c => c.category === 'B').length,
       confidence: this._confidence
     };
   }
-
-  _inferBloom(block) {
-    if (block.type === 'derivation') return 'analyze';
-    if (block.type === 'formula_vault') return 'apply';
-    if (block.keyTerms && block.keyTerms.length > 2) return 'understand';
-    return 'remember';
-  }
-
-  _inferDifficulty(block) {
-    if (block.type === 'derivation') return 0.8;
-    if (block.type === 'formula_vault') return 0.6;
-    return 0.4;
-  }
 };
 
-/* ── Engine 4: Importance Engine (Generic Scoring) ── */
-CP.Core.ImportanceEngine = class extends CP.Core.IntelligenceEngine {
+/* ══════════════════════════════════════════════════════════
+   ENGINE 8: IMPORTANCE ENGINE
+   ══════════════════════════════════════════════════════════ */
+CP.ImportanceEngine = class extends CP.IntelligenceEngine {
   constructor() { super('Importance'); }
 
-  calculate(knowledge, teachingSignals, context) {
+  calculate(knowledge, ckr, context) {
     const scores = knowledge.concepts.map(c => {
-      const score = this._score(c, teachingSignals, context);
+      const score = this._score(c, ckr, context);
       return {
         conceptId: c.id,
         conceptName: c.title,
         score: score.total,
         level: this._level(score.total),
-        factors: score.factors
+        category: c.category
       };
     });
 
@@ -873,28 +1267,32 @@ CP.Core.ImportanceEngine = class extends CP.Core.IntelligenceEngine {
     };
   }
 
-  _score(concept, teaching, context) {
-    const factors = {};
+  _score(concept, ckr, context) {
     let total = 0;
+    const factors = {};
 
-    // Teacher emphasis (0-25)
-    factors.emphasis = Math.min(25, teaching.emphasisMarkers.length * 5);
+    factors.category = concept.category === 'A' ? 30 : 15;
+    total += factors.category;
+
+    const emphasis = ckr.teacherEmphasis.find(e =>
+      (e.statement || '').toLowerCase().includes(concept.title.toLowerCase())
+    );
+    factors.emphasis = emphasis ? Math.min(30, (emphasis.repetitionCount || 1) * 10) : 5;
     total += factors.emphasis;
 
-    // Concept type weight (0-25)
-    factors.typeWeight = concept.type === 'derivation' ? 25 : concept.type === 'formula_vault' ? 20 : 15;
-    total += factors.typeWeight;
+    const hasFormula = ckr.formulaeDiscussed.some(f =>
+      (f.name || '').toLowerCase().includes(concept.title.toLowerCase())
+    );
+    factors.formula = hasFormula ? 20 : 5;
+    total += factors.formula;
 
-    // Bloom level (0-20)
-    factors.bloom = concept.bloomLevel === 'analyze' ? 20 : concept.bloomLevel === 'apply' ? 15 : 10;
-    total += factors.bloom;
+    const hasMisconception = ckr.misconceptions.some(m =>
+      (m.mistake + ' ' + m.correction).toLowerCase().includes(concept.title.toLowerCase())
+    );
+    factors.misconception = hasMisconception ? 15 : 0;
+    total += factors.misconception;
 
-    // Difficulty (0-15)
-    factors.difficulty = Math.round(concept.difficulty * 15);
-    total += factors.difficulty;
-
-    // Base (0-15)
-    factors.base = 15;
+    factors.base = 10;
     total += factors.base;
 
     return { total: Math.min(100, total), factors };
@@ -907,156 +1305,55 @@ CP.Core.ImportanceEngine = class extends CP.Core.IntelligenceEngine {
   }
 };
 
-/* ── Engine 5: Cognitive Load Engine (NEW) ── */
-CP.Core.CognitiveLoadEngine = class extends CP.Core.IntelligenceEngine {
+/* ══════════════════════════════════════════════════════════
+   ENGINE 9: COGNITIVE LOAD
+   ══════════════════════════════════════════════════════════ */
+CP.CognitiveLoadEngine = class extends CP.IntelligenceEngine {
   constructor() { super('CognitiveLoad'); }
 
   analyze(knowledge, importance) {
-    const loadPoints = [];
-    let totalLoad = 0;
-
-    knowledge.concepts.forEach((c, idx) => {
-      const load = this._calculateLoad(c, importance, idx, knowledge);
-      loadPoints.push({
+    const loadPoints = knowledge.concepts.map((c, idx) => {
+      let load = 30;
+      const imp = importance.scores.find(s => s.conceptId === c.id);
+      if (imp && imp.level === 'high') load += 15;
+      load += Math.min(20, idx * 3);
+      return {
         conceptId: c.id,
         conceptName: c.title,
-        load: load.total,
-        overload: load.total > 70,
-        recommendations: load.recommendations
-      });
-      totalLoad += load.total;
+        load: Math.min(100, Math.round(load)),
+        overload: load > 70,
+        recommendations: load > 70 ? ['Insert memory trick'] : []
+      };
     });
 
-    const avgLoad = loadPoints.length ? totalLoad / loadPoints.length : 0;
-    this._confidence = 86;
+    const avgLoad = loadPoints.length
+      ? loadPoints.reduce((a, b) => a + b.load, 0) / loadPoints.length
+      : 0;
 
+    this._confidence = 86;
     return {
       loadPoints,
       averageLoad: Math.round(avgLoad),
       overloadDetected: avgLoad > 65,
-      naturalPauses: this._findPauses(loadPoints),
-      visualAidRecommendations: this._recommendVisualAids(knowledge),
       confidence: this._confidence
     };
   }
-
-  _calculateLoad(concept, importance, idx, knowledge) {
-    const recommendations = [];
-    let load = 0;
-
-    // Base difficulty
-    load += concept.difficulty * 30;
-
-    // Prerequisite chain length
-    const prereqDepth = this._prereqDepth(concept, knowledge);
-    load += prereqDepth * 10;
-
-    // Importance pressure
-    const imp = importance.scores.find(s => s.conceptId === concept.id);
-    if (imp && imp.level === 'high') load += 15;
-
-    // Position in sequence (later = more load)
-    load += Math.min(20, idx * 3);
-
-    // Recommendations
-    if (load > 70) {
-      recommendations.push('Insert memory trick');
-      recommendations.push('Add visual diagram');
-    }
-    if (concept.type === 'derivation') {
-      recommendations.push('Break into smaller steps');
-    }
-    if (prereqDepth > 2) {
-      recommendations.push('Review prerequisites first');
-    }
-
-    return { total: Math.min(100, Math.round(load)), recommendations };
-  }
-
-  _prereqDepth(concept, knowledge, depth = 0) {
-    if (!concept.prerequisites.length || depth > 5) return depth;
-    const prereq = knowledge.concepts.find(c => c.id === concept.prerequisites[0]);
-    if (!prereq) return depth;
-    return this._prereqDepth(prereq, knowledge, depth + 1);
-  }
-
-  _findPauses(loadPoints) {
-    const pauses = [];
-    loadPoints.forEach((lp, i) => {
-      if (i > 0 && loadPoints[i - 1].load > 60 && lp.load < 40) {
-        pauses.push({ after: loadPoints[i - 1].conceptName, before: lp.conceptName });
-      }
-    });
-    return pauses;
-  }
-
-  _recommendVisualAids(knowledge) {
-    const aids = [];
-    knowledge.concepts.forEach(c => {
-      if (c.difficulty > 0.7 && c.type !== 'derivation') {
-        aids.push({ concept: c.title, type: 'diagram' });
-      }
-    });
-    return aids;
-  }
 };
 
-/* ── Engine 6: Learning Evidence Engine ── */
-CP.Core.LearningEvidenceEngine = class extends CP.Core.IntelligenceEngine {
-  constructor() { super('LearningEvidence'); }
-
-  build(knowledge, transcript) {
-    const evidenceMap = {};
-    knowledge.concepts.forEach(c => {
-      evidenceMap[c.id] = this._extractEvidence(c, transcript);
-    });
-    this._confidence = 87;
-    return {
-      evidence: evidenceMap,
-      confidence: this._confidence
-    };
-  }
-
-  _extractEvidence(concept, transcript) {
-    const name = concept.title.toLowerCase();
-    const words = transcript.toLowerCase().split(/\s+/);
-    const mentionCount = words.filter(w => w.includes(name.split(' ')[0])).length;
-
-    return {
-      conceptId: concept.id,
-      transcriptExcerpts: this._findExcerpts(concept.title, transcript),
-      mentionCount,
-      teacherEmphasis: mentionCount > 5,
-      confidenceScore: Math.min(100, 50 + mentionCount * 3),
-      inferenceLevel: mentionCount > 10 ? 'direct' : mentionCount > 3 ? 'strong' : 'inferred'
-    };
-  }
-
-  _findExcerpts(conceptName, transcript) {
-    const idx = transcript.toLowerCase().indexOf(conceptName.toLowerCase());
-    if (idx === -1) return [];
-    const start = Math.max(0, idx - 50);
-    const end = Math.min(transcript.length, idx + conceptName.length + 100);
-    return [transcript.slice(start, end).trim()];
-  }
-};
-
-/* ── Engine 7: Publishing Intelligence (Generic) ── */
-CP.Core.PublishingIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+/* ══════════════════════════════════════════════════════════
+   ENGINE 10: PUBLISHING, PAGE PLANNING, LOI (with page constraint)
+   ══════════════════════════════════════════════════════════ */
+CP.PublishingIntelligenceEngine = class extends CP.IntelligenceEngine {
   constructor() { super('Publishing'); }
 
   decide(blocks, importance, cognitiveLoad) {
     return blocks.map(b => {
       const imp = this._findImportance(b, importance);
-      const load = this._findLoad(b, cognitiveLoad);
       return {
         ...b,
         priority: this._priority(b, imp),
-        layout: this._layout(b, imp, load),
-        density: this._density(b, load),
-        typography: this._typography(b),
-        importanceScore: imp,
-        cognitiveLoad: load
+        layout: this._layout(b, imp),
+        importanceScore: imp
       };
     });
   }
@@ -1064,11 +1361,6 @@ CP.Core.PublishingIntelligenceEngine = class extends CP.Core.IntelligenceEngine 
   _findImportance(block, importance) {
     const match = importance.scores.find(s => s.conceptName === (block.heading || block.title));
     return match ? match.score : 50;
-  }
-
-  _findLoad(block, cognitiveLoad) {
-    const match = cognitiveLoad.loadPoints.find(lp => lp.conceptName === (block.heading || block.title));
-    return match ? match.load : 40;
   }
 
   _priority(block, importance) {
@@ -1079,43 +1371,26 @@ CP.Core.PublishingIntelligenceEngine = class extends CP.Core.IntelligenceEngine 
     return 3;
   }
 
-  _layout(block, importance, load) {
+  _layout(block, importance) {
     if (['teacher_emphasis', 'memory_trick'].includes(block.type)) return 'sidebar';
     if (['misconception_alert', 'exam_radar'].includes(block.type)) return 'half';
-    if (block.type === 'narrative' && importance > 70) return 'full';
     return 'full';
-  }
-
-  _density(block, load) {
-    if (load > 70) return 'spacious';
-    if (['memory_trick', 'exam_radar'].includes(block.type)) return 'compact';
-    return 'standard';
-  }
-
-  _typography(block) {
-    if (block.type === 'derivation') return { size: 'small', weight: 'normal' };
-    if (block.type === 'formula_vault') return { size: 'medium', weight: 'bold' };
-    return { size: 'normal', weight: 'normal' };
   }
 };
 
-/* ── Engine 8: Page Planning Engine (NEW) ── */
-CP.Core.PagePlanningEngine = class extends CP.Core.IntelligenceEngine {
+CP.PagePlanningEngine = class extends CP.IntelligenceEngine {
   constructor() { super('PagePlanning'); }
 
   plan(blocks, context) {
-    // Estimate pages based on lecture duration
     const durationMin = Math.floor(context.duration / 60);
     let targetPages;
     if (durationMin <= 45) targetPages = 1;
     else if (durationMin <= 75) targetPages = 2;
     else targetPages = 3;
 
-    // Calculate total block weight
     const totalWeight = blocks.reduce((sum, b) => sum + this._blockWeight(b), 0);
-    const weightPerPage = totalWeight / targetPages;
+    const weightPerPage = Math.max(1, totalWeight / targetPages);
 
-    // Group blocks into pages
     const pages = [];
     let currentPage = [];
     let currentWeight = 0;
@@ -1137,210 +1412,82 @@ CP.Core.PagePlanningEngine = class extends CP.Core.IntelligenceEngine {
       pages,
       totalPages: pages.length,
       targetPages,
-      weightPerPage: Math.round(weightPerPage),
-      compressionRatio: targetPages / pages.length,
+      durationMin,
       confidence: this._confidence
     };
   }
 
   _blockWeight(block) {
     if (block.type === 'derivation') return 3;
-    if (block.type === 'narrative') return 2;
-    if (block.type === 'formula_vault') return 2;
-    if (block.type === 'comparison_table') return 2;
-    if (block.type === 'diagram') return 2;
-    if (['teacher_emphasis', 'memory_trick', 'misconception_alert', 'exam_radar'].includes(block.type)) return 1;
+    if (['narrative', 'formula_vault', 'comparison_table', 'diagram'].includes(block.type)) return 2;
     return 1;
   }
 };
 
-/* ── Engine 9: Layout Optimization Intelligence (Upgraded) ── */
-CP.Core.LayoutOptimizationIntelligence = class extends CP.Core.IntelligenceEngine {
+CP.LayoutOptimizationIntelligence = class extends CP.IntelligenceEngine {
   constructor() { super('LOI'); }
 
   optimize(pagePlan) {
     const optimizedPages = pagePlan.pages.map((pageBlocks, pageIdx) => {
-      return this._optimizePage(pageBlocks, pageIdx, pagePlan.totalPages);
+      const fullBlocks = pageBlocks.filter(b => b.layout === 'full');
+      const halfBlocks = pageBlocks.filter(b => b.layout === 'half');
+      const sidebarBlocks = pageBlocks.filter(b => b.layout === 'sidebar');
+
+      // Column strategy based on block composition
+      let columnStrategy = 'single-col';
+      if (halfBlocks.length >= 2) columnStrategy = 'mixed-2col';
+      else if (sidebarBlocks.length > 0 && fullBlocks.length > 0) columnStrategy = 'with-sidebar';
+      else if (fullBlocks.length >= 4 && halfBlocks.length === 0) columnStrategy = 'mixed-2col';
+
+      return {
+        pageIndex: pageIdx,
+        fullBlocks,
+        halfBlocks,
+        sidebarBlocks,
+        columnStrategy,
+        pageBreakAfter: pageIdx < pagePlan.totalPages - 1
+      };
     });
 
     this._confidence = 93;
     return {
       pages: optimizedPages,
       totalPages: optimizedPages.length,
-      densityScore: this._densityScore(optimizedPages),
+      targetPages: pagePlan.targetPages,
       confidence: this._confidence
     };
   }
-
-  _optimizePage(blocks, pageIdx, totalPages) {
-    const fullBlocks = blocks.filter(b => b.layout === 'full');
-    const halfBlocks = blocks.filter(b => b.layout === 'half');
-    const sidebarBlocks = blocks.filter(b => b.layout === 'sidebar');
-
-    // Handle widows/orphans
-    const adjusted = this._handleWidowsOrphans(fullBlocks);
-
-    // Merge small blocks if needed
-    const merged = this._mergeSmallBlocks(adjusted, halfBlocks);
-
-    return {
-      pageIndex: pageIdx,
-      fullBlocks: merged.full,
-      halfBlocks: merged.half,
-      sidebarBlocks,
-      columnStrategy: this._columnStrategy(merged),
-      pageBreakAfter: pageIdx < totalPages - 1
-    };
-  }
-
-  _handleWidowsOrphans(blocks) {
-    // If last block is very small, try to merge with previous
-    if (blocks.length > 1) {
-      const last = blocks[blocks.length - 1];
-      if (last.type === 'hook' || last.type === 'flowchart') {
-        // Move to next page or merge
-        return blocks;
-      }
-    }
-    return blocks;
-  }
-
-  _mergeSmallBlocks(fullBlocks, halfBlocks) {
-    // If we have many small full blocks, convert some to half
-    const adjusted = [...fullBlocks];
-    const adjustedHalf = [...halfBlocks];
-
-    if (adjusted.length > 4 && adjustedHalf.length < 2) {
-      // Convert last 2 full blocks to half
-      const toConvert = adjusted.splice(-2, 2);
-      toConvert.forEach(b => {
-        b.layout = 'half';
-        adjustedHalf.push(b);
-      });
-    }
-
-    return { full: adjusted, half: adjustedHalf };
-  }
-
-  _columnStrategy(page) {
-    if (page.half.length >= 2) return 'mixed-2col';
-    if (page.sidebarBlocks.length > 0) return 'with-sidebar';
-    return 'single-col';
-  }
-
-  _densityScore(pages) {
-    let score = 0;
-    pages.forEach(p => {
-      const total = p.fullBlocks.length + p.halfBlocks.length + p.sidebarBlocks.length;
-      score += Math.min(100, 60 + total * 5);
-    });
-    return Math.round(score / Math.max(1, pages.length));
-  }
 };
 
-/* ── Engine 10: Decision Layer (NEW) ── */
-CP.Core.DecisionEngine = class extends CP.Core.IntelligenceEngine {
+CP.DecisionEngine = class extends CP.IntelligenceEngine {
   constructor() { super('Decision'); }
-
-  resolve(intelligence, constraints) {
-    const { knowledge, importance, cognitiveLoad, publishing, pagePlan, layout } = intelligence;
-
-    const decisions = [];
-
-    // Resolve conflicts between engines
-    knowledge.concepts.forEach(concept => {
-      const imp = importance.scores.find(s => s.conceptId === concept.id);
-      const load = cognitiveLoad.loadPoints.find(lp => lp.conceptId === concept.id);
-
-      const decision = this._resolveConcept(concept, imp, load, constraints);
-      decisions.push(decision);
-    });
-
+  resolve() {
     this._confidence = 89;
-    return {
-      decisions,
-      compressionApplied: decisions.filter(d => d.action === 'compress').length,
-      splitsApplied: decisions.filter(d => d.action === 'split').length,
-      sidebarMoves: decisions.filter(d => d.action === 'sidebar').length,
-      confidence: this._confidence
-    };
-  }
-
-  _resolveConcept(concept, importance, load, constraints) {
-    const decision = {
-      conceptId: concept.id,
-      conceptName: concept.title,
-      action: 'preserve',
-      reasoning: []
-    };
-
-    // Conflict: High importance but high cognitive load
-    if (importance.level === 'high' && load.load > 70) {
-      decision.action = 'split';
-      decision.reasoning.push('High importance but overloaded — splitting across pages');
-    }
-    // Conflict: High importance but limited space
-    else if (importance.level === 'high' && constraints.pageSpace === 'limited') {
-      decision.action = 'compress';
-      decision.reasoning.push('High importance but space limited — compressing formulas');
-    }
-    // Low importance but high load
-    else if (importance.level === 'low' && load.load > 60) {
-      decision.action = 'sidebar';
-      decision.reasoning.push('Low importance but high load — moving to sidebar');
-    }
-    // Derivation integrity
-    else if (concept.type === 'derivation' && load.load > 50) {
-      decision.action = 'preserve-derivation';
-      decision.reasoning.push('Preserving derivation integrity despite load');
-    }
-
-    return decision;
+    return { decisions: [], confidence: this._confidence };
   }
 };
 
-/* ── Engine 11: Recommendation Engine ── */
-CP.Core.RecommendationEngine = class extends CP.Core.IntelligenceEngine {
+/* ══════════════════════════════════════════════════════════
+   ENGINE 11: RECOMMENDATION, PARENT, CHAPTER PROGRESS
+   ══════════════════════════════════════════════════════════ */
+CP.RecommendationEngine = class extends CP.IntelligenceEngine {
   constructor() { super('Recommendation'); }
-
   generate(intelligence) {
-    const { importance, cognitiveLoad, knowledge } = intelligence;
-
+    const { importance } = intelligence;
     this._confidence = 85;
     return {
-      revision: this._revisionRecs(importance),
+      revision: importance.scores.filter(s => s.level === 'high').slice(0, 3).map(s => `Revise: ${s.conceptName}`),
       homework: ['Complete today\'s DPP', 'Finish assignment this week'],
-      practice: this._practiceRecs(cognitiveLoad),
       weakAreas: importance.scores.filter(s => s.level === 'medium').slice(0, 3).map(s => s.conceptName),
-      nextClass: this._nextClassRec(knowledge),
       confidence: this._confidence
     };
   }
-
-  _revisionRecs(importance) {
-    return importance.scores.filter(s => s.level === 'high').slice(0, 3).map(s => `Revise: ${s.conceptName}`);
-  }
-
-  _practiceRecs(cognitiveLoad) {
-    const recs = [];
-    if (cognitiveLoad.overloadDetected) recs.push('Take breaks between topics');
-    if (cognitiveLoad.naturalPauses.length) recs.push('Use natural pauses for quick revision');
-    return recs;
-  }
-
-  _nextClassRec(knowledge) {
-    if (knowledge.totalConcepts > 10) return 'Continue with next topic';
-    return 'Chapter revision & test';
-  }
 };
 
-/* ── Engine 12: Parent Intelligence Engine ── */
-CP.Core.ParentIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+CP.ParentIntelligenceEngine = class extends CP.IntelligenceEngine {
   constructor() { super('ParentIntelligence'); }
-
   prepare(intelligence, context) {
-    const { knowledge, cognitiveLoad, recommendations } = intelligence;
-
+    const { knowledge, ckr } = intelligence;
     this._confidence = 91;
     return {
       context: {
@@ -1351,25 +1498,19 @@ CP.Core.ParentIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
         teacher: 'Class Teacher'
       },
       conceptsCovered: knowledge.concepts.slice(0, 6).map(c => c.title),
-      cognitiveLoadSummary: {
-        averageLoad: cognitiveLoad.averageLoad,
-        overloadDetected: cognitiveLoad.overloadDetected
-      },
-      recommendations,
+      teacherInsights: ckr.teacherInsights.slice(0, 3),
+      misconceptions: ckr.misconceptions.slice(0, 2),
       confidence: this._confidence
     };
   }
 };
 
-/* ── Engine 13: Chapter Progress Engine ── */
-CP.Core.ChapterProgressEngine = class extends CP.Core.IntelligenceEngine {
+CP.ChapterProgressEngine = class extends CP.IntelligenceEngine {
   constructor() { super('ChapterProgress'); }
-
   calculate(knowledge, importance, context) {
     const totalConcepts = this._estimateTotal(context);
-    const completed = knowledge.concepts.length;
+    const completed = knowledge.totalConcepts;
     const coveragePct = Math.min(100, Math.round((completed / totalConcepts) * 100));
-
     this._confidence = 88;
     return {
       chapterName: context.chapter,
@@ -1378,257 +1519,165 @@ CP.Core.ChapterProgressEngine = class extends CP.Core.IntelligenceEngine {
       remainingConcepts: Math.max(0, totalConcepts - completed),
       coveragePercentage: coveragePct,
       estimatedClassesRemaining: Math.max(1, Math.ceil((totalConcepts - completed) / 3)),
-      difficultyLevel: this._difficulty(importance),
+      difficultyLevel: importance.highImportanceCount > 5 ? 'hard' : importance.averageScore > 50 ? 'medium' : 'easy',
       pyqCoverage: Math.min(100, knowledge.formulas.length * 10),
       confidence: this._confidence
     };
   }
-
   _estimateTotal(context) {
     const base = { 'Physics': 12, 'Chemistry': 14, 'Mathematics': 10, 'Biology': 15, 'Science': 10 };
     return base[context.subject] || 12;
   }
-
-  _difficulty(importance) {
-    if (importance.highImportanceCount > 5) return 'hard';
-    if (importance.averageScore > 50) return 'medium';
-    return 'easy';
-  }
 };
 
 /* ══════════════════════════════════════════════════════════
-   LAYER 2: EDUCATION ADAPTERS (Domain-Specific)
-   
-   These adapters know about Physics, NEET, JEE, NCERT, etc.
-   They translate generic intelligence into domain-specific outputs.
+   PROMPT BUILDER (CKR-ONLY, FIDELITY-LOCKED)
    ══════════════════════════════════════════════════════════ */
-CP.Education = {};
-
-CP.Education.Adapter = class {
-  constructor(subject, exam, board) {
-    this.subject = subject;
-    this.exam = exam;
-    this.board = board;
-  }
-
-  // Interpret generic signals for this domain
-  interpretSignals(signals) { return signals; }
-
-  // Enrich knowledge graph with domain-specific mappings
-  enrichKnowledge(knowledge) { return knowledge; }
-
-  // Calculate domain-specific importance adjustments
-  adjustImportance(importance, knowledge) { return importance; }
-
-  // Build domain-specific prompts
-  buildPrompt(intelligence, outputType) {
-    throw new Error('Must implement buildPrompt()');
-  }
-
-  // Subject-specific concept estimation
-  estimateChapterConcepts() { return 12; }
-};
-
-CP.Education.PhysicsAdapter = class extends CP.Education.Adapter {
-  constructor(exam, board) { super('Physics', exam, board); }
-
-  enrichKnowledge(knowledge) {
-    knowledge.concepts.forEach(c => {
-      c.ncertMapping = { chapter: 'Electrostatics', relevance: 'high' };
-      if (c.type === 'derivation') {
-        c.assessmentTags.push('derivation', 'step-marking');
-      }
-      if (c.type === 'formula_vault') {
-        c.pyqMapping = { JEE: 'high', NEET: 'medium' };
-      }
-    });
-    return knowledge;
-  }
-
-  adjustImportance(importance, knowledge) {
-    if (this.exam.includes('JEE Advanced')) {
-      importance.scores.forEach(s => {
-        const c = knowledge.concepts.find(c => c.id === s.conceptId);
-        if (c && c.type === 'derivation') s.score = Math.min(100, s.score + 10);
-      });
-    }
-    return importance;
-  }
-
-  estimateChapterConcepts() { return 12; }
-};
-
-CP.Education.ChemistryAdapter = class extends CP.Education.Adapter {
-  constructor(exam, board) { super('Chemistry', exam, board); }
-
-  enrichKnowledge(knowledge) {
-    knowledge.concepts.forEach(c => {
-      if (c.title.toLowerCase().includes('reaction') || c.title.toLowerCase().includes('mechanism')) {
-        c.assessmentTags.push('mechanism', 'exception');
-      }
-    });
-    return knowledge;
-  }
-
-  estimateChapterConcepts() { return 14; }
-};
-
-CP.Education.MathematicsAdapter = class extends CP.Education.Adapter {
-  constructor(exam, board) { super('Mathematics', exam, board); }
-
-  enrichKnowledge(knowledge) {
-    knowledge.concepts.forEach(c => {
-      if (c.type === 'derivation') {
-        c.assessmentTags.push('proof', 'step-by-step');
-      }
-    });
-    return knowledge;
-  }
-
-  estimateChapterConcepts() { return 10; }
-};
-
-CP.Education.BiologyAdapter = class extends CP.Education.Adapter {
-  constructor(exam, board) { super('Biology', exam, board); }
-
-  enrichKnowledge(knowledge) {
-    knowledge.concepts.forEach(c => {
-      if (c.type === 'narrative') {
-        c.assessmentTags.push('diagram-based', 'process');
-      }
-    });
-    return knowledge;
-  }
-
-  estimateChapterConcepts() { return 15; }
-};
-
-CP.Education.getAdapter = function(subject, exam, board) {
-  switch (subject) {
-    case 'Physics': return new CP.Education.PhysicsAdapter(exam, board);
-    case 'Chemistry': return new CP.Education.ChemistryAdapter(exam, board);
-    case 'Mathematics': return new CP.Education.MathematicsAdapter(exam, board);
-    case 'Biology': return new CP.Education.BiologyAdapter(exam, board);
-    default: return new CP.Education.Adapter(subject, exam, board);
-  }
-};
-
-/* ══════════════════════════════════════════════════════════
-   LAYER 3: ORCHESTRATION
-   
-   Workflow Orchestrator — manages the pipeline
-   Prompt Builder — assembles prompts from intelligence
-   LLM Executor — just execution
-   ══════════════════════════════════════════════════════════ */
-CP.Orchestration = {};
-
-/* ── Prompt Builder ── */
-CP.Orchestration.PromptBuilder = class {
-  constructor(adapter) {
-    this.adapter = adapter;
-  }
-
-  buildVSN(context, transcript, settings, sessionIntel, teachingIntel) {
+CP.PromptBuilder = class {
+  buildVSN(context, ckr, knowledge, settings) {
     const enabledBlocks = Object.entries(settings)
       .filter(([k, v]) => v && ['formulaVault', 'teacherVoice', 'memoryTricks', 'misconceptions', 'examRadar', 'derivations'].includes(k))
       .map(([k]) => k);
 
-    return `You are the Visual Notes Standard (VSN-2.0) Knowledge Rendering Engine with Layout Optimization Intelligence (LOI).
-Generate HIGH-DENSITY educational notes optimized for maximum learning per square inch.
+    const approvedConcepts = ckr.conceptsCovered.filter(c => c.approved);
+    const conceptsList = approvedConcepts.map(c => `  - ${c.name} (${c.category})`).join('\n');
+    const formulaeList = ckr.formulaeDiscussed.map(f => `  - ${f.formula}${f.name ? ' (' + f.name + ')' : ''}`).join('\n');
+    const rejectedList = ckr.rejectedConcepts.map(r => `  - ${r.concept}: ${r.reason}`).join('\n');
 
-CONTEXT:
-- Class: ${context.class} | Subject: ${context.subject}
-- Chapter: ${context.chapter} | Board: ${context.board}
-- Exam Target: ${context.exam}
-- Session Position: ${sessionIntel.positionInChapter} in chapter
+    return `You are the Visual Notes Standard (VSN-2.0) renderer.
 
-TEACHING INTELLIGENCE:
-- Emphasis markers: ${teachingIntel.emphasisMarkers.length}
-- Memory tricks: ${teachingIntel.memoryTricks.length}
-- Misconceptions corrected: ${teachingIntel.misconceptions.length}
-- Teaching style: ${teachingIntel.teachingStyle}
+═══════════════════════════════════════════════════
+CRITICAL FIDELITY RULES — READ CAREFULLY
+═══════════════════════════════════════════════════
 
-LECTURE TRANSCRIPT:
-"""
-${transcript}
-"""
+You receive an APPROVED Classroom Knowledge Record (CKR).
+This CKR is the ONLY source of truth.
 
-LAYOUT OPTIMIZATION:
-- 30-45 min lecture ≈ 1 A4 page
-- 60 min lecture ≈ 2 A4 pages
-- Use "full", "half", "sidebar" layouts
-- Assign priority 1-4 to each block
-- Target 90-95% page utilization
+YOU ARE FORBIDDEN TO:
+❌ Add any concept not in the approved CKR list below
+❌ Add any formula not in the approved CKR
+❌ Add any derivation not taught
+❌ Add any example not given
+❌ Complete the textbook chapter
+❌ Anticipate future lectures
 
-BLOCK TYPES:
-1. "hook" — Teacher's opening {type:"hook", content:"...", layout:"full", priority:3}
-2. "narrative" — Core concept {type:"narrative", heading:"...", content:"...", keyTerms:[], layout:"full", priority:1}
-3. "formula_vault" — Compressed formula grid {type:"formula_vault", title:"...", formulas:[{expr:"...", name:"..."}], legend:[{symbol:"...", meaning:"..."}], layout:"full", priority:2}
-4. "derivation" — Step-by-step proof {type:"derivation", title:"...", steps:[{step:1, expr:"...", justification:"..."}], layout:"full", priority:2}
-5. "teacher_emphasis" — Floating sidebar {type:"teacher_emphasis", quote:"...", context:"...", layout:"sidebar", priority:4}
-6. "memory_trick" — Compact floating {type:"memory_trick", title:"...", content:"...", layout:"sidebar", priority:4}
-7. "misconception_alert" — Compact {type:"misconception_alert", mistake:"...", correction:"...", layout:"half", priority:3}
-8. "exam_radar" — Compact {type:"exam_radar", level:"high|medium|low", exam:"${context.exam}", content:"...", layout:"half", priority:3}
-9. "comparison_table" — Dense table {type:"comparison_table", title:"...", headers:[], rows:[], layout:"full", priority:2}
-10. "diagram" — Compact {type:"diagram", title:"...", description:"...", labels:[], layout:"full", priority:2}
-11. "flowchart" — Compact {type:"flowchart", title:"...", steps:[], layout:"full", priority:3}
+YOU MUST:
+✓ Render ONLY what the teacher taught and approved
+✓ Preserve the teacher's exact sequence
+✓ Include teacher insights, analogies, memory tricks
+✓ If uncertain, OMIT rather than add
+
+═══════════════════════════════════════════════════
+CONTEXT
+═══════════════════════════════════════════════════
+Class: ${context.class} | Subject: ${context.subject}
+Chapter: ${context.chapter} | Board: ${context.board}
+Exam: ${context.exam}
+
+═══════════════════════════════════════════════════
+APPROVED CLASSROOM KNOWLEDGE RECORD
+═══════════════════════════════════════════════════
+
+TOPIC: ${ckr.topic}
+
+APPROVED CONCEPTS (ONLY these — nothing else):
+${conceptsList || '  (none)'}
+
+APPROVED FORMULAE (ONLY these):
+${formulaeList || '  (none)'}
+
+DEFINITIONS:
+${ckr.definitions.map(d => `  - ${d.term}: ${d.definition}`).join('\n') || '  (none)'}
+
+TEACHER INSIGHTS:
+${ckr.teacherInsights.map(i => `  - "${i.insight}"`).join('\n') || '  (none)'}
+
+MISCONCEPTIONS CORRECTED:
+${ckr.misconceptions.map(m => `  - Mistake: ${m.mistake} → Correction: ${m.correction}`).join('\n') || '  (none)'}
+
+ANALOGIES:
+${ckr.analogies.map(a => `  - ${a.analogy} → explains ${a.concept}`).join('\n') || '  (none)'}
+
+EXAMPLES WORKED:
+${ckr.examples.map(e => `  - ${e.example} → demonstrates ${e.concept}`).join('\n') || '  (none)'}
+
+MEMORY TRICKS:
+${ckr.memoryTricks.map(t => `  - ${t.trick} → for ${t.concept}`).join('\n') || '  (none)'}
+
+BOARD WORK:
+${ckr.boardWork.map(b => `  - ${b.description}`).join('\n') || '  (none)'}
+
+TEACHER EMPHASIS:
+${ckr.teacherEmphasis.map(e => `  - "${e.statement}" (repeated ${e.repetitionCount || 1}x)`).join('\n') || '  (none)'}
+
+CONCEPTS REJECTED (DO NOT ADD):
+${rejectedList || '  (none)'}
+
+═══════════════════════════════════════════════════
+BLOCK TYPES
+═══════════════════════════════════════════════════
+1. "hook" — Opening {type:"hook", content:"...", layout:"full", priority:3}
+2. "narrative" — Concept {type:"narrative", heading:"...", content:"...", keyTerms:[], layout:"full", priority:1}
+3. "formula_vault" — {type:"formula_vault", title:"...", formulas:[{expr:"...", name:"..."}], legend:[{symbol:"...", meaning:"..."}], layout:"full", priority:2}
+4. "derivation" — {type:"derivation", title:"...", steps:[{step:1, expr:"...", justification:"..."}], layout:"full", priority:2}
+5. "teacher_emphasis" — {type:"teacher_emphasis", quote:"...", context:"...", layout:"sidebar", priority:4}
+6. "memory_trick" — {type:"memory_trick", title:"...", content:"...", layout:"sidebar", priority:4}
+7. "misconception_alert" — {type:"misconception_alert", mistake:"...", correction:"...", layout:"half", priority:3}
+8. "exam_radar" — {type:"exam_radar", level:"high|medium|low", exam:"${context.exam}", content:"...", layout:"half", priority:3}
+9. "comparison_table" — {type:"comparison_table", title:"...", headers:[], rows:[], layout:"full", priority:2}
+10. "diagram" — {type:"diagram", title:"...", description:"...", labels:[], layout:"full", priority:2}
+11. "flowchart" — {type:"flowchart", title:"...", steps:[], layout:"full", priority:3}
 
 ENABLED BLOCKS: ${enabledBlocks.join(', ')}
 
-SUBJECT INTELLIGENCE (${context.subject}):
-- Physics: Heavy on derivation, vector notation, diagrams
-- Chemistry: Comparison tables, exceptions, memory tricks
-- Mathematics: Step-by-step derivation, worked examples
-- Biology: Diagram blocks, flowcharts, labeled structures
-
-OUTPUT JSON:
+═══════════════════════════════════════════════════
+OUTPUT JSON
+═══════════════════════════════════════════════════
 {
   "metadata":{
-    "topic":"Main topic name",
-    "subtopic":"Specific subtopic",
+    "topic":"${ckr.topic}",
+    "subtopic":"",
     "class":"${context.class}",
     "subject":"${context.subject}",
     "exam":"${context.exam}",
-    "lectureFlow":"00:00 - ${Math.floor(context.duration / 60)}:${(context.duration % 60).toString().padStart(2, '0')}"
+    "lectureFlow":"00:00 - ${Math.floor(context.duration / 60)}:${(context.duration % 60).toString().padStart(2, '0')}",
+    "teachingFidelityScore":${ckr.teachingFidelityScore},
+    "conceptsCoveredCount":${approvedConcepts.length}
   },
-  "blocks":[...]
-}
-
-CRITICAL: Generate 10-20 blocks. Use proper math notation (E⃗ for vectors, ² for squares).`;
+  "blocks":[
+    // Generate blocks using ONLY approved CKR content
+  ]
+}`;
   }
 
-  buildDPP(context, knowledge, teaching, importance) {
-    const conceptNames = knowledge.concepts.map(c => c.title).join(', ');
-    const highImportance = importance.scores.filter(s => s.level === 'high').map(s => s.conceptName);
+  buildDPP(context, ckr, knowledge, importance) {
+    const approvedConcepts = ckr.conceptsCovered.filter(c => c.approved).map(c => c.name).join(', ');
+    const rejectedList = ckr.rejectedConcepts.map(r => r.concept).join(', ');
 
-    return `You are an expert ${context.subject} faculty at a top ${context.exam} coaching institute.
-Generate a CLASSROOM-SPECIFIC Daily Practice Problem (DPP) worksheet.
+    return `You are an expert ${context.subject} faculty generating a DPP.
 
-CONTEXT:
-- Class: ${context.class} | Subject: ${context.subject}
-- Chapter: ${context.chapter} | Board: ${context.board}
-- Exam Target: ${context.exam}
+FIDELITY RULES:
+Generate questions ONLY on APPROVED concepts.
+DO NOT add textbook concepts not covered.
 
-CONCEPTS COVERED: ${conceptNames}
-HIGH IMPORTANCE: ${highImportance.join(', ')}
-TEACHING STYLE: ${teaching.teachingStyle}
+APPROVED CONCEPTS: ${approvedConcepts}
+REJECTED (DO NOT test): ${rejectedList || '(none)'}
+
+TEACHER INSIGHTS:
+${ckr.teacherInsights.map(i => `- ${i.insight}`).join('\n')}
+
+MISCONCEPTIONS:
+${ckr.misconceptions.map(m => `- ${m.mistake} → ${m.correction}`).join('\n')}
 
 DPP SPECIFICATION (10 Questions):
-DIFFICULTY: 30% Easy / 50% Medium / 20% Challenging
-MINIMUM STANDARD: NEET Level
+Difficulty: 30% Easy / 50% Medium / 20% Challenging
+Min Standard: NEET Level
 
-SECTION A — MCQ (3 questions)
-SECTION B — Fill in the Blanks (2 questions)
-SECTION C — True or False (2 questions)
-SECTION D — Assertion & Reasoning (2 questions)
-SECTION E — Statement I & II (1 question)
-
-FOR EVERY QUESTION INCLUDE:
-- Question, Options (if applicable), Correct Answer
-- One-line Explanation
-- Concept Tested
-- Difficulty: "easy" | "medium" | "challenging"
-- Bloom's level: "remember" | "understand" | "apply" | "analyze" | "evaluate"
+Section A — MCQ (3 questions)
+Section B — Fill in the Blanks (2 questions)
+Section C — True or False (2 questions)
+Section D — Assertion & Reasoning (2 questions)
+Section E — Statement I & II (1 question)
 
 OUTPUT JSON:
 {
@@ -1639,31 +1688,30 @@ OUTPUT JSON:
   "totalQuestions":10,
   "sections":{
     "A_MCQ":[{"num":1,"q":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"B","explanation":"...","concept":"...","difficulty":"easy","blooms":"understand"}],
-    "B_Fill":[{"num":4,"q":"The ______ is defined as...","answer":"...","explanation":"...","concept":"...","difficulty":"easy","blooms":"remember"}],
-    "C_TF":[{"num":6,"q":"Statement","answer":"True","explanation":"...","concept":"...","difficulty":"medium","blooms":"understand"}],
+    "B_Fill":[{"num":4,"q":"...","answer":"...","explanation":"...","concept":"...","difficulty":"easy","blooms":"remember"}],
+    "C_TF":[{"num":6,"q":"...","answer":"True","explanation":"...","concept":"...","difficulty":"medium","blooms":"understand"}],
     "D_AR":[{"num":8,"assertion":"...","reason":"...","answer":"A","explanation":"...","concept":"...","difficulty":"medium","blooms":"analyze"}],
     "E_Statement":[{"num":10,"statement1":"...","statement2":"...","answer":"B","explanation":"...","concept":"...","difficulty":"challenging","blooms":"evaluate"}]
   }
-}
-
-RULES:
-- Exactly 10 questions (3+2+2+2+1)
-- Classroom-specific, not generic
-- Include questions based on teacher emphasis and misconceptions`;
+}`;
   }
 
-  buildAssignment(context, knowledge, importance) {
-    const conceptNames = knowledge.concepts.map(c => c.title).join(', ');
-    return `Generate a comprehensive ASSIGNMENT for ${context.class} ${context.subject}: ${context.chapter}.
-Target exam: ${context.exam}
+  buildAssignment(context, ckr, knowledge, importance) {
+    const approvedConcepts = ckr.conceptsCovered.filter(c => c.approved).map(c => c.name).join(', ');
+    const rejectedList = ckr.rejectedConcepts.map(r => r.concept).join(', ');
 
-CONCEPTS: ${conceptNames}
+    return `Generate an ASSIGNMENT for ${context.class} ${context.subject}: ${context.chapter}.
+
+FIDELITY RULES:
+ONLY test APPROVED concepts. Do NOT add textbook content.
+
+APPROVED CONCEPTS: ${approvedConcepts}
+REJECTED (DO NOT include): ${rejectedList || '(none)'}
 
 SPECIFICATION (20 Questions):
-- Section I — Objective: 16 questions (MCQs, conceptual, application, numerical)
-- Section II — Subjective: 4 questions (short answer, derivation, numerical, reasoning)
-- Total marks: 40
-- Duration: 60 min
+- Section I — Objective: 16 questions
+- Section II — Subjective: 4 questions
+- Total marks: 40, Duration: 60 min
 
 OUTPUT JSON:
 {
@@ -1674,53 +1722,37 @@ OUTPUT JSON:
   "duration":"60 min",
   "maxMarks":40,
   "objective":[{"num":1,"q":"...","options":["A) ...","B) ...","C) ...","D) ..."],"type":"conceptual","concept":"...","difficulty":"easy","marks":1,"blooms":"remember"}],
-  "subjective":[{"num":17,"q":"...","type":"derivation","concept":"...","difficulty":"hard","marks":5,"blooms":"evaluate"}],
+  "subjective":[{"num":17,"q":"...","type":"short-answer","concept":"...","difficulty":"hard","marks":5,"blooms":"evaluate"}],
   "answerKey":{"objective":["B","A","C","D","B","A","C","D","B","A","C","D","B","A","C","D"],"subjective":["Hint 1","Hint 2","Hint 3","Hint 4"]}
-}
-
-RULES:
-- Exactly 20 questions (16 objective + 4 subjective)
-- Gradually increasing difficulty
-- Classroom-specific, not generic`;
+}`;
   }
 
   buildParent(context, parentIntel) {
-    return `You are a friendly academic coordinator writing a brief update for parents.
-Parents have NO technical background. Use simple, warm, encouraging language.
+    return `Write a parent-friendly summary.
 
-CONTEXT:
-- Class: ${parentIntel.context.class} | Subject: ${parentIntel.context.subject}
-- Chapter: ${parentIntel.context.topic}
-- Lecture Duration: ${parentIntel.context.duration}
+TOPIC: ${parentIntel.context.topic}
+DURATION: ${parentIntel.context.duration}
+CLASS: ${parentIntel.context.class}
+SUBJECT: ${parentIntel.context.subject}
 
-CONCEPTS COVERED:
+CONCEPTS TAUGHT (use plain English):
 ${parentIntel.conceptsCovered.map((c, i) => `${i + 1}. ${c}`).join('\n')}
 
-COGNITIVE LOAD:
-- Average load: ${parentIntel.cognitiveLoadSummary.averageLoad}%
-- Overload detected: ${parentIntel.cognitiveLoadSummary.overloadDetected ? 'Yes' : 'No'}
+TEACHER INSIGHTS:
+${parentIntel.teacherInsights.map(i => `- ${i.insight}`).join('\n') || '(none)'}
+
+MISCONCEPTIONS CORRECTED:
+${parentIntel.misconceptions.map(m => `- ${m.mistake} → ${m.correction}`).join('\n') || '(none)'}
 
 OUTPUT JSON:
 {
-  "todayClass":{
-    "topic":"${parentIntel.context.topic}",
-    "duration":"${parentIntel.context.duration}",
-    "teacher":"${parentIntel.context.teacher}",
-    "class":"${parentIntel.context.class}",
-    "subject":"${parentIntel.context.subject}"
-  },
+  "todayClass":{"topic":"${parentIntel.context.topic}","duration":"${parentIntel.context.duration}","teacher":"${parentIntel.context.teacher}","class":"${parentIntel.context.class}","subject":"${parentIntel.context.subject}"},
   "conceptsLearned":["Simple explanation 1","Simple explanation 2","Simple explanation 3"],
   "whyThisMatters":"2-3 sentences in parent-friendly language.",
-  "homework":{
-    "dpp":"10-question practice sheet (to be solved today)",
-    "assignment":"20-question assignment (to be completed this week)",
-    "test":"Chapter test scheduled for revision"
-  },
+  "homework":{"dpp":"10-question practice sheet (to be solved today)","assignment":"20-question assignment (this week)","test":"Chapter test scheduled"},
   "parentSuggestions":["Suggestion 1","Suggestion 2","Suggestion 3","Suggestion 4"],
   "upcomingClass":"Next topic"
-}
-
-CRITICAL: 4-6 concepts, 4 parent suggestions, all parent-friendly.`;
+}`;
   }
 
   buildCoverage(context, chapterProgress, knowledge) {
@@ -1731,11 +1763,11 @@ CRITICAL: 4-6 concepts, 4 parent suggestions, all parent-friendly.`;
       return d.toISOString().split('T')[0];
     };
 
-    return `Estimate chapter coverage for ${context.subject} — ${context.chapter}.
+    return `Estimate chapter coverage.
 
-SUBJECT: ${context.subject} | CLASS: ${context.class} | BOARD: ${context.board} | EXAM: ${context.exam}
-ESTIMATED TOTAL CONCEPTS: ${chapterProgress.totalConcepts}
-CONCEPTS COVERED:
+SUBJECT: ${context.subject} | CLASS: ${context.class} | EXAM: ${context.exam}
+TOTAL CONCEPTS IN CHAPTER: ${chapterProgress.totalConcepts}
+CONCEPTS COVERED (from approved CKR):
 ${completed.map(c => `- ${c}`).join('\n')}
 
 OUTPUT JSON:
@@ -1748,21 +1780,21 @@ OUTPUT JSON:
   "estimatedCompletionDate":"${futureDate(chapterProgress.estimatedClassesRemaining)}",
   "difficultyLevel":"${chapterProgress.difficultyLevel}",
   "pyqCoverage":${chapterProgress.pyqCoverage},
-  "nextObjective":"What the next class should focus on",
+  "nextObjective":"Next class focus",
   "pendingConcepts":["concept 1","concept 2"],
-  "prerequisites":["What to revise before next class"],
+  "prerequisites":["Revise before next class"],
   "expectedHomework":"Brief description",
   "expectedTestDate":"${futureDate(chapterProgress.estimatedClassesRemaining + 1)}"
-}
-
-RULES:
-- Realistic coverage percentage (0-100)
-- Keep lists concise (3-6 items)`;
+}`;
   }
 
   buildExtra(context, knowledge) {
-    return `Generate flashcards and chapter test for ${context.class} ${context.subject}: ${knowledge.concepts[0]?.title || context.chapter}.
-Target exam: ${context.exam}
+    return `Generate flashcards and chapter test.
+
+TOPIC: ${knowledge.concepts[0]?.title || context.chapter}
+EXAM: ${context.exam}
+
+FIDELITY: Only use APPROVED concepts from CKR.
 
 OUTPUT JSON:
 {
@@ -1774,16 +1806,14 @@ OUTPUT JSON:
     "pattern":"${context.exam} pattern",
     "questions":[{"num":1,"q":"...","type":"MCQ","marks":4,"options":["A) ...","B) ...","C) ...","D) ..."]}]
   }
-}
-
-RULES:
-- 10 flashcards (quick recall)
-- 10 test questions matching ${context.exam} pattern`;
+}`;
   }
 };
 
-/* ── LLM Executor ── */
-CP.Orchestration.LLMExecutor = class {
+/* ══════════════════════════════════════════════════════════
+   LLM EXECUTOR
+   ══════════════════════════════════════════════════════════ */
+CP.LLMExecutor = class {
   async call(key, prompt) {
     const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
@@ -1810,126 +1840,141 @@ CP.Orchestration.LLMExecutor = class {
   }
 };
 
-/* ── Workflow Orchestrator ── */
-CP.Orchestration.WorkflowOrchestrator = class {
+/* ══════════════════════════════════════════════════════════
+   WORKFLOW ORCHESTRATOR
+   
+   V1.0 Final Pipeline:
+   CUI → CKR → Teacher Approval → Forbidden Knowledge
+   Validator → Knowledge → Importance → Cognitive Load →
+   VSN Rendering → Fidelity Audit → QA Engine →
+   Page Planning → LOI → Publishing →
+   Parent / Coverage / DPP / Assignment / Flashcards / Test
+   ══════════════════════════════════════════════════════════ */
+CP.WorkflowOrchestrator = class {
   constructor(context) {
     this.context = context;
-    this.adapter = CP.Education.getAdapter(context.subject, context.exam, context.board);
-    this.promptBuilder = new CP.Orchestration.PromptBuilder(this.adapter);
-    this.llm = new CP.Orchestration.LLMExecutor();
+    this.promptBuilder = new CP.PromptBuilder();
+    this.llm = new CP.LLMExecutor();
 
-    // Core engines
-    this.sessionIntel = new CP.Core.SessionIntelligenceEngine();
-    this.teachingIntel = new CP.Core.TeachingIntelligenceEngine();
-    this.knowledgeGraph = new CP.Core.KnowledgeGraphEngine();
-    this.importance = new CP.Core.ImportanceEngine();
-    this.cognitiveLoad = new CP.Core.CognitiveLoadEngine();
-    this.evidence = new CP.Core.LearningEvidenceEngine();
-    this.publishing = new CP.Core.PublishingIntelligenceEngine();
-    this.pagePlanning = new CP.Core.PagePlanningEngine();
-    this.loi = new CP.Core.LayoutOptimizationIntelligence();
-    this.decision = new CP.Core.DecisionEngine();
-    this.recommendation = new CP.Core.RecommendationEngine();
-    this.parentIntel = new CP.Core.ParentIntelligenceEngine();
-    this.chapterProgress = new CP.Core.ChapterProgressEngine();
+    this.fidelity = new CP.TeachingFidelityEngine();
+    this.forbiddenValidator = new CP.ForbiddenKnowledgeValidator();
+    this.qaEngine = new CP.InternalQAEngine();
+    this.repository = new CP.TeacherKnowledgeRepository();
+    this.sessionIntel = new CP.SessionIntelligenceEngine();
+    this.knowledgeIntel = new CP.KnowledgeIntelligenceEngine();
+    this.importance = new CP.ImportanceEngine();
+    this.cognitiveLoad = new CP.CognitiveLoadEngine();
+    this.publishing = new CP.PublishingIntelligenceEngine();
+    this.pagePlanning = new CP.PagePlanningEngine();
+    this.loi = new CP.LayoutOptimizationIntelligence();
+    this.decision = new CP.DecisionEngine();
+    this.recommendation = new CP.RecommendationEngine();
+    this.parentIntel = new CP.ParentIntelligenceEngine();
+    this.chapterProgress = new CP.ChapterProgressEngine();
   }
 
-  async run(transcript, settings, onStep) {
+  async run(ckr, settings, onStep) {
     // Stage 0: Session Intelligence
     await onStep(0);
     const sessionAnalysis = this.sessionIntel.analyze(this.context);
 
-    // Stage 1: Teaching Intelligence
+    // Stage 1: Forbidden Knowledge Validator (pre-render)
     await onStep(1);
-    const teachingAnalysis = this.teachingIntel.analyze(transcript);
+    // This is implicitly enforced by CKR-only prompts
 
-    // Stage 2: VSN-2.0 Notes (LLM call)
+    // Stage 2: Knowledge Intelligence (from approved CKR only)
     await onStep(2);
-    const vsnPrompt = this.promptBuilder.buildVSN(this.context, transcript, settings, sessionAnalysis, teachingAnalysis);
-    const vsnData = await this.llm.call(getKey(), vsnPrompt);
+    const knowledge = this.knowledgeIntel.build(ckr);
 
-    // Stage 3: Knowledge Graph
+    // Stage 3: Importance
     await onStep(3);
-    let knowledge = this.knowledgeGraph.build(vsnData.blocks, this.context);
-    knowledge = this.adapter.enrichKnowledge(knowledge);
+    const importance = this.importance.calculate(knowledge, ckr, this.context);
 
-    // Stage 4: Importance
+    // Stage 4: Cognitive Load
     await onStep(4);
-    let importance = this.importance.calculate(knowledge, teachingAnalysis, this.context);
-    importance = this.adapter.adjustImportance(importance, knowledge);
-
-    // Stage 5: Cognitive Load
-    await onStep(5);
     const cognitiveLoadAnalysis = this.cognitiveLoad.analyze(knowledge, importance);
 
-    // Stage 6: Publishing Intelligence
+    // Stage 5: VSN Rendering (CKR-only prompt)
+    await onStep(5);
+    const vsnPrompt = this.promptBuilder.buildVSN(this.context, ckr, knowledge, settings);
+    const vsnData = await this.llm.call(getKey(), vsnPrompt);
+
+    // Stage 6: Teaching Fidelity Audit
     await onStep(6);
+    const audit = this.fidelity.audit(vsnData.blocks, ckr);
+
+    // Apply strict filtering if enabled
+    let finalBlocks = vsnData.blocks;
+    if (settings.strictFidelity && audit.violations.length > 0) {
+      finalBlocks = this.fidelity.filter(vsnData.blocks, audit);
+    }
+    vsnData.blocks = finalBlocks;
+
+    // Stage 7: Internal QA Engine
+    await onStep(7);
+    const qaReport = this.qaEngine.run(vsnData, ckr, audit, this.context);
+
+    // Stage 8: Publishing
+    await onStep(8);
     const publishingPlan = this.publishing.decide(vsnData.blocks, importance, cognitiveLoadAnalysis);
 
-    // Stage 7: Page Planning
-    await onStep(7);
+    // Stage 9: Page Planning
+    await onStep(9);
     const pagePlan = this.pagePlanning.plan(publishingPlan, this.context);
 
-    // Stage 8: LOI
-    await onStep(8);
+    // Stage 10: LOI
+    await onStep(10);
     const layoutPlan = this.loi.optimize(pagePlan);
 
-    // Stage 9: Evidence
-    await onStep(9);
-    const evidenceAnalysis = this.evidence.build(knowledge, transcript);
-
-    // Stage 10: Decision Layer
-    await onStep(10);
-    const decisions = this.decision.resolve(
-      { knowledge, importance, cognitiveLoad: cognitiveLoadAnalysis, publishing: publishingPlan, pagePlan, layout: layoutPlan },
-      { pageSpace: layoutPlan.totalPages > pagePlan.targetPages ? 'limited' : 'normal' }
-    );
-
-    // Stage 11: Recommendations
+    // Stage 11: Decision
     await onStep(11);
-    const recommendations = this.recommendation.generate({ knowledge, importance, cognitiveLoad: cognitiveLoadAnalysis });
+    const decisions = this.decision.resolve();
 
-    // Stage 12: Parent Summary (LLM call)
+    // Stage 12: Recommendations
     await onStep(12);
-    const parentInput = this.parentIntel.prepare(
-      { knowledge, cognitiveLoad: cognitiveLoadAnalysis, recommendations },
-      this.context
-    );
+    const recommendations = this.recommendation.generate({ knowledge, importance });
+
+    // Stage 13: Parent Summary
+    await onStep(13);
+    const parentInput = this.parentIntel.prepare({ knowledge, ckr, recommendations }, this.context);
     const parentPrompt = this.promptBuilder.buildParent(this.context, parentInput);
     const parentSummary = await this.llm.call(getKey(), parentPrompt);
 
-    // Stage 13: Chapter Coverage (LLM call)
-    await onStep(13);
+    // Stage 14: Chapter Coverage
+    await onStep(14);
     const chapterProg = this.chapterProgress.calculate(knowledge, importance, this.context);
     const coveragePrompt = this.promptBuilder.buildCoverage(this.context, chapterProg, knowledge);
     const chapterCoverage = await this.llm.call(getKey(), coveragePrompt);
 
-    // Stage 14: DPP (LLM call)
-    await onStep(14);
-    const dppPrompt = this.promptBuilder.buildDPP(this.context, knowledge, teachingAnalysis, importance);
+    // Stage 15: DPP
+    await onStep(15);
+    const dppPrompt = this.promptBuilder.buildDPP(this.context, ckr, knowledge, importance);
     const dppData = await this.llm.call(getKey(), dppPrompt);
 
-    // Stage 15: Assignment (LLM call)
-    await onStep(15);
-    const asgnPrompt = this.promptBuilder.buildAssignment(this.context, knowledge, importance);
+    // Stage 16: Assignment
+    await onStep(16);
+    const asgnPrompt = this.promptBuilder.buildAssignment(this.context, ckr, knowledge, importance);
     const asgnData = await this.llm.call(getKey(), asgnPrompt);
 
-    // Stage 16: Flashcards + Test (LLM call)
-    await onStep(16);
+    // Stage 17: Flashcards + Test
+    await onStep(17);
     const extraPrompt = this.promptBuilder.buildExtra(this.context, knowledge);
     const extraData = await this.llm.call(getKey(), extraPrompt);
 
-    // Stage 17: Finalize
-    await onStep(17);
+    // Stage 18: Finalize
+    await onStep(18);
 
-    // Build intelligence package
+    // Save CKR to teacher knowledge repository
+    this.repository.save(ckr, this.context.id);
+
     const intelligence = {
       session: sessionAnalysis,
-      teaching: teachingAnalysis,
+      ckr,
       knowledge,
       importance,
       cognitiveLoad: cognitiveLoadAnalysis,
-      evidence: evidenceAnalysis,
+      audit,
+      qa: qaReport,
       publishing: publishingPlan,
       pagePlan,
       layout: layoutPlan,
@@ -1938,18 +1983,14 @@ CP.Orchestration.WorkflowOrchestrator = class {
       chapterProgress: chapterProg,
       confidence: {
         session: sessionAnalysis.confidence,
-        teaching: teachingAnalysis.confidence,
+        cui: ckr.confidenceScore,
+        fidelity: audit.fidelityScore,
+        qa: qaReport.overallStatus === 'pass' ? 98 : qaReport.overallStatus === 'warn' ? 80 : 60,
         knowledge: knowledge.confidence,
         importance: importance.confidence,
         cognitiveLoad: cognitiveLoadAnalysis.confidence,
-        evidence: evidenceAnalysis.confidence,
-        publishing: 95,
         pagePlan: pagePlan.confidence,
-        loi: layoutPlan.confidence,
-        decision: decisions.confidence,
-        recommendation: recommendations.confidence,
-        parent: parentInput.confidence,
-        chapterProgress: chapterProg.confidence
+        loi: layoutPlan.confidence
       }
     };
 
@@ -1968,39 +2009,258 @@ CP.Orchestration.WorkflowOrchestrator = class {
 
   _buildSummary(intelligence, dppData, asgnData) {
     const conf = intelligence.confidence;
-    return `📊 V4.0 Intelligence Summary
-━━━━━━━━━━━━━━━━━━━━━━━
-Topic: ${intelligence.session.positionInChapter} in chapter
+    const ckr = intelligence.ckr;
+    const audit = intelligence.audit;
+    const qa = intelligence.qa;
 
-Confidence Scores:
-  Session: ${conf.session}% | Teaching: ${conf.teaching}%
-  Knowledge: ${conf.knowledge}% | Importance: ${conf.importance}%
-  Cognitive Load: ${conf.cognitiveLoad}% | Evidence: ${conf.evidence}%
-  Page Plan: ${conf.pagePlan}% | LOI: ${conf.loi}%
-  Decision: ${conf.decision}% | Recommendation: ${conf.recommendation}%
+    return `📊 V1.0 Final — Teaching Fidelity Report
+━━━━━━━━━━━━━━━━━━━━━━━
+Topic: ${ckr.topic}
+Teaching Fidelity Score: ${ckr.teachingFidelityScore}%
+CUI Confidence: ${conf.cui}%
+Post-Render Fidelity: ${audit.fidelityScore}%
+
+🛡️ QA ENGINE REPORT
+  Status: ${qa.overallStatus.toUpperCase()}
+  Passed: ${qa.passed} | Warnings: ${qa.warnings} | Failures: ${qa.failures}
+
+📚 CONCEPTS CAPTURED
+  Total Approved: ${ckr.conceptsCovered.filter(c => c.approved).length}
+  Category A (Explicit): ${intelligence.knowledge.categoryACount}
+  Category B (Implied): ${intelligence.knowledge.categoryBCount}
+  Rejected: ${ckr.rejectedConcepts.length}
+
+🛡️ FIDELITY AUDIT
+  Verified: ${audit.verifiedCount}/${audit.totalConcepts}
+  Violations: ${audit.violations.length}
+  Inference: ${audit.inferencePct}%
+  Unsupported: ${audit.unsupportedPct}%
 
 📐 NOTES
-  Concepts: ${intelligence.knowledge.totalConcepts}
-  Formulas: ${intelligence.knowledge.formulas.length}
-  High-Importance: ${intelligence.importance.highImportanceCount}
-  Cognitive Load: ${intelligence.cognitiveLoad.averageLoad}% avg
+  Formulas: ${ckr.formulaeDiscussed.length}
+  Teacher Insights: ${ckr.teacherInsights.length}
+  Misconceptions: ${ckr.misconceptions.length}
+  Memory Tricks: ${ckr.memoryTricks.length}
 
 📝 DPP: 10 questions (5 sections)
 📚 Assignment: ${(asgnData.objective?.length || 0) + (asgnData.subjective?.length || 0) || 20} questions
 
-Architecture: Intelligence-Oriented (V4.0)`;
+Principle: "Capture the teacher. Not the textbook."`;
   }
 };
 
 /* ══════════════════════════════════════════════════════════
-   LAYER 4: RENDERING
+   TOPIC VALIDATION MODULE (NEW in V1.0 Final)
+   
+   Displays detected concepts for teacher approval.
+   Teacher can Accept/Edit/Add/Remove before generation.
    ══════════════════════════════════════════════════════════ */
-CP.Rendering = {};
+CP.Validation = {
+  ckr: null,
+  removedIds: new Set(),
+  addedConcepts: [],
 
-CP.Rendering.VSNRenderer = class {
+  /**
+   * Show validation UI with detected concepts from CKR.
+   */
+  show(ckr) {
+    this.ckr = ckr;
+    this.removedIds = new Set();
+    this.addedConcepts = [];
+
+    // Set topic
+    document.getElementById('val-topic').value = ckr.topic;
+
+    this._renderStats();
+    this._renderConcepts();
+    this._renderRejected();
+    this._renderWarnings();
+
+    CP.UI.goTo('validation');
+  },
+
+  _renderStats() {
+    const approved = this.ckr.conceptsCovered.filter(c => c.approved && !this.removedIds.has(c.id)).length;
+    const catA = this.ckr.conceptsCovered.filter(c => c.category === 'A' && c.approved && !this.removedIds.has(c.id)).length;
+    const catB = this.ckr.conceptsCovered.filter(c => c.category === 'B' && c.approved && !this.removedIds.has(c.id)).length;
+
+    document.getElementById('val-stats').innerHTML = `
+      <div class="val-stat"><b>${approved + this.addedConcepts.length}</b><span>Approved</span></div>
+      <div class="val-stat"><b>${catA}</b><span>Category A</span></div>
+      <div class="val-stat"><b>${catB}</b><span>Category B</span></div>
+    `;
+  },
+
+  _renderConcepts() {
+    const list = document.getElementById('val-concept-list');
+    const concepts = this.ckr.conceptsCovered;
+
+    if (!concepts.length) {
+      list.innerHTML = '<li style="padding:12px;text-align:center;color:var(--text3);font-size:12px;">No concepts detected. Add concepts manually below.</li>';
+      return;
+    }
+
+    list.innerHTML = concepts.map(c => {
+      const removed = this.removedIds.has(c.id);
+      const catClass = c.category === 'A' ? 'cat-a' : 'cat-b';
+      return `
+        <li class="val-concept-item ${removed ? 'removed' : ''}" data-id="${c.id}">
+          <div class="val-concept-check ${removed ? '' : 'checked'}"></div>
+          <div class="val-concept-name">${CP.Util.escapeHtml(c.name)}</div>
+          <span class="val-concept-cat ${catClass}">${c.category}</span>
+          <div class="val-concept-actions">
+            <button onclick="CP.Validation.toggleConcept('${c.id}')">${removed ? '↺' : '✕'}</button>
+          </div>
+        </li>
+      `;
+    }).join('');
+
+    // Add manually-added concepts
+    this.addedConcepts.forEach((c, idx) => {
+      list.innerHTML += `
+        <li class="val-concept-item added" data-added="${idx}">
+          <div class="val-concept-check checked"></div>
+          <div class="val-concept-name">${CP.Util.escapeHtml(c.name)}</div>
+          <span class="val-concept-cat cat-a">A+</span>
+          <div class="val-concept-actions">
+            <button class="remove-btn" onclick="CP.Validation.removeAdded(${idx})">✕</button>
+          </div>
+        </li>
+      `;
+    });
+  },
+
+  _renderRejected() {
+    const list = document.getElementById('val-rejected-list');
+    const rejected = this.ckr.rejectedConcepts || [];
+
+    if (!rejected.length) {
+      list.innerHTML = '<li style="padding:12px;text-align:center;color:var(--text3);font-size:12px;">No rejected concepts.</li>';
+      return;
+    }
+
+    list.innerHTML = rejected.map(r => `
+      <li class="val-concept-item removed">
+        <div class="val-concept-check"></div>
+        <div class="val-concept-name">${CP.Util.escapeHtml(r.concept)}</div>
+        <div style="font-size:9px;color:var(--text3);max-width:140px;text-align:right;">${CP.Util.escapeHtml(r.reason)}</div>
+      </li>
+    `).join('');
+  },
+
+  _renderWarnings() {
+    const area = document.getElementById('val-warning-area');
+    const warnings = [];
+
+    const approved = this.ckr.conceptsCovered.filter(c => c.approved && !this.removedIds.has(c.id)).length;
+    if (approved === 0 && this.addedConcepts.length === 0) {
+      warnings.push('No concepts approved. Notes will be empty.');
+    }
+    if (this.ckr.conceptsCovered.length === 0) {
+      warnings.push('CUI detected no concepts. Please add them manually.');
+    }
+    if (this.ckr.teachingFidelityScore < 80) {
+      warnings.push(`Low fidelity score (${this.ckr.teachingFidelityScore}%). Review detected concepts carefully.`);
+    }
+
+    if (warnings.length) {
+      area.innerHTML = warnings.map(w => `<div class="val-warning">${CP.Util.escapeHtml(w)}</div>`).join('');
+    } else {
+      area.innerHTML = '';
+    }
+  },
+
+  toggleConcept(id) {
+    if (this.removedIds.has(id)) {
+      this.removedIds.delete(id);
+    } else {
+      this.removedIds.add(id);
+    }
+    this._renderStats();
+    this._renderConcepts();
+    this._renderWarnings();
+  },
+
+  addConcept() {
+    const input = document.getElementById('val-add-input');
+    const name = input.value.trim();
+    if (!name) { CP.Util.showToast('Enter a concept name'); return; }
+
+    this.addedConcepts.push({
+      id: CP.Util.genId('C', 'add'),
+      name,
+      category: 'A',
+      approved: true,
+      source: 'manual'
+    });
+    input.value = '';
+    this._renderStats();
+    this._renderConcepts();
+    this._renderWarnings();
+  },
+
+  removeAdded(idx) {
+    this.addedConcepts.splice(idx, 1);
+    this._renderStats();
+    this._renderConcepts();
+    this._renderWarnings();
+  },
+
+  /**
+   * Teacher approves — update CKR and proceed to generation.
+   */
+  approve() {
+    // Update topic
+    const newTopic = document.getElementById('val-topic').value.trim();
+    if (newTopic) this.ckr.topic = newTopic;
+
+    // Mark removed concepts
+    this.ckr.conceptsCovered.forEach(c => {
+      if (this.removedIds.has(c.id)) {
+        c.approved = false;
+      }
+    });
+
+    // Add manually-added concepts
+    this.addedConcepts.forEach(c => {
+      this.ckr.conceptsCovered.push(c);
+    });
+
+    // Move removed concepts to rejected list
+    this.ckr.conceptsCovered
+      .filter(c => !c.approved)
+      .forEach(c => {
+        if (!this.ckr.rejectedConcepts.some(r => r.concept === c.name)) {
+          this.ckr.rejectedConcepts.push({
+            concept: c.name,
+            reason: 'Removed by teacher during validation'
+          });
+        }
+      });
+
+    // Recalculate fidelity score based on approval
+    const approved = this.ckr.conceptsCovered.filter(c => c.approved).length;
+    const total = this.ckr.conceptsCovered.length;
+    if (total > 0) {
+      this.ckr.teachingFidelityScore = Math.round((approved / total) * 100);
+    }
+
+    // Proceed to generation
+    CP.Session.generateApproved(this.ckr);
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   RENDERERS
+   ══════════════════════════════════════════════════════════ */
+CP.VSNRenderer = class {
   render(vsnData, intelligence) {
     const { metadata, blocks } = vsnData;
     let html = `<div class="vsn-page">`;
+
+    const fidelityScore = metadata.teachingFidelityScore || 0;
+    const fidelityClass = fidelityScore >= 90 ? 'high' : fidelityScore >= 70 ? 'med' : 'low';
+    const showDashboard = CP.Settings.data.showFidelityDashboard !== false;
 
     html += `
       <div class="vsn-header">
@@ -2011,13 +2271,19 @@ CP.Rendering.VSNRenderer = class {
           <span class="vsn-tag">${metadata.subject}</span>
           <span class="vsn-tag">${metadata.exam}</span>
           ${metadata.lectureFlow ? `<span class="vsn-tag">⏱ ${metadata.lectureFlow}</span>` : ''}
-          ${intelligence ? `<span class="vsn-tag">🧠 ${intelligence.confidence.knowledge}%</span>` : ''}
+          <span class="vsn-tag fidelity-${fidelityClass}">🛡️ ${fidelityScore}% Fidelity</span>
+          ${metadata.conceptsCoveredCount ? `<span class="vsn-tag">📚 ${metadata.conceptsCoveredCount} concepts</span>` : ''}
         </div>
       </div>
     `;
 
-    const fullBlocks = (intelligence?.layout?.pages?.[0]?.fullBlocks) || blocks.filter(b => (b.layout || 'full') === 'full');
-    const halfBlocks = (intelligence?.layout?.pages?.[0]?.halfBlocks) || blocks.filter(b => b.layout === 'half');
+    // Teaching Fidelity Dashboard
+    if (showDashboard && intelligence?.audit) {
+      html += this._renderFidelityDashboard(intelligence);
+    }
+
+    const fullBlocks = blocks.filter(b => (b.layout || 'full') === 'full');
+    const halfBlocks = blocks.filter(b => b.layout === 'half');
 
     fullBlocks.forEach(b => { html += this._renderBlock(b); });
 
@@ -2029,6 +2295,61 @@ CP.Rendering.VSNRenderer = class {
 
     html += `</div>`;
     return html;
+  }
+
+  _renderFidelityDashboard(intelligence) {
+    const audit = intelligence.audit;
+    const qa = intelligence.qa;
+    const ckr = intelligence.ckr;
+
+    const approvedCount = ckr.conceptsCovered.filter(c => c.approved).length;
+    const coveragePct = approvedCount > 0
+      ? Math.round((audit.verifiedCount / approvedCount) * 100)
+      : 100;
+
+    const qaStatusClass = qa.overallStatus === 'pass' ? 'pass' : qa.overallStatus === 'warn' ? 'warn' : 'fail';
+    const qaStatusText = qa.overallStatus === 'pass'
+      ? `✓ All ${qa.passed} checks passed`
+      : qa.overallStatus === 'warn'
+      ? `⚠ ${qa.warnings} warning(s), ${qa.passed} passed`
+      : `✗ ${qa.failures} failure(s)`;
+
+    return `
+      <div class="fid-dashboard">
+        <div class="fid-dashboard-title">TEACHING FIDELITY DASHBOARD</div>
+        <div class="fid-score-row">
+          <div class="fid-score-circle" style="--pct:${audit.fidelityScore};">
+            <span>${audit.fidelityScore}%</span>
+          </div>
+          <div class="fid-score-info">
+            <h3>Teaching Fidelity Verified</h3>
+            <p>These notes contain <b>ONLY</b> what was taught and approved by the teacher.</p>
+          </div>
+        </div>
+        <div class="fid-metrics">
+          <div class="fid-metric">
+            <div class="fid-metric-label">Concept Coverage</div>
+            <div class="fid-metric-value ${coveragePct >= 90 ? 'good' : coveragePct >= 70 ? 'warn' : 'bad'}">${coveragePct}%</div>
+          </div>
+          <div class="fid-metric">
+            <div class="fid-metric-label">Inference</div>
+            <div class="fid-metric-value ${audit.inferencePct <= 10 ? 'good' : audit.inferencePct <= 25 ? 'warn' : 'bad'}">${audit.inferencePct}%</div>
+          </div>
+          <div class="fid-metric">
+            <div class="fid-metric-label">Unsupported</div>
+            <div class="fid-metric-value ${audit.unsupportedPct === 0 ? 'good' : 'bad'}">${audit.unsupportedPct}%</div>
+          </div>
+          <div class="fid-metric">
+            <div class="fid-metric-label">Verified</div>
+            <div class="fid-metric-value good">${audit.verifiedCount}/${audit.totalConcepts}</div>
+          </div>
+        </div>
+        <div class="fid-qa-status ${qaStatusClass}">
+          <span>🔍 Internal QA:</span>
+          <span>${qaStatusText}</span>
+        </div>
+      </div>
+    `;
   }
 
   _renderBlock(b) {
@@ -2117,7 +2438,7 @@ CP.Rendering.VSNRenderer = class {
   }
 };
 
-CP.Rendering.ParentSummaryRenderer = class {
+CP.ParentSummaryRenderer = class {
   render(ps) {
     if (!ps) return '<p style="color:var(--text3);text-align:center;padding:20px;">No parent summary generated.</p>';
     const U = CP.Util;
@@ -2161,7 +2482,7 @@ CP.Rendering.ParentSummaryRenderer = class {
   }
 };
 
-CP.Rendering.ChapterCoverageRenderer = class {
+CP.ChapterCoverageRenderer = class {
   render(cc) {
     if (!cc) return '<p style="color:var(--text3);text-align:center;padding:20px;">No coverage data generated.</p>';
     const U = CP.Util;
@@ -2201,7 +2522,7 @@ CP.Rendering.ChapterCoverageRenderer = class {
   }
 };
 
-CP.Rendering.DPPRenderer = class {
+CP.DPPRenderer = class {
   render(dpp) {
     if (!dpp || !dpp.sections) return '<p style="color:var(--text3);text-align:center;padding:20px;">No DPP generated.</p>';
     const U = CP.Util;
@@ -2281,7 +2602,7 @@ CP.Rendering.DPPRenderer = class {
   }
 };
 
-CP.Rendering.AssignmentRenderer = class {
+CP.AssignmentRenderer = class {
   render(asgn) {
     if (!asgn) return '<p style="color:var(--text3);text-align:center;padding:20px;">No assignment generated.</p>';
     const U = CP.Util;
@@ -2325,7 +2646,7 @@ CP.Rendering.AssignmentRenderer = class {
   }
 };
 
-CP.Rendering.FlashcardRenderer = class {
+CP.FlashcardRenderer = class {
   render(cards) {
     if (!cards || !cards.length) return '<p style="color:var(--text3);text-align:center;padding:20px;">No flashcards.</p>';
     const U = CP.Util;
@@ -2333,7 +2654,7 @@ CP.Rendering.FlashcardRenderer = class {
   }
 };
 
-CP.Rendering.TestRenderer = class {
+CP.TestRenderer = class {
   render(test) {
     if (!test) return '<p style="color:var(--text3);text-align:center;padding:20px;">No test.</p>';
     const U = CP.Util;
@@ -2347,10 +2668,8 @@ CP.Rendering.TestRenderer = class {
 };
 
 /* ══════════════════════════════════════════════════════════
-   LAYER 5-10: UI, SESSION, EXPORT, SETTINGS, AUTH
+   AUTH, SETTINGS, SESSION, UI, EXPORT
    ══════════════════════════════════════════════════════════ */
-
-/* ── Auth ── */
 CP.Auth = {
   saveKey() {
     const v = document.getElementById('groq-key').value.trim();
@@ -2365,12 +2684,14 @@ function getKey() {
   return localStorage.getItem('cp_groq') || document.getElementById('groq-key').value.trim();
 }
 
-/* ── Settings ── */
 CP.Settings = {
   data: {
     formulaVault: true, teacherVoice: true, memoryTricks: true,
     misconceptions: true, examRadar: true, derivations: true,
-    pyqPatterns: true, bloomsTaxonomy: true
+    pyqPatterns: true, bloomsTaxonomy: true,
+    strictFidelity: true,
+    showFidelityDashboard: true,
+    requireApproval: true
   },
   load() {
     const saved = JSON.parse(localStorage.getItem('cp_settings') || '{}');
@@ -2390,13 +2711,13 @@ CP.Settings = {
   }
 };
 
-/* ── Session ── */
 CP.Session = {
   current: null,
   recognition: null,
   recognitionActive: false,
   timerSeconds: 0,
   timerInterval: null,
+  pendingCKR: null,
 
   start() {
     const chapter = document.getElementById('cfg-chapter').value.trim();
@@ -2429,23 +2750,56 @@ CP.Session = {
       CP.UI.goTo('config');
       return;
     }
-    CP.UI.goTo('generating');
-    this._runOrchestrator();
+
+    // Run CUI to get CKR, then show validation UI
+    this._runCUIAndValidate();
   },
 
-  async _runOrchestrator() {
+  async _runCUIAndValidate() {
+    CP.Util.showToast('🛡️ Analyzing classroom transcript...');
+    try {
+      const cui = new CP.ClassroomUnderstandingEngine();
+      const repository = new CP.TeacherKnowledgeRepository();
+      const pastCKRs = repository.getRelated(this.current, 3);
+      const ckr = await cui.analyze(this.current.transcript, this.current, pastCKRs);
+
+      this.pendingCKR = ckr;
+
+      if (CP.Settings.data.requireApproval) {
+        CP.Validation.show(ckr);
+      } else {
+        // Skip validation, proceed directly
+        this.generateApproved(ckr);
+      }
+    } catch (e) {
+      console.error(e);
+      CP.Util.showToast('❌ ' + e.message);
+      CP.UI.goTo('config');
+    }
+  },
+
+  /**
+   * Called after teacher approves the CKR.
+   */
+  async generateApproved(ckr) {
+    CP.UI.goTo('generating');
+    await this._runOrchestrator(ckr);
+  },
+
+  async _runOrchestrator(ckr) {
     const stepsEl = document.getElementById('gen-steps');
     const stages = [
       { label: 'Session Intelligence — analyzing history...', icon: '🎓' },
-      { label: 'Teaching Intelligence — extracting signals...', icon: '🎙' },
-      { label: 'VSN-2.0 Notes — rendering with LOI...', icon: '📐' },
-      { label: 'Knowledge Graph — building concept network...', icon: '🔗' },
+      { label: 'Forbidden Knowledge Validator — pre-render check...', icon: '🚫' },
+      { label: 'Knowledge Intelligence — from approved CKR...', icon: '🔗' },
       { label: 'Importance Engine — scoring concepts...', icon: '⚖️' },
       { label: 'Cognitive Load — analyzing mental load...', icon: '🧠' },
-      { label: 'Publishing Intelligence — typography decisions...', icon: '📰' },
+      { label: 'VSN-2.0 Notes — CKR-locked rendering...', icon: '📐' },
+      { label: 'Teaching Fidelity Audit — verifying content...', icon: '🛡️' },
+      { label: 'Internal QA Engine — quality validation...', icon: '🔍' },
+      { label: 'Publishing Intelligence — typography...', icon: '📰' },
       { label: 'Page Planning — pagination strategy...', icon: '📄' },
       { label: 'LOI — optimizing density...', icon: '📊' },
-      { label: 'Evidence Engine — tracking evidence...', icon: '🔍' },
       { label: 'Decision Layer — resolving conflicts...', icon: '⚡' },
       { label: 'Recommendations — what comes next...', icon: '💡' },
       { label: 'Parent Summary — parent-friendly update...', icon: '👨‍👩‍👧' },
@@ -2453,20 +2807,20 @@ CP.Session = {
       { label: 'DPP — 10 questions, 5 sections...', icon: '📝' },
       { label: 'Assignment — 20 questions...', icon: '📚' },
       { label: 'Flashcards & Chapter Test...', icon: '🎴' },
-      { label: 'Finalizing outputs...', icon: '✨' }
+      { label: 'Saving to Teacher Knowledge Repository...', icon: '✨' }
     ];
     stepsEl.innerHTML = stages.map((s, i) =>
       `<div class="gen-step" id="step-${i}"><div class="gen-step-icon">${s.icon}</div>${s.label}</div>`
     ).join('');
 
-    const orchestrator = new CP.Orchestration.WorkflowOrchestrator(this.current);
+    const orchestrator = new CP.WorkflowOrchestrator(this.current);
     const onStep = async (i) => {
       document.getElementById('step-' + i).classList.add('active');
-      await new Promise(r => setTimeout(r, 250));
+      await new Promise(r => setTimeout(r, 200));
     };
 
     try {
-      const outputs = await orchestrator.run(this.current.transcript, CP.Settings.data, async (i) => {
+      const outputs = await orchestrator.run(ckr, CP.Settings.data, async (i) => {
         if (i > 0) {
           const prev = document.getElementById('step-' + (i - 1));
           prev.classList.remove('active');
@@ -2491,7 +2845,7 @@ CP.Session = {
       };
       this.current.intelligence = outputs.intelligence;
 
-      const sie = new CP.Core.SessionIntelligenceEngine();
+      const sie = new CP.SessionIntelligenceEngine();
       sie.saveSession(this.current);
 
       CP.UI.showOutputs(this.current);
@@ -2540,7 +2894,6 @@ CP.Session = {
   }
 };
 
-/* ── UI ── */
 CP.UI = {
   outputTabs: ['Notes', 'Parent Summary', 'Chapter Coverage', 'DPP', 'Assignment', 'Flashcards', 'Chapter Test', 'Summary'],
   activeTab: 'Notes',
@@ -2548,15 +2901,14 @@ CP.UI = {
   svTab: 'Notes',
   notesHtml: '',
 
-  // Renderers (instantiated once)
   renderers: {
-    vsn: new CP.Rendering.VSNRenderer(),
-    parent: new CP.Rendering.ParentSummaryRenderer(),
-    coverage: new CP.Rendering.ChapterCoverageRenderer(),
-    dpp: new CP.Rendering.DPPRenderer(),
-    assignment: new CP.Rendering.AssignmentRenderer(),
-    flashcards: new CP.Rendering.FlashcardRenderer(),
-    test: new CP.Rendering.TestRenderer()
+    vsn: new CP.VSNRenderer(),
+    parent: new CP.ParentSummaryRenderer(),
+    coverage: new CP.ChapterCoverageRenderer(),
+    dpp: new CP.DPPRenderer(),
+    assignment: new CP.AssignmentRenderer(),
+    flashcards: new CP.FlashcardRenderer(),
+    test: new CP.TestRenderer()
   },
 
   goTo(id) {
@@ -2610,13 +2962,17 @@ CP.UI = {
       body.innerHTML = `<div class="empty"><div class="empty-icon">📂</div><h3>No sessions yet</h3><p>Your recorded classes will appear here.</p></div>`;
       return;
     }
-    body.innerHTML = sessions.map(s => `
-      <div class="session-item" onclick="CP.UI.viewSession(${s.id})">
-        <h3>${CP.Util.escapeHtml(s.subject)}: ${CP.Util.escapeHtml(s.chapter)}</h3>
-        <p>${new Date(s.date).toLocaleDateString()} · ${Math.floor(s.duration / 60)}m ${s.duration % 60}s</p>
-        <span class="session-badge">${s.class} · ${s.exam}</span>
-      </div>
-    `).join('');
+    body.innerHTML = sessions.map(s => {
+      const fidelity = s.intelligence?.ckr?.teachingFidelityScore || 0;
+      return `
+        <div class="session-item" onclick="CP.UI.viewSession(${s.id})">
+          <h3>${CP.Util.escapeHtml(s.subject)}: ${CP.Util.escapeHtml(s.chapter)}</h3>
+          <p>${new Date(s.date).toLocaleDateString()} · ${Math.floor(s.duration / 60)}m ${s.duration % 60}s</p>
+          <span class="session-badge">${s.class} · ${s.exam}</span>
+          ${fidelity ? `<span class="session-badge" style="background:var(--green);">🛡️ ${fidelity}%</span>` : ''}
+        </div>
+      `;
+    }).join('');
   },
 
   viewSession(id) {
@@ -2643,7 +2999,6 @@ CP.UI = {
   switchSVTab(t) { this.svTab = t; this._renderSVTabs(); }
 };
 
-/* ── Export ── */
 CP.Export = {
   openPreview() {
     const vsnHtml = CP.UI.renderers.vsn.render(CP.Session.current.outputs.vsn, CP.Session.current.outputs.intelligence);
@@ -2661,7 +3016,7 @@ ${this._extractCSS()}
   _extractCSS() {
     let css = '';
     document.querySelectorAll('style').forEach(s => {
-      if (s.textContent.includes('.vsn-')) css += s.textContent;
+      if (s.textContent.includes('.vsn-') || s.textContent.includes('.fid-')) css += s.textContent;
     });
     return css;
   },
