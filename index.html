@@ -854,27 +854,112 @@ function startSession(){
   startRecognition();startTimer();
 }
 
-let recognition=null,recognitionActive=false;
-function startRecognition(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){showToast('Speech recognition not supported');return;}
-  recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-IN';
+// ── AUDIO CAPTURE + GROQ WHISPER TRANSCRIPTION (replaces browser speech recognition) ──
+// Browser Web Speech API dropped words on every auto-reconnect and had no way to catch it.
+// This records real audio in short segments and sends each to Groq's Whisper endpoint —
+// same API key you already use for the LLM, no new provider to manage.
+let mediaStream=null, mediaRecorder=null, recognitionActive=false, chunkTimer=null, pendingStopCleanup=null;
+const CHUNK_MS=45000; // 45s per segment: short enough for a fresh preview, long enough to stay well under Groq's 25MB free-tier limit
+
+async function startRecognition(){
+  if(!navigator.mediaDevices || !window.MediaRecorder){
+    showToast('⚠ Audio recording not supported on this browser');
+    return;
+  }
+  try{
+    mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});
+  }catch(e){
+    showToast('⚠ Microphone access denied');
+    return;
+  }
   recognitionActive=true;
-  recognition.onresult=(e)=>{
-    let interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){
-      const t=e.results[i][0].transcript;
-      if(e.results[i].isFinal)S.current.transcript+=t+' ';
-      else interim=t;
-    }
-    const p=document.getElementById('transcript-preview');
-    if(p){p.textContent=(S.current.transcript.slice(-300)+interim)||'Listening...';p.scrollTop=p.scrollHeight;}
-  };
-  recognition.onend=()=>{if(recognitionActive)try{recognition.start();}catch(e){}};
-  recognition.onerror=(e)=>{if(e.error!=='no-speech')console.warn(e.error);};
-  try{recognition.start();}catch(e){}
+  const p=document.getElementById('transcript-preview');
+  if(p) p.textContent='Listening...';
+  startNewChunk();
 }
-function stopRecognition(){recognitionActive=false;if(recognition){try{recognition.stop();}catch(e){}recognition=null;}}
+
+function pickAudioMime(){
+  const types=['audio/webm;codecs=opus','audio/webm','audio/mp4'];
+  for(const t of types){ if(MediaRecorder.isTypeSupported(t)) return t; }
+  return '';
+}
+
+function startNewChunk(){
+  if(!recognitionActive || !mediaStream) return;
+  const mime=pickAudioMime();
+  const localChunks=[];
+  try{
+    mediaRecorder=mime?new MediaRecorder(mediaStream,{mimeType:mime}):new MediaRecorder(mediaStream);
+  }catch(e){
+    console.warn('MediaRecorder init failed',e);
+    showToast('⚠ Recording failed to start');
+    recognitionActive=false;
+    return;
+  }
+  mediaRecorder.ondataavailable=e=>{ if(e.data && e.data.size>0) localChunks.push(e.data); };
+  mediaRecorder.onstop=async()=>{
+    const blob=new Blob(localChunks,{type:mediaRecorder.mimeType||mime||'audio/webm'});
+    await transcribeChunk(blob);
+    if(recognitionActive){
+      startNewChunk();
+    } else if(pendingStopCleanup){
+      pendingStopCleanup();
+      pendingStopCleanup=null;
+    }
+  };
+  mediaRecorder.start();
+  chunkTimer=setTimeout(()=>{
+    if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop();
+  },CHUNK_MS);
+}
+
+function stopRecognition(){
+  return new Promise(resolve=>{
+    recognitionActive=false;
+    clearTimeout(chunkTimer);
+    const cleanup=()=>{
+      if(mediaStream){ mediaStream.getTracks().forEach(t=>t.stop()); mediaStream=null; }
+      resolve();
+    };
+    if(mediaRecorder && mediaRecorder.state==='recording'){
+      pendingStopCleanup=cleanup;
+      mediaRecorder.stop(); // final segment — onstop transcribes it before cleanup runs
+    } else {
+      cleanup();
+    }
+  });
+}
+
+async function transcribeChunk(blob){
+  if(!blob || blob.size<800) return; // near-silent chunk, not worth a call
+  const key=getKey();
+  if(!key){ showToast('⚠ Add your Groq API key in Settings'); return; }
+  const ext=(blob.type||'').includes('mp4')?'mp4':'webm';
+  const form=new FormData();
+  form.append('file',blob,`chunk.${ext}`);
+  form.append('model','whisper-large-v3-turbo');
+  form.append('response_format','text');
+  form.append('language','en');
+  try{
+    const res=await fetch('https://api.groq.com/openai/v1/audio/transcriptions',{
+      method:'POST',
+      headers:{'Authorization':`Bearer ${key}`},
+      body:form
+    });
+    if(!res.ok){
+      console.warn('Whisper chunk failed',res.status,await res.text().catch(()=>''));
+      return;
+    }
+    const text=(await res.text()).trim();
+    if(text && S.current){
+      S.current.transcript+=text+' ';
+      const p=document.getElementById('transcript-preview');
+      if(p){ p.textContent=S.current.transcript.slice(-300)||'Listening...'; p.scrollTop=p.scrollHeight; }
+    }
+  }catch(e){
+    console.warn('Whisper error',e);
+  }
+}
 
 let timerSeconds=0;
 function startTimer(){
@@ -886,9 +971,10 @@ function startTimer(){
   },1000);
 }
 
-function stopSession(){
+async function stopSession(){
   clearInterval(S.timerInterval);
-  stopRecognition();
+  showToast('Transcribing final segment...');
+  await stopRecognition();
   S.current.duration=timerSeconds;
   if(S.current.transcript.trim().length < 20){
     showToast('⚠ Recording too short');
@@ -1039,6 +1125,18 @@ ${transcript}
 """
 
 ═══════════════════════════════════════════════════
+GROUNDING RULE — READ THIS BEFORE WRITING ANYTHING
+═══════════════════════════════════════════════════
+
+Read the ENTIRE transcript above before writing a single block. Do not stop at the opening minutes.
+
+- Every block must be traceable to something actually said in this transcript — not generic textbook content for "${ctx.chapter}".
+- If the teacher spent most of the class on one specific sub-topic (e.g. applications, a particular derivation, a specific problem type), that sub-topic must dominate the notes — not the general chapter introduction.
+- Weight coverage toward what was taught LATEST and MOST, not just what was said first.
+- If the transcript is short, unclear, or only covers 2-3 real concepts, generate fewer blocks. Do NOT pad the count with invented generic content to hit a target block count.
+- Never substitute a topic the teacher didn't actually cover just because it's part of the standard chapter.
+
+═══════════════════════════════════════════════════
 LAYOUT OPTIMIZATION INTELLIGENCE (LOI)
 ═══════════════════════════════════════════════════
 
@@ -1143,11 +1241,11 @@ OUTPUT JSON:
 }
 
 CRITICAL RULES:
-- Generate 10-20 blocks for high density
+- Generate 10-20 blocks WHEN the transcript genuinely supports it — never invent content just to hit this range
 - Use "sidebar" layout for memory tricks, teacher emphasis
 - Use "half" layout for misconceptions, exam radar
 - Use "full" layout for major concepts, derivations, formula vaults
-- Target 90-95% page utilization
+- Target 90-95% page utilization for the content that actually exists — density is a rendering goal, not a license to fabricate
 - Use proper math notation (E⃗ for vectors, ² for squares, ₃ for subscripts)`;
 }
 
