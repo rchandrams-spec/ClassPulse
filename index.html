@@ -3,9 +3,19 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>ClassPulse — AI Teaching Companion</title>
+<title>ClassPulse — AI Teaching Companion · V4.0 IOA</title>
 <meta name="theme-color" content="#1A3A5C"/>
 <style>
+/* ══════════════════════════════════════════════════════════
+   CLASSPULSE V4.0 — INTELLIGENCE-ORIENTED ARCHITECTURE
+   
+   Architecture Layers:
+   1. Core Intelligence (Generic, Domain-Agnostic)
+   2. Education Adapter (Domain-Specific)
+   3. Orchestration (Workflow, Prompt Builder)
+   4. Rendering (Output Generation)
+   5. UI (Presentation)
+   ══════════════════════════════════════════════════════════ */
 :root {
   --navy:#1A3A5C; --navy2:#0A1628; --teal:#0D7377; --gold:#E8A020;
   --white:#fff; --bg:#F4F8FB; --card:#fff; --text1:#1A2A3A;
@@ -97,177 +107,65 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .toggle.on::after{left:22px;}
 
 /* ══════════════════════════════════════════════════════════
-   LAYOUT OPTIMIZATION INTELLIGENCE (LOI) — VSN-2.0
+   VSN-2.0 — VISUAL NOTES STANDARD WITH LOI
    ══════════════════════════════════════════════════════════ */
-.vsn-page{
-  font-family:Georgia,'Times New Roman',serif;
-  background:#fff;padding:12px 14px;color:#1A2A3A;
-  line-height:1.5;font-size:11px;
-}
-.vsn-header{
-  border-bottom:2px solid var(--navy);padding-bottom:8px;
-  margin-bottom:10px;
-}
+.vsn-page{font-family:Georgia,'Times New Roman',serif;background:#fff;padding:12px 14px;color:#1A2A3A;line-height:1.5;font-size:11px;}
+.vsn-header{border-bottom:2px solid var(--navy);padding-bottom:8px;margin-bottom:10px;}
 .vsn-header h1{font-size:16px;color:var(--navy);margin-bottom:2px;letter-spacing:.3px;line-height:1.2;}
 .vsn-header .vsn-sub{font-size:11px;color:var(--text2);font-style:italic;margin-bottom:4px;}
 .vsn-meta{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
-.vsn-tag{
-  background:var(--bg);border:1px solid var(--border);
-  padding:1px 6px;border-radius:8px;font-size:8px;
-  font-weight:700;color:var(--text2);letter-spacing:.3px;
-  font-family:-apple-system,sans-serif;
-}
+.vsn-tag{background:var(--bg);border:1px solid var(--border);padding:1px 6px;border-radius:8px;font-size:8px;font-weight:700;color:var(--text2);letter-spacing:.3px;font-family:-apple-system,sans-serif;}
 .vsn-narrative{margin:8px 0;padding:0 2px;font-size:11px;line-height:1.5;}
-.vsn-narrative h3{
-  color:var(--navy);font-size:12px;margin-bottom:4px;
-  border-bottom:1px solid var(--border);padding-bottom:2px;font-weight:700;
-}
+.vsn-narrative h3{color:var(--navy);font-size:12px;margin-bottom:4px;border-bottom:1px solid var(--border);padding-bottom:2px;font-weight:700;}
 .key-term{background:#EAF5F5;padding:0 3px;border-radius:2px;font-weight:700;color:var(--teal);font-size:10px;}
-.vsn-derivation{
-  background:#F8FBFD;border-left:3px solid var(--teal);
-  padding:8px 10px;margin:8px 0;border-radius:0 6px 6px 0;font-size:10px;
-}
-.vsn-derivation h4{
-  color:var(--teal);font-size:10px;letter-spacing:.5px;margin-bottom:6px;
-  font-family:-apple-system,sans-serif;font-weight:800;
-}
+.vsn-derivation{background:#F8FBFD;border-left:3px solid var(--teal);padding:8px 10px;margin:8px 0;border-radius:0 6px 6px 0;font-size:10px;}
+.vsn-derivation h4{color:var(--teal);font-size:10px;letter-spacing:.5px;margin-bottom:6px;font-family:-apple-system,sans-serif;font-weight:800;}
 .vsn-derivation h4::before{content:"📐 ";}
 .vsn-step{display:flex;gap:6px;padding:3px 0;border-bottom:1px dotted var(--border);font-size:10px;}
 .vsn-step:last-child{border:none;}
-.vsn-step-num{
-  background:var(--teal);color:#fff;width:16px;height:16px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:9px;font-weight:700;flex-shrink:0;font-family:-apple-system,sans-serif;
-}
+.vsn-step-num{background:var(--teal);color:#fff;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;font-family:-apple-system,sans-serif;}
 .vsn-step-content{flex:1;font-family:'Cambria Math',serif;font-size:10px;line-height:1.4;}
-.vsn-step-justification{
-  font-size:8px;color:var(--text3);font-style:italic;margin-top:1px;
-  font-family:-apple-system,sans-serif;
-}
-.vsn-formula-vault{
-  background:#F8FBFD;border:1.5px solid var(--navy);
-  border-radius:6px;padding:8px 10px;margin:8px 0;position:relative;font-size:10px;
-}
-.vsn-formula-vault::before{
-  content:"📦 FORMULAS";position:absolute;top:-7px;left:8px;
-  background:var(--navy);color:#fff;padding:1px 6px;border-radius:6px;
-  font-size:7px;font-weight:800;letter-spacing:.5px;font-family:-apple-system,sans-serif;
-}
-.vsn-formula-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-  gap:6px;margin-top:4px;
-}
-.vsn-formula-item{
-  background:#fff;border:1px solid var(--border);border-radius:4px;
-  padding:6px 8px;text-align:center;font-family:'Cambria Math',serif;
-  font-size:11px;color:var(--navy);font-weight:600;
-}
-.vsn-formula-item .fname{
-  font-size:8px;color:var(--text3);font-family:-apple-system,sans-serif;
-  margin-bottom:2px;font-weight:600;
-}
-.vsn-legend{
-  margin-top:6px;padding-top:4px;border-top:1px solid var(--border);
-  font-size:9px;color:var(--text2);font-family:-apple-system,sans-serif;
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:2px 8px;
-}
+.vsn-step-justification{font-size:8px;color:var(--text3);font-style:italic;margin-top:1px;font-family:-apple-system,sans-serif;}
+.vsn-formula-vault{background:#F8FBFD;border:1.5px solid var(--navy);border-radius:6px;padding:8px 10px;margin:8px 0;position:relative;font-size:10px;}
+.vsn-formula-vault::before{content:"📦 FORMULAS";position:absolute;top:-7px;left:8px;background:var(--navy);color:#fff;padding:1px 6px;border-radius:6px;font-size:7px;font-weight:800;letter-spacing:.5px;font-family:-apple-system,sans-serif;}
+.vsn-formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:6px;margin-top:4px;}
+.vsn-formula-item{background:#fff;border:1px solid var(--border);border-radius:4px;padding:6px 8px;text-align:center;font-family:'Cambria Math',serif;font-size:11px;color:var(--navy);font-weight:600;}
+.vsn-formula-item .fname{font-size:8px;color:var(--text3);font-family:-apple-system,sans-serif;margin-bottom:2px;font-weight:600;}
+.vsn-legend{margin-top:6px;padding-top:4px;border-top:1px solid var(--border);font-size:9px;color:var(--text2);font-family:-apple-system,sans-serif;display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:2px 8px;}
 .vsn-legend-item{display:flex;gap:4px;padding:1px 0;}
-.vsn-legend-item .sym{
-  font-family:'Cambria Math',serif;font-weight:700;
-  color:var(--teal);min-width:20px;font-size:10px;
-}
-.vsn-hook{
-  background:linear-gradient(135deg,#FFF9EC 0%,#FFF5DC 100%);
-  border-left:3px solid var(--gold);padding:6px 10px;margin:6px 0;
-  border-radius:0 6px 6px 0;font-style:italic;color:var(--text1);
-  font-size:10px;line-height:1.4;
-}
-.vsn-hook::before{
-  content:"💡 HOOK";display:block;font-size:7px;font-weight:800;
-  letter-spacing:1px;color:var(--gold);font-style:normal;margin-bottom:2px;
-  font-family:-apple-system,sans-serif;
-}
-.vsn-emphasis{
-  background:#FFF9EC;border:1px solid var(--gold);
-  border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;
-}
-.vsn-emphasis::before{
-  content:"🗣️ TEACHER";display:block;font-size:7px;font-weight:800;
-  letter-spacing:.5px;color:var(--gold);margin-bottom:2px;
-  font-family:-apple-system,sans-serif;
-}
+.vsn-legend-item .sym{font-family:'Cambria Math',serif;font-weight:700;color:var(--teal);min-width:20px;font-size:10px;}
+.vsn-hook{background:linear-gradient(135deg,#FFF9EC 0%,#FFF5DC 100%);border-left:3px solid var(--gold);padding:6px 10px;margin:6px 0;border-radius:0 6px 6px 0;font-style:italic;color:var(--text1);font-size:10px;line-height:1.4;}
+.vsn-hook::before{content:"💡 HOOK";display:block;font-size:7px;font-weight:800;letter-spacing:1px;color:var(--gold);font-style:normal;margin-bottom:2px;font-family:-apple-system,sans-serif;}
+.vsn-emphasis{background:#FFF9EC;border:1px solid var(--gold);border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;}
+.vsn-emphasis::before{content:"🗣️ TEACHER";display:block;font-size:7px;font-weight:800;letter-spacing:.5px;color:var(--gold);margin-bottom:2px;font-family:-apple-system,sans-serif;}
 .vsn-emphasis .quote{font-size:10px;font-style:italic;color:var(--text1);line-height:1.4;}
-.vsn-memory{
-  background:linear-gradient(135deg,#EAF5F5 0%,#D4EDED 100%);
-  border-radius:6px;padding:6px 8px;margin:6px 0;
-  border-left:3px solid var(--teal);font-size:10px;
-}
-.vsn-memory::before{
-  content:"🧠 TRICK";display:block;font-size:7px;font-weight:800;
-  letter-spacing:.5px;color:var(--teal);margin-bottom:2px;
-  font-family:-apple-system,sans-serif;
-}
-.vsn-misconception{
-  background:#FEF2F2;border:1px solid var(--red);
-  border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;
-}
-.vsn-misconception::before{
-  content:"⚠️ MISTAKE";display:block;font-size:7px;font-weight:800;
-  letter-spacing:.5px;color:var(--red);margin-bottom:2px;
-  font-family:-apple-system,sans-serif;
-}
+.vsn-memory{background:linear-gradient(135deg,#EAF5F5 0%,#D4EDED 100%);border-radius:6px;padding:6px 8px;margin:6px 0;border-left:3px solid var(--teal);font-size:10px;}
+.vsn-memory::before{content:"🧠 TRICK";display:block;font-size:7px;font-weight:800;letter-spacing:.5px;color:var(--teal);margin-bottom:2px;font-family:-apple-system,sans-serif;}
+.vsn-misconception{background:#FEF2F2;border:1px solid var(--red);border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;}
+.vsn-misconception::before{content:"⚠️ MISTAKE";display:block;font-size:7px;font-weight:800;letter-spacing:.5px;color:var(--red);margin-bottom:2px;font-family:-apple-system,sans-serif;}
 .vsn-mistake{text-decoration:line-through;color:var(--red);margin-bottom:2px;font-size:9px;}
 .vsn-correction{color:var(--green);font-weight:600;font-size:9px;}
 .vsn-correction::before{content:"✓ ";}
-.vsn-exam-radar{
-  background:linear-gradient(135deg,var(--navy) 0%,var(--teal) 100%);
-  color:#fff;border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;
-}
-.vsn-exam-radar::before{
-  content:"🎯 EXAM";display:block;font-size:7px;font-weight:800;
-  letter-spacing:.5px;color:var(--gold);margin-bottom:2px;
-  font-family:-apple-system,sans-serif;
-}
-.vsn-exam-level{
-  display:inline-block;background:var(--gold);color:var(--navy2);
-  padding:1px 6px;border-radius:6px;font-size:8px;font-weight:800;
-  margin-bottom:3px;font-family:-apple-system,sans-serif;
-}
+.vsn-exam-radar{background:linear-gradient(135deg,var(--navy) 0%,var(--teal) 100%);color:#fff;border-radius:6px;padding:6px 8px;margin:6px 0;font-size:10px;}
+.vsn-exam-radar::before{content:"🎯 EXAM";display:block;font-size:7px;font-weight:800;letter-spacing:.5px;color:var(--gold);margin-bottom:2px;font-family:-apple-system,sans-serif;}
+.vsn-exam-level{display:inline-block;background:var(--gold);color:var(--navy2);padding:1px 6px;border-radius:6px;font-size:8px;font-weight:800;margin-bottom:3px;font-family:-apple-system,sans-serif;}
 .vsn-comparison{margin:8px 0;overflow-x:auto;font-size:10px;}
 .vsn-comparison h4{color:var(--navy);font-size:10px;margin-bottom:4px;font-weight:700;}
-.vsn-comparison table{
-  width:100%;border-collapse:collapse;font-size:9px;
-  background:#fff;border-radius:4px;overflow:hidden;border:1px solid var(--border);
-}
-.vsn-comparison th{
-  background:var(--navy);color:#fff;padding:4px 6px;text-align:left;
-  font-size:8px;letter-spacing:.3px;font-family:-apple-system,sans-serif;font-weight:700;
-}
+.vsn-comparison table{width:100%;border-collapse:collapse;font-size:9px;background:#fff;border-radius:4px;overflow:hidden;border:1px solid var(--border);}
+.vsn-comparison th{background:var(--navy);color:#fff;padding:4px 6px;text-align:left;font-size:8px;letter-spacing:.3px;font-family:-apple-system,sans-serif;font-weight:700;}
 .vsn-comparison td{padding:4px 6px;border-bottom:1px solid var(--border);font-size:9px;}
 .vsn-comparison tr:last-child td{border:none;}
 .vsn-comparison tr:nth-child(even) td{background:#F8FBFD;}
-.vsn-diagram{
-  background:#F8FBFD;padding:8px 10px;border-radius:6px;
-  border:1px dashed var(--teal);margin:8px 0;font-size:10px;
-}
-.vsn-diagram h4{
-  color:var(--teal);font-size:10px;margin-bottom:4px;
-  font-family:-apple-system,sans-serif;font-weight:700;
-}
+.vsn-diagram{background:#F8FBFD;padding:8px 10px;border-radius:6px;border:1px dashed var(--teal);margin:8px 0;font-size:10px;}
+.vsn-diagram h4{color:var(--teal);font-size:10px;margin-bottom:4px;font-family:-apple-system,sans-serif;font-weight:700;}
 .vsn-diagram h4::before{content:"📊 ";}
 .vsn-diagram-desc{font-style:italic;color:var(--text2);font-size:9px;line-height:1.4;}
 .vsn-diagram-labels{margin-top:4px;font-size:8px;color:var(--text3);font-family:-apple-system,sans-serif;}
 .vsn-flowchart{margin:8px 0;font-size:10px;}
-.vsn-flowchart h4{
-  color:var(--navy);font-size:10px;margin-bottom:6px;
-  font-family:-apple-system,sans-serif;font-weight:700;
-}
+.vsn-flowchart h4{color:var(--navy);font-size:10px;margin-bottom:6px;font-family:-apple-system,sans-serif;font-weight:700;}
 .vsn-flowchart h4::before{content:"🔄 ";}
 .vsn-flow-step{display:flex;align-items:center;gap:4px;padding:2px 0;}
-.vsn-flow-node{
-  background:var(--teal);color:#fff;padding:3px 8px;border-radius:10px;
-  font-size:9px;font-weight:600;font-family:-apple-system,sans-serif;
-}
+.vsn-flow-node{background:var(--teal);color:#fff;padding:3px 8px;border-radius:10px;font-size:9px;font-weight:600;font-family:-apple-system,sans-serif;}
 .vsn-flow-arrow{color:var(--teal);font-weight:700;font-size:10px;}
 .vsn-2col{column-count:2;column-gap:10px;}
 
@@ -275,22 +173,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
    PARENT SUMMARY MODULE
    ══════════════════════════════════════════════════════════ */
 .ps-container{padding:8px;}
-.ps-header{
-  background:linear-gradient(135deg,#2D7D5A,var(--teal));
-  color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;
-}
+.ps-header{background:linear-gradient(135deg,#2D7D5A,var(--teal));color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;}
 .ps-header h2{font-size:15px;margin-bottom:2px;}
 .ps-header .ps-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
-.ps-section{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:12px;margin-bottom:10px;box-shadow:var(--shadow);
-}
-.ps-section-title{
-  font-size:11px;font-weight:800;color:var(--green);
-  letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;
-  border-bottom:1px dashed var(--border);
-  display:flex;align-items:center;gap:6px;
-}
+.ps-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);}
+.ps-section-title{font-size:11px;font-weight:800;color:var(--green);letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px dashed var(--border);display:flex;align-items:center;gap:6px;}
 .ps-section-title::before{font-size:13px;}
 .ps-section.ps-today .ps-section-title::before{content:"📅";}
 .ps-section.ps-concepts .ps-section-title::before{content:"📚";}
@@ -303,95 +190,47 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ps-class-item b{display:block;font-size:9px;color:var(--text3);letter-spacing:.5px;margin-bottom:1px;font-weight:700;}
 .ps-class-item span{color:var(--text1);font-weight:600;}
 .ps-concept-list{list-style:none;padding:0;}
-.ps-concept-list li{
-  padding:5px 8px;margin:3px 0;background:var(--bg);
-  border-radius:4px;font-size:11px;line-height:1.4;
-  border-left:3px solid var(--green);
-}
+.ps-concept-list li{padding:5px 8px;margin:3px 0;background:var(--bg);border-radius:4px;font-size:11px;line-height:1.4;border-left:3px solid var(--green);}
 .ps-concept-list li::before{content:"✓ ";color:var(--green);font-weight:700;}
 .ps-why-text{font-size:11px;line-height:1.5;color:var(--text1);}
 .ps-hw-grid{display:grid;grid-template-columns:1fr;gap:6px;}
-.ps-hw-item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:6px 10px;background:var(--bg);border-radius:4px;font-size:11px;
-}
+.ps-hw-item{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:var(--bg);border-radius:4px;font-size:11px;}
 .ps-hw-item b{color:var(--navy);font-size:10px;}
 .ps-hw-item span{color:var(--text2);font-size:10px;flex:1;margin:0 8px;}
-.ps-hw-badge{
-  background:var(--gold);color:var(--navy2);padding:1px 6px;
-  border-radius:8px;font-size:9px;font-weight:700;
-}
+.ps-hw-badge{background:var(--gold);color:var(--navy2);padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;}
 .ps-suggest-list{list-style:none;padding:0;}
-.ps-suggest-list li{
-  padding:5px 8px;margin:3px 0;background:#FFF9EC;
-  border-radius:4px;font-size:11px;line-height:1.4;
-  border-left:3px solid var(--gold);
-}
+.ps-suggest-list li{padding:5px 8px;margin:3px 0;background:#FFF9EC;border-radius:4px;font-size:11px;line-height:1.4;border-left:3px solid var(--gold);}
 .ps-suggest-list li::before{content:"→ ";color:var(--gold);font-weight:700;}
-.ps-upcoming-box{
-  background:linear-gradient(135deg,#EAF5F5,#D4EDED);
-  padding:10px;border-radius:6px;font-size:12px;
-  font-weight:600;color:var(--navy);text-align:center;
-}
+.ps-upcoming-box{background:linear-gradient(135deg,#EAF5F5,#D4EDED);padding:10px;border-radius:6px;font-size:12px;font-weight:600;color:var(--navy);text-align:center;}
 
 /* ══════════════════════════════════════════════════════════
    CHAPTER COVERAGE MODULE
    ══════════════════════════════════════════════════════════ */
 .cc-container{padding:8px;}
-.cc-header{
-  background:linear-gradient(135deg,var(--navy),var(--purple));
-  color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;
-}
+.cc-header{background:linear-gradient(135deg,var(--navy),var(--purple));color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:12px;}
 .cc-header h2{font-size:15px;margin-bottom:2px;}
 .cc-header .cc-meta{font-size:10px;opacity:.9;letter-spacing:.3px;margin-top:2px;}
-.cc-progress-card{
-  background:#fff;border:1.5px solid var(--border);border-radius:8px;
-  padding:14px;margin-bottom:12px;box-shadow:var(--shadow);text-align:center;
-}
+.cc-progress-card{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow);text-align:center;}
 .cc-percent{font-size:32px;font-weight:800;color:var(--navy);line-height:1;margin-bottom:6px;}
 .cc-percent small{font-size:14px;color:var(--text3);}
-.cc-progress-bar{
-  height:10px;background:var(--bg);border-radius:5px;overflow:hidden;
-  margin:8px 0;border:1px solid var(--border);
-}
-.cc-progress-fill{
-  height:100%;background:linear-gradient(90deg,var(--teal),var(--green));
-  border-radius:5px;transition:width .6s;
-}
-.cc-progress-label{
-  font-size:10px;color:var(--text3);letter-spacing:.5px;
-  font-weight:700;text-transform:uppercase;
-}
+.cc-progress-bar{height:10px;background:var(--bg);border-radius:5px;overflow:hidden;margin:8px 0;border:1px solid var(--border);}
+.cc-progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:5px;transition:width .6s;}
+.cc-progress-label{font-size:10px;color:var(--text3);letter-spacing:.5px;font-weight:700;text-transform:uppercase;}
 .cc-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.cc-stat{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:10px;box-shadow:var(--shadow);
-}
-.cc-stat-label{
-  font-size:9px;color:var(--text3);font-weight:700;
-  letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;
-}
+.cc-stat{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;box-shadow:var(--shadow);}
+.cc-stat-label{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px;}
 .cc-stat-value{font-size:14px;font-weight:800;color:var(--navy);}
 .cc-stat-value.diff-easy{color:var(--green);}
 .cc-stat-value.diff-medium{color:var(--gold);}
 .cc-stat-value.diff-hard{color:var(--red);}
-.cc-section{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:12px;margin-bottom:10px;box-shadow:var(--shadow);
-}
-.cc-section-title{
-  font-size:11px;font-weight:800;color:var(--purple);
-  letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;
-  border-bottom:1px dashed var(--border);
-}
+.cc-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);}
+.cc-section-title{font-size:11px;font-weight:800;color:var(--purple);letter-spacing:.5px;margin-bottom:8px;padding-bottom:4px;border-bottom:1px dashed var(--border);}
 .cc-list{list-style:none;padding:0;}
 .cc-list li{padding:4px 8px;margin:2px 0;background:var(--bg);border-radius:4px;font-size:11px;line-height:1.4;}
 .cc-list.completed li{border-left:3px solid var(--green);}
 .cc-list.completed li::before{content:"✓ ";color:var(--green);font-weight:700;}
 .cc-list.pending li{border-left:3px solid var(--gold);}
 .cc-list.pending li::before{content:"◌ ";color:var(--gold);font-weight:700;}
-.cc-list.prereq li{border-left:3px solid var(--navy);}
-.cc-list.prereq li::before{content:"⚓ ";color:var(--navy);font-weight:700;}
 .cc-planning-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
 .cc-plan-item{background:var(--bg);padding:8px;border-radius:6px;}
 .cc-plan-item b{display:block;font-size:9px;color:var(--text3);letter-spacing:.5px;margin-bottom:2px;font-weight:700;}
@@ -401,18 +240,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
    DPP MODULE
    ══════════════════════════════════════════════════════════ */
 .dpp-container{padding:8px;}
-.dpp-header{
-  background:linear-gradient(135deg,var(--navy),var(--teal));
-  color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;
-}
+.dpp-header{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;}
 .dpp-header h2{font-size:14px;margin-bottom:2px;}
 .dpp-header .dpp-meta{font-size:10px;opacity:.9;letter-spacing:.3px;}
 .dpp-section{margin-bottom:14px;}
-.dpp-section-header{
-  display:flex;align-items:center;gap:8px;padding:6px 10px;
-  background:var(--bg);border-left:3px solid var(--navy);
-  border-radius:0 6px 6px 0;margin-bottom:8px;
-}
+.dpp-section-header{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg);border-left:3px solid var(--navy);border-radius:0 6px 6px 0;margin-bottom:8px;}
 .dpp-section-header.sec-a{border-left-color:var(--navy);}
 .dpp-section-header.sec-b{border-left-color:var(--teal);}
 .dpp-section-header.sec-c{border-left-color:var(--gold);}
@@ -420,38 +252,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dpp-section-header.sec-e{border-left-color:var(--red);}
 .dpp-section-title{font-size:11px;font-weight:800;color:var(--navy);letter-spacing:.3px;}
 .dpp-section-sub{font-size:9px;color:var(--text3);margin-top:1px;}
-.dpp-q{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;
-}
-.dpp-q-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:6px;gap:6px;flex-wrap:wrap;
-}
-.dpp-q-num{
-  background:var(--navy);color:#fff;padding:2px 8px;
-  border-radius:8px;font-size:9px;font-weight:700;
-}
+.dpp-q{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;}
+.dpp-q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px;flex-wrap:wrap;}
+.dpp-q-num{background:var(--navy);color:#fff;padding:2px 8px;border-radius:8px;font-size:9px;font-weight:700;}
 .dpp-diff{font-size:8px;font-weight:700;padding:2px 6px;border-radius:8px;}
 .dpp-diff.easy{background:#E6F4EA;color:var(--green);}
 .dpp-diff.medium{background:#FFF3E0;color:#B87514;}
 .dpp-diff.challenging,.dpp-diff.hard{background:#FEF2F2;color:var(--red);}
 .dpp-q-text{font-size:12px;font-weight:600;margin-bottom:6px;line-height:1.4;color:var(--text1);}
 .dpp-options{list-style:none;padding:0;margin-bottom:6px;}
-.dpp-options li{
-  padding:4px 8px;margin:2px 0;background:var(--bg);
-  border-radius:4px;font-size:11px;border-left:2px solid transparent;
-}
+.dpp-options li{padding:4px 8px;margin:2px 0;background:var(--bg);border-radius:4px;font-size:11px;border-left:2px solid transparent;}
 .dpp-options li.correct{background:#E6F4EA;color:var(--green);font-weight:600;border-left-color:var(--green);}
 .dpp-fill-blank{font-size:12px;line-height:1.6;margin-bottom:6px;}
-.dpp-blank{
-  display:inline-block;min-width:60px;border-bottom:2px solid var(--teal);
-  padding:0 6px;color:var(--teal);font-weight:700;font-size:11px;
-}
-.dpp-tf-badge{
-  display:inline-block;padding:3px 10px;border-radius:12px;
-  font-size:10px;font-weight:800;margin-bottom:6px;
-}
+.dpp-blank{display:inline-block;min-width:60px;border-bottom:2px solid var(--teal);padding:0 6px;color:var(--teal);font-weight:700;font-size:11px;}
+.dpp-tf-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:800;margin-bottom:6px;}
 .dpp-tf-badge.true{background:#E6F4EA;color:var(--green);}
 .dpp-tf-badge.false{background:#FEF2F2;color:var(--red);}
 .dpp-ar-block{background:#F8FBFD;border-radius:6px;padding:8px;margin-bottom:6px;}
@@ -463,104 +277,59 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dpp-stmt-block{background:#F8FBFD;border-radius:6px;padding:8px;margin-bottom:6px;}
 .dpp-stmt-block .stmt-label{font-size:8px;font-weight:800;letter-spacing:.5px;color:var(--red);margin-bottom:2px;}
 .dpp-stmt-block .stmt-text{font-size:11px;line-height:1.4;}
-.dpp-explanation{
-  margin-top:6px;padding:6px 8px;background:#F8FBFD;
-  border-left:2px solid var(--teal);border-radius:0 4px 4px 0;
-  font-size:10px;color:var(--text2);line-height:1.4;
-}
+.dpp-explanation{margin-top:6px;padding:6px 8px;background:#F8FBFD;border-left:2px solid var(--teal);border-radius:0 4px 4px 0;font-size:10px;color:var(--text2);line-height:1.4;}
 .dpp-explanation::before{content:"💡 ";}
-.dpp-concept-tag{
-  display:inline-block;background:var(--bg);color:var(--text2);
-  font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;
-}
+.dpp-concept-tag{display:inline-block;background:var(--bg);color:var(--text2);font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;}
 
 /* ══════════════════════════════════════════════════════════
    ASSIGNMENT MODULE
    ══════════════════════════════════════════════════════════ */
 .asgn-container{padding:8px;}
-.asgn-header{
-  background:linear-gradient(135deg,var(--purple),var(--navy));
-  color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;
-}
+.asgn-header{background:linear-gradient(135deg,var(--purple),var(--navy));color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;}
 .asgn-header h2{font-size:14px;margin-bottom:2px;}
-.asgn-header .asgn-meta{
-  display:flex;gap:8px;font-size:9px;opacity:.9;
-  letter-spacing:.3px;flex-wrap:wrap;margin-top:4px;
-}
-.asgn-section-title{
-  font-size:12px;font-weight:800;color:var(--navy);
-  margin:12px 0 8px;padding:6px 10px;background:var(--bg);
-  border-left:3px solid var(--purple);border-radius:0 6px 6px 0;letter-spacing:.3px;
-}
-.asgn-q{
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;
-}
-.asgn-q-head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:6px;gap:6px;flex-wrap:wrap;
-}
-.asgn-q-num{
-  background:var(--purple);color:#fff;padding:2px 8px;
-  border-radius:8px;font-size:9px;font-weight:700;
-}
-.asgn-marks{
-  background:var(--gold);color:var(--navy2);padding:2px 8px;
-  border-radius:8px;font-size:9px;font-weight:700;
-}
+.asgn-header .asgn-meta{display:flex;gap:8px;font-size:9px;opacity:.9;letter-spacing:.3px;flex-wrap:wrap;margin-top:4px;}
+.asgn-section-title{font-size:12px;font-weight:800;color:var(--navy);margin:12px 0 8px;padding:6px 10px;background:var(--bg);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;letter-spacing:.3px;}
+.asgn-q{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;}
+.asgn-q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:6px;flex-wrap:wrap;}
+.asgn-q-num{background:var(--purple);color:#fff;padding:2px 8px;border-radius:8px;font-size:9px;font-weight:700;}
+.asgn-marks{background:var(--gold);color:var(--navy2);padding:2px 8px;border-radius:8px;font-size:9px;font-weight:700;}
 .asgn-q-text{font-size:12px;font-weight:600;line-height:1.4;margin-bottom:6px;}
 .asgn-options{list-style:none;padding:0;margin:6px 0;}
 .asgn-options li{padding:4px 8px;margin:2px 0;background:var(--bg);border-radius:4px;font-size:11px;}
-.asgn-type-tag{
-  display:inline-block;font-size:8px;font-weight:700;
-  padding:1px 6px;border-radius:8px;background:var(--bg);
-  color:var(--text2);margin-right:4px;
-}
-.asgn-answer-key{
-  background:#FFF9EC;border:1.5px solid var(--gold);
-  border-radius:8px;padding:12px;margin-top:16px;
-}
+.asgn-type-tag{display:inline-block;font-size:8px;font-weight:700;padding:1px 6px;border-radius:8px;background:var(--bg);color:var(--text2);margin-right:4px;}
+.asgn-answer-key{background:#FFF9EC;border:1.5px solid var(--gold);border-radius:8px;padding:12px;margin-top:16px;}
 .asgn-answer-key h3{font-size:12px;font-weight:800;color:var(--navy);margin-bottom:8px;letter-spacing:.3px;}
 .asgn-answer-key h3::before{content:"🔑 ";}
 .asgn-ak-section{margin-bottom:10px;}
 .asgn-ak-section h4{font-size:10px;font-weight:700;color:var(--purple);margin-bottom:4px;letter-spacing:.3px;}
 .asgn-ak-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:4px;}
-.asgn-ak-item{
-  background:#fff;padding:4px 8px;border-radius:4px;
-  font-size:10px;border:1px solid var(--border);
-}
+.asgn-ak-item{background:#fff;padding:4px 8px;border-radius:4px;font-size:10px;border:1px solid var(--border);}
 .asgn-ak-item b{color:var(--purple);margin-right:2px;}
-.asgn-ak-subjective{
-  font-size:10px;line-height:1.4;color:var(--text2);
-  padding:4px 0;border-bottom:1px dashed var(--border);
-}
+.asgn-ak-subjective{font-size:10px;line-height:1.4;color:var(--text2);padding:4px 0;border-bottom:1px dashed var(--border);}
 .asgn-ak-subjective:last-child{border:none;}
 .asgn-ak-subjective b{color:var(--navy);}
 
 /* ══════════════════════════════════════════════════════════
    FLASHCARDS & TEST
    ══════════════════════════════════════════════════════════ */
-.flashcard{
-  background:#fff;border:1.5px solid var(--navy);border-radius:8px;
-  padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;
-}
-.flashcard-q{
-  font-weight:700;color:var(--navy);font-size:12px;
-  margin-bottom:6px;padding-bottom:4px;border-bottom:1px dashed var(--border);
-}
+.flashcard{background:#fff;border:1.5px solid var(--navy);border-radius:8px;padding:10px;margin-bottom:8px;box-shadow:var(--shadow);font-size:11px;}
+.flashcard-q{font-weight:700;color:var(--navy);font-size:12px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px dashed var(--border);}
 .flashcard-q::before{content:"Q: ";color:var(--gold);}
 .flashcard-a{color:var(--text1);font-size:11px;line-height:1.4;}
 .flashcard-a::before{content:"A: ";color:var(--teal);font-weight:700;}
-.flashcard-tag{
-  display:inline-block;background:var(--bg);color:var(--text2);
-  font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;
-}
-.test-header{
-  background:linear-gradient(135deg,var(--red),var(--navy));
-  color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;
-}
+.flashcard-tag{display:inline-block;background:var(--bg);color:var(--text2);font-size:8px;padding:1px 6px;border-radius:8px;margin-top:4px;font-weight:600;}
+.test-header{background:linear-gradient(135deg,var(--red),var(--navy));color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:12px;}
 .test-header h2{font-size:14px;margin-bottom:2px;}
 .test-header .test-meta{font-size:9px;opacity:.9;letter-spacing:.3px;}
+
+/* ══════════════════════════════════════════════════════════
+   INTELLIGENCE METADATA
+   ══════════════════════════════════════════════════════════ */
+.conf-badge{display:inline-flex;align-items:center;gap:4px;background:var(--bg);border:1px solid var(--border);padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;color:var(--text2);margin:2px;}
+.conf-badge.high{background:#E6F4EA;color:var(--green);border-color:var(--green);}
+.conf-badge.medium{background:#FFF3E0;color:#B87514;border-color:var(--gold);}
+.conf-badge.low{background:#FEF2F2;color:var(--red);border-color:var(--red);}
+.conf-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
 
 @media print {
   body{max-width:100%;background:#fff;}
@@ -575,34 +344,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <div class="header">
   <div class="logo">Class<span>Pulse</span></div>
-  <button class="header-btn" onclick="goTo('settings')">⚙</button>
-  <button class="header-btn" onclick="goTo('history')">History</button>
+  <button class="header-btn" onclick="CP.UI.goTo('settings')">⚙</button>
+  <button class="header-btn" onclick="CP.UI.goTo('history')">History</button>
 </div>
 
 <!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <div class="hero-tag">AI Teaching Companion · VSN-2.0 LOI</div>
+    <div class="hero-tag">Intelligence-Oriented · V4.0</div>
     <h1>Ready for class?</h1>
-    <p>Record → Teach → Get high-density notes, DPP, assignment & more</p>
+    <p>10 Intelligence Engines · Education Adapters · Decision Layer</p>
   </div>
   <div class="card key-section">
     <div class="key-label">GROQ API KEY (FREE)</div>
-    <input type="password" id="groq-key" class="key-input" placeholder="gsk_..." oninput="saveKey()"/>
+    <input type="password" id="groq-key" class="key-input" placeholder="gsk_..." oninput="CP.Auth.saveKey()"/>
     <div class="key-status" id="key-status">
       <span class="key-hint">Get free key at console.groq.com · Stays on your device only</span>
     </div>
   </div>
-  <button class="btn btn-primary" onclick="goToSession()">▶ Start new session</button>
+  <button class="btn btn-primary" onclick="CP.UI.goToSession()">▶ Start new session</button>
   <div style="margin-top:10px;">
-    <button class="btn btn-ghost" style="width:100%;" onclick="goTo('history')">Session history</button>
+    <button class="btn btn-ghost" style="width:100%;" onclick="CP.UI.goTo('history')">Session history</button>
   </div>
 </div>
 
 <!-- SETTINGS -->
 <div id="page-settings" class="page">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <button class="btn btn-ghost btn-sm" onclick="CP.UI.goTo('home')">← Back</button>
     <h2 style="font-size:18px;font-weight:800;">Settings</h2>
   </div>
   <div class="card">
@@ -610,38 +379,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <h3>🎨 VSN-2.0 RENDERING</h3>
       <div class="toggle-row">
         <div><div class="toggle-label">Formula Vaults</div><div class="toggle-sub">Compressed formula grids</div></div>
-        <div class="toggle on" data-setting="formulaVault" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="formulaVault" onclick="CP.Settings.toggle(this)"></div>
       </div>
       <div class="toggle-row">
         <div><div class="toggle-label">Teacher's Voice</div><div class="toggle-sub">Capture emphasis & quotes</div></div>
-        <div class="toggle on" data-setting="teacherVoice" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="teacherVoice" onclick="CP.Settings.toggle(this)"></div>
       </div>
       <div class="toggle-row">
         <div><div class="toggle-label">Memory Tricks</div><div class="toggle-sub">Mnemonics & analogies</div></div>
-        <div class="toggle on" data-setting="memoryTricks" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="memoryTricks" onclick="CP.Settings.toggle(this)"></div>
       </div>
       <div class="toggle-row">
         <div><div class="toggle-label">Misconception Alerts</div><div class="toggle-sub">Common mistakes highlighted</div></div>
-        <div class="toggle on" data-setting="misconceptions" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="misconceptions" onclick="CP.Settings.toggle(this)"></div>
       </div>
       <div class="toggle-row">
         <div><div class="toggle-label">Exam Radar</div><div class="toggle-sub">Importance scoring per exam</div></div>
-        <div class="toggle on" data-setting="examRadar" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="examRadar" onclick="CP.Settings.toggle(this)"></div>
       </div>
       <div class="toggle-row">
         <div><div class="toggle-label">Derivation Steps</div><div class="toggle-sub">Step-by-step proofs</div></div>
-        <div class="toggle on" data-setting="derivations" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="derivations" onclick="CP.Settings.toggle(this)"></div>
       </div>
     </div>
     <div class="settings-section">
       <h3>📝 DPP & ASSIGNMENT</h3>
       <div class="toggle-row">
         <div><div class="toggle-label">Include PYQ patterns</div><div class="toggle-sub">Previous year question style</div></div>
-        <div class="toggle on" data-setting="pyqPatterns" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="pyqPatterns" onclick="CP.Settings.toggle(this)"></div>
       </div>
       <div class="toggle-row">
         <div><div class="toggle-label">Bloom's Taxonomy levels</div><div class="toggle-sub">Cognitive difficulty progression</div></div>
-        <div class="toggle on" data-setting="bloomsTaxonomy" onclick="toggleSetting(this)"></div>
+        <div class="toggle on" data-setting="bloomsTaxonomy" onclick="CP.Settings.toggle(this)"></div>
       </div>
     </div>
   </div>
@@ -650,7 +419,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- CONFIG -->
 <div id="page-config" class="page">
   <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <button class="btn btn-ghost btn-sm" onclick="CP.UI.goTo('home')">← Back</button>
     <h2 style="font-size:18px;font-weight:800;">New Session</h2>
   </div>
   <div class="card">
@@ -690,7 +459,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       </div>
     </div>
   </div>
-  <button class="btn btn-primary" onclick="startSession()">🎙 Start Recording</button>
+  <button class="btn btn-primary" onclick="CP.Session.start()">🎙 Start Recording</button>
 </div>
 
 <!-- RECORDING -->
@@ -702,15 +471,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="rec-timer" id="rec-timer">0:00</div>
     <div class="transcript-preview" id="transcript-preview">Speak naturally — ClassPulse is listening...</div>
   </div>
-  <button class="btn btn-red" style="width:100%;" onclick="stopSession()">⏹ Stop & Generate Outputs</button>
+  <button class="btn btn-red" style="width:100%;" onclick="CP.Session.stop()">⏹ Stop & Generate Outputs</button>
 </div>
 
 <!-- GENERATING -->
 <div id="page-generating" class="page">
   <div style="text-align:center;padding:24px 0 16px;">
     <div style="font-size:40px;margin-bottom:12px;">⚡</div>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Knowledge Rendering Engine</h2>
-    <p style="font-size:14px;color:var(--text3);">VSN-2.0 · LOI · Parent Summary · Coverage · DPP · Assignment</p>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">Intelligence-Oriented Architecture</h2>
+    <p style="font-size:14px;color:var(--text3);">10 Engines · Decision Layer · Education Adapter</p>
   </div>
   <div class="card" id="gen-steps"></div>
 </div>
@@ -718,7 +487,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- OUTPUTS -->
 <div id="page-outputs" class="page">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Home</button>
+    <button class="btn btn-ghost btn-sm" onclick="CP.UI.goTo('home')">← Home</button>
     <div>
       <div style="font-size:16px;font-weight:800;" id="out-title">Outputs</div>
       <div style="font-size:12px;color:var(--text3);" id="out-sub"></div>
@@ -727,20 +496,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="output-tabs" id="output-tabs"></div>
   <div class="output-body" id="output-body"></div>
   <div class="output-actions">
-    <button class="btn btn-gold btn-sm" id="preview-btn" onclick="openPreview()" style="display:none;">📄 PDF</button>
-    <button class="btn btn-ghost" onclick="copyOutput()">📋 Copy</button>
-    <button class="btn btn-teal" onclick="shareOutput()">↗ Share</button>
+    <button class="btn btn-gold btn-sm" id="preview-btn" onclick="CP.Export.openPreview()" style="display:none;">📄 PDF</button>
+    <button class="btn btn-ghost" onclick="CP.Export.copy()">📋 Copy</button>
+    <button class="btn btn-teal" onclick="CP.Export.share()">↗ Share</button>
   </div>
 </div>
 
 <!-- NOTES PREVIEW -->
 <div id="page-preview" class="page">
   <div class="preview-header">
-    <button class="btn btn-ghost btn-sm" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2);" onclick="goTo('outputs')">← Back</button>
+    <button class="btn btn-ghost btn-sm" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2);" onclick="CP.UI.goTo('outputs')">← Back</button>
     <h2>Preview & Export</h2>
   </div>
   <div class="preview-actions">
-    <button class="btn btn-gold btn-sm" onclick="downloadPDF()">📄 Download PDF</button>
+    <button class="btn btn-gold btn-sm" onclick="CP.Export.downloadPDF()">📄 Download PDF</button>
     <button class="btn btn-teal btn-sm" onclick="window.print()">🖨 Print</button>
   </div>
   <div class="preview-frame">
@@ -751,7 +520,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- HISTORY -->
 <div id="page-history" class="page">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('home')">← Back</button>
+    <button class="btn btn-ghost btn-sm" onclick="CP.UI.goTo('home')">← Back</button>
     <h2 style="font-size:18px;font-weight:800;">History</h2>
   </div>
   <div id="history-body"></div>
@@ -760,674 +529,1091 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <!-- SESSION VIEW -->
 <div id="page-session-view" class="page">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-    <button class="btn btn-ghost btn-sm" onclick="goTo('history')">← Back</button>
+    <button class="btn btn-ghost btn-sm" onclick="CP.UI.goTo('history')">← Back</button>
     <h2 style="font-size:18px;font-weight:800;" id="sv-title">Session</h2>
   </div>
   <div class="output-tabs" id="sv-tabs"></div>
   <div class="output-body" id="sv-body"></div>
   <div class="output-actions">
-    <button class="btn btn-gold btn-sm" id="sv-preview-btn" onclick="openPreviewFromSV()" style="display:none;">📄 PDF</button>
-    <button class="btn btn-ghost" onclick="copySV()">📋 Copy</button>
-    <button class="btn btn-teal" onclick="shareSV()">↗ Share</button>
+    <button class="btn btn-gold btn-sm" id="sv-preview-btn" onclick="CP.Export.openPreviewFromSV()" style="display:none;">📄 PDF</button>
+    <button class="btn btn-ghost" onclick="CP.Export.copySV()">📋 Copy</button>
+    <button class="btn btn-teal" onclick="CP.Export.shareSV()">↗ Share</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════════
-let S = {
-  sessions: JSON.parse(localStorage.getItem('cp_sessions')||'[]'),
-  settings: JSON.parse(localStorage.getItem('cp_settings')||'{}'),
-  current: null, outputs:{}, outputTabs:[], activeTab:'',
-  svSession:null, svTab:'',
-  notesHtml:'',
+/* ══════════════════════════════════════════════════════════
+   CLASSPULSE V4.0 — INTELLIGENCE-ORIENTED ARCHITECTURE
+   
+   Architecture Layers:
+   ━━━━━━━━━━━━━━━━━━━━
+   1. CP.Core          — Generic Intelligence Engines (Domain-Agnostic)
+   2. CP.Education     — Domain Adapters (Physics, Chemistry, etc.)
+   3. CP.Orchestration — Workflow Orchestrator, Prompt Builder
+   4. CP.Rendering     — Output Renderers
+   5. CP.UI            — Presentation Layer
+   6. CP.Session       — Recording & Timer
+   7. CP.Export        — PDF, Copy, Share
+   8. CP.Settings      — User Preferences
+   9. CP.Auth          — API Key Management
+   10. CP.Util         — Shared Utilities
+   
+   Pipeline:
+   ━━━━━━━━━
+   Transcript → Teaching Intel → Knowledge Graph → Importance →
+   Cognitive Load → Recommendations → Evidence → Publishing →
+   Page Planning → LOI → Decision Layer → Prompt Builder →
+   LLM → Renderers → Outputs
+   ══════════════════════════════════════════════════════════ */
+
+const CP = {};
+
+/* ══════════════════════════════════════════════════════════
+   UTILITIES
+   ══════════════════════════════════════════════════════════ */
+CP.Util = {
+  escapeHtml(s) {
+    if (s == null) return '';
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  },
+  escapeRegex(s) {
+    return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  },
+  showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  },
+  genId(prefix, idx) {
+    return `${prefix}_${Date.now().toString(36)}_${idx}`;
+  },
+  confidenceClass(score) {
+    if (score >= 85) return 'high';
+    if (score >= 65) return 'medium';
+    return 'low';
+  },
+  confidenceBadge(label, score) {
+    const cls = this.confidenceClass(score);
+    return `<span class="conf-badge ${cls}"><span class="conf-dot"></span>${label} · ${score}%</span>`;
+  },
+  clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val));
+  }
 };
 
-const DEFAULT_SETTINGS = {
-  formulaVault:true, teacherVoice:true, memoryTricks:true,
-  misconceptions:true, examRadar:true, derivations:true,
-  pyqPatterns:true, bloomsTaxonomy:true
+/* ══════════════════════════════════════════════════════════
+   LAYER 1: CORE INTELLIGENCE ENGINES (Domain-Agnostic)
+   
+   These engines know NOTHING about Physics, NEET, JEE, etc.
+   They operate on generic signals and produce generic outputs.
+   ══════════════════════════════════════════════════════════ */
+CP.Core = {};
+
+/* ── Base Intelligence Engine ── */
+CP.Core.IntelligenceEngine = class {
+  constructor(name) {
+    this.name = name;
+    this._confidence = 0;
+  }
+  analyze(input) { throw new Error('Must implement analyze()'); }
+  getConfidence() { return this._confidence; }
 };
-S.settings = {...DEFAULT_SETTINGS, ...S.settings};
 
-window.onload=()=>{
-  const k=localStorage.getItem('cp_groq');
-  if(k){
-    document.getElementById('groq-key').value=k;
-    document.getElementById('key-status').innerHTML='<span class="key-ok">✓ Key saved</span>';
+/* ── Engine 1: Session Intelligence ── */
+CP.Core.SessionIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() {
+    super('SessionIntelligence');
+    this.sessions = JSON.parse(localStorage.getItem('cp_sessions') || '[]');
   }
-  applySettingsUI();
-};
 
-function applySettingsUI(){
-  document.querySelectorAll('.toggle[data-setting]').forEach(t=>{
-    const key=t.dataset.setting;
-    if(S.settings[key]) t.classList.add('on'); else t.classList.remove('on');
-  });
-}
-function toggleSetting(el){
-  const key=el.dataset.setting;
-  S.settings[key]=!S.settings[key];
-  el.classList.toggle('on');
-  localStorage.setItem('cp_settings',JSON.stringify(S.settings));
-}
+  analyze(currentSession) {
+    const pastSessions = this.sessions.filter(s =>
+      s.chapter === currentSession.chapter &&
+      s.subject === currentSession.subject &&
+      s.class === currentSession.class
+    );
 
-function goTo(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  window.scrollTo(0,0);
-  if(id==='history')renderHistory();
-}
-function goToSession(){
-  if(!getKey()){showToast('⚠ Please enter your Groq API key first');return;}
-  goTo('config');
-}
-function saveKey(){
-  const v=document.getElementById('groq-key').value.trim();
-  if(v.length>10){
-    localStorage.setItem('cp_groq',v);
-    document.getElementById('key-status').innerHTML='<span class="key-ok">✓ Key saved</span>';
-  }
-}
-function getKey(){return localStorage.getItem('cp_groq')||document.getElementById('groq-key').value.trim();}
+    this._confidence = 92;
 
-// ══════════════════════════════════════════════════════════
-// SESSION & RECORDING
-// ══════════════════════════════════════════════════════════
-function startSession(){
-  const chapter=document.getElementById('cfg-chapter').value.trim();
-  if(!chapter){showToast('Please enter a chapter name');return;}
-  S.current={
-    id:Date.now(),date:new Date().toISOString(),
-    class:document.getElementById('cfg-class').value,
-    subject:document.getElementById('cfg-subject').value,
-    chapter,
-    board:document.getElementById('cfg-board').value,
-    exam:document.getElementById('cfg-exam').value,
-    transcript:'',duration:0,outputs:{},
-  };
-  goTo('recording');
-  document.getElementById('rec-info').textContent=`${S.current.subject} · ${S.current.chapter} · ${S.current.class}`;
-  startRecognition();startTimer();
-}
-
-// ── AUDIO CAPTURE + GROQ WHISPER TRANSCRIPTION (replaces browser speech recognition) ──
-// Browser Web Speech API dropped words on every auto-reconnect and had no way to catch it.
-// This records real audio in short segments and sends each to Groq's Whisper endpoint —
-// same API key you already use for the LLM, no new provider to manage.
-let mediaStream=null, mediaRecorder=null, recognitionActive=false, chunkTimer=null, pendingStopCleanup=null;
-const CHUNK_MS=45000; // 45s per segment: short enough for a fresh preview, long enough to stay well under Groq's 25MB free-tier limit
-
-async function startRecognition(){
-  if(!navigator.mediaDevices || !window.MediaRecorder){
-    showToast('⚠ Audio recording not supported on this browser');
-    return;
-  }
-  try{
-    mediaStream=await navigator.mediaDevices.getUserMedia({audio:true});
-  }catch(e){
-    showToast('⚠ Microphone access denied');
-    return;
-  }
-  recognitionActive=true;
-  const p=document.getElementById('transcript-preview');
-  if(p) p.textContent='Listening...';
-  startNewChunk();
-}
-
-function pickAudioMime(){
-  const types=['audio/webm;codecs=opus','audio/webm','audio/mp4'];
-  for(const t of types){ if(MediaRecorder.isTypeSupported(t)) return t; }
-  return '';
-}
-
-function startNewChunk(){
-  if(!recognitionActive || !mediaStream) return;
-  const mime=pickAudioMime();
-  const localChunks=[];
-  try{
-    mediaRecorder=mime?new MediaRecorder(mediaStream,{mimeType:mime}):new MediaRecorder(mediaStream);
-  }catch(e){
-    console.warn('MediaRecorder init failed',e);
-    showToast('⚠ Recording failed to start');
-    recognitionActive=false;
-    return;
-  }
-  mediaRecorder.ondataavailable=e=>{ if(e.data && e.data.size>0) localChunks.push(e.data); };
-  mediaRecorder.onstop=async()=>{
-    const blob=new Blob(localChunks,{type:mediaRecorder.mimeType||mime||'audio/webm'});
-    await transcribeChunk(blob);
-    if(recognitionActive){
-      startNewChunk();
-    } else if(pendingStopCleanup){
-      pendingStopCleanup();
-      pendingStopCleanup=null;
-    }
-  };
-  mediaRecorder.start();
-  chunkTimer=setTimeout(()=>{
-    if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop();
-  },CHUNK_MS);
-}
-
-function stopRecognition(){
-  return new Promise(resolve=>{
-    recognitionActive=false;
-    clearTimeout(chunkTimer);
-    const cleanup=()=>{
-      if(mediaStream){ mediaStream.getTracks().forEach(t=>t.stop()); mediaStream=null; }
-      resolve();
+    return {
+      sessionId: currentSession.id,
+      positionInChapter: pastSessions.length + 1,
+      previousSessions: pastSessions.length,
+      continuityScore: this._continuityScore(pastSessions),
+      conceptHistory: this._extractHistory(pastSessions),
+      confidence: this._confidence
     };
-    if(mediaRecorder && mediaRecorder.state==='recording'){
-      pendingStopCleanup=cleanup;
-      mediaRecorder.stop(); // final segment — onstop transcribes it before cleanup runs
-    } else {
-      cleanup();
-    }
-  });
-}
+  }
 
-async function transcribeChunk(blob){
-  if(!blob || blob.size<800) return; // near-silent chunk, not worth a call
-  const key=getKey();
-  if(!key){ showToast('⚠ Add your Groq API key in Settings'); return; }
-  const ext=(blob.type||'').includes('mp4')?'mp4':'webm';
-  const form=new FormData();
-  form.append('file',blob,`chunk.${ext}`);
-  form.append('model','whisper-large-v3-turbo');
-  form.append('response_format','text');
-  form.append('language','en');
-  try{
-    const res=await fetch('https://api.groq.com/openai/v1/audio/transcriptions',{
-      method:'POST',
-      headers:{'Authorization':`Bearer ${key}`},
-      body:form
+  _continuityScore(pastSessions) {
+    if (!pastSessions.length) return 0;
+    const recent = pastSessions.filter(s => {
+      const diff = (Date.now() - new Date(s.date).getTime()) / (1000 * 60 * 60 * 24);
+      return diff < 14;
     });
-    if(!res.ok){
-      console.warn('Whisper chunk failed',res.status,await res.text().catch(()=>''));
-      return;
-    }
-    const text=(await res.text()).trim();
-    if(text && S.current){
-      S.current.transcript+=text+' ';
-      const p=document.getElementById('transcript-preview');
-      if(p){ p.textContent=S.current.transcript.slice(-300)||'Listening...'; p.scrollTop=p.scrollHeight; }
-    }
-  }catch(e){
-    console.warn('Whisper error',e);
+    return Math.min(100, recent.length * 25);
   }
-}
 
-let timerSeconds=0;
-function startTimer(){
-  timerSeconds=0;
-  S.timerInterval=setInterval(()=>{
-    timerSeconds++;
-    const m=Math.floor(timerSeconds/60),s=timerSeconds%60;
-    document.getElementById('rec-timer').textContent=`${m}:${s.toString().padStart(2,'0')}`;
-  },1000);
-}
-
-async function stopSession(){
-  clearInterval(S.timerInterval);
-  showToast('Transcribing final segment...');
-  await stopRecognition();
-  S.current.duration=timerSeconds;
-  if(S.current.transcript.trim().length < 20){
-    showToast('⚠ Recording too short');
-    goTo('config');return;
+  _extractHistory(pastSessions) {
+    const concepts = new Map();
+    pastSessions.forEach(s => {
+      if (s.intelligence?.knowledge?.concepts) {
+        s.intelligence.knowledge.concepts.forEach(c => {
+          concepts.set(c.id, { name: c.title, lastSeen: s.date });
+        });
+      }
+    });
+    return Array.from(concepts.values());
   }
-  goTo('generating');
-  runKRE();
-}
 
-// ══════════════════════════════════════════════════════════
-// KNOWLEDGE RENDERING ENGINE — 8 STAGES
-// ══════════════════════════════════════════════════════════
-async function runKRE(){
-  const stepsEl=document.getElementById('gen-steps');
-  const stages=[
-    {label:'Reconstructing teaching flow...',icon:'🎓'},
-    {label:'Building VSN-2.0 high-density notes...',icon:'📐'},
-    {label:'Generating Parent Summary...',icon:'👨‍👩‍👧'},
-    {label:'Estimating Chapter Coverage...',icon:'📊'},
-    {label:'Generating DPP (10 questions, 5 sections)...',icon:'📝'},
-    {label:'Generating Assignment (20 questions)...',icon:'📚'},
-    {label:'Creating flashcards & chapter test...',icon:'🎴'},
-    {label:'Finalizing outputs...',icon:'✨'}
-  ];
-  stepsEl.innerHTML=stages.map((s,i)=>
-    `<div class="gen-step" id="step-${i}"><div class="gen-step-icon">${s.icon}</div>${s.label}</div>`
-  ).join('');
+  saveSession(session) {
+    this.sessions.unshift(session);
+    if (this.sessions.length > 50) this.sessions.pop();
+    localStorage.setItem('cp_sessions', JSON.stringify(this.sessions));
+  }
+};
 
-  const key=getKey();
-  const ctx=S.current;
-  const transcript=ctx.transcript.slice(0,12000);
+/* ── Engine 2: Teaching Intelligence (Generic Signal Extraction) ── */
+CP.Core.TeachingIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('TeachingIntelligence'); }
 
-  try{
-    // Stage 0: Teaching flow
-    await activateStep(0);
-    await new Promise(r=>setTimeout(r,400));
-    await completeStep(0);
+  analyze(transcript) {
+    this._confidence = 88;
+    return {
+      emphasisMarkers: this._findEmphasis(transcript),
+      repetitionPatterns: this._findRepetition(transcript),
+      memoryTricks: this._findMemoryTricks(transcript),
+      misconceptions: this._findMisconceptions(transcript),
+      questionsAsked: this._findQuestions(transcript),
+      teachingStyle: this._inferStyle(transcript),
+      confidence: this._confidence
+    };
+  }
 
-    // Stage 1: VSN-2.0 Notes
-    await activateStep(1);
-    const vsnPrompt=buildVSNPrompt(ctx,transcript);
-    const vsnData=await callGroq(key,vsnPrompt);
-    await completeStep(1);
+  _findEmphasis(text) {
+    const markers = [];
+    const patterns = [
+      /very important/gi, /remember this/gi, /most important/gi,
+      /don't forget/gi, /note this/gi, /key point/gi,
+      /this is crucial/gi, /pay attention/gi
+    ];
+    patterns.forEach(p => {
+      const matches = text.match(p);
+      if (matches) markers.push({ pattern: p.source, count: matches.length });
+    });
+    return markers;
+  }
 
-    // Stage 2: Parent Summary
-    await activateStep(2);
-    const psPrompt=buildParentSummaryPrompt(ctx,vsnData,transcript);
-    const parentSummaryData=await callGroq(key,psPrompt);
-    await completeStep(2);
+  _findRepetition(text) {
+    const words = text.toLowerCase().split(/\s+/).filter(w => w.length > 5);
+    const freq = {};
+    words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+    return Object.entries(freq)
+      .filter(([, c]) => c >= 3)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([word, count]) => ({ word, count }));
+  }
 
-    // Stage 3: Chapter Coverage
-    await activateStep(3);
-    const ccPrompt=buildChapterCoveragePrompt(ctx,vsnData,transcript);
-    const chapterCoverageData=await callGroq(key,ccPrompt);
-    await completeStep(3);
+  _findMemoryTricks(text) {
+    const tricks = [];
+    const patterns = [
+      /remember (?:it|this) as[^.]*\./gi,
+      /trick[^.]*\./gi,
+      /mnemonic[^.]*\./gi,
+      /think of it as[^.]*\./gi
+    ];
+    patterns.forEach(p => {
+      const matches = text.match(p);
+      if (matches) tricks.push(...matches);
+    });
+    return tricks.slice(0, 5);
+  }
 
-    // Stage 4: DPP
-    await activateStep(4);
-    const dppPrompt=buildDppPrompt(ctx,vsnData,transcript);
-    const dppData=await callGroq(key,dppPrompt);
-    await completeStep(4);
+  _findMisconceptions(text) {
+    const misc = [];
+    const patterns = [
+      /don'?t (?:confuse|mistake)[^.]*\./gi,
+      /common (?:mistake|error)[^.]*\./gi,
+      /students (?:often|usually|tend to)[^.]*\./gi,
+      /wrong (?:to|idea)[^.]*\./gi
+    ];
+    patterns.forEach(p => {
+      const matches = text.match(p);
+      if (matches) misc.push(...matches);
+    });
+    return misc.slice(0, 5);
+  }
 
-    // Stage 5: Assignment
-    await activateStep(5);
-    const asgnPrompt=buildAssignmentPrompt(ctx,vsnData,transcript);
-    const asgnData=await callGroq(key,asgnPrompt);
-    await completeStep(5);
+  _findQuestions(text) {
+    const qMarks = text.match(/[^.!?]*\?/g) || [];
+    return qMarks.slice(0, 8).map(q => q.trim());
+  }
 
-    // Stage 6: Flashcards + Chapter Test
-    await activateStep(6);
-    const extraPrompt=buildExtraPrompt(ctx,vsnData);
-    const extraData=await callGroq(key,extraPrompt);
-    await completeStep(6);
+  _inferStyle(text) {
+    const len = text.length;
+    const qCount = (text.match(/\?/g) || []).length;
+    const exclCount = (text.match(/!/g) || []).length;
+    if (qCount > len / 200) return 'interactive';
+    if (exclCount > len / 300) return 'enthusiastic';
+    return 'lecture';
+  }
+};
 
-    // Stage 7: Finalize
-    await activateStep(7);
-    await new Promise(r=>setTimeout(r,400));
-    await completeStep(7);
+/* ── Engine 3: Knowledge Graph Engine (Generic) ── */
+CP.Core.KnowledgeGraphEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('KnowledgeGraph'); }
 
-    ctx.outputs={
-      vsn:vsnData,
-      parentSummary:parentSummaryData,
-      chapterCoverage:chapterCoverageData,
-      dpp:dppData,
-      assignment:asgnData,
-      flashcards:extraData.flashcards||[],
-      test:extraData.test||null,
-      summary:buildSummary(vsnData,dppData,asgnData)
+  build(blocks, context) {
+    const concepts = [];
+    const formulas = [];
+    const dependencies = [];
+    let idx = 0;
+
+    blocks.forEach(b => {
+      if (['narrative', 'formula_vault', 'derivation'].includes(b.type)) {
+        const id = CP.Util.genId(context.subject.substring(0, 3).toUpperCase(), idx++);
+        concepts.push({
+          id,
+          title: b.heading || b.title || 'Concept',
+          description: b.content || '',
+          type: b.type,
+          prerequisites: [],
+          successors: [],
+          related: [],
+          formulas: [],
+          derivations: [],
+          examples: [],
+          pyqMapping: {},
+          bloomLevel: this._inferBloom(b),
+          ncertMapping: null,
+          difficulty: this._inferDifficulty(b),
+          importance: 0,
+          misconceptions: [],
+          memoryTricks: [],
+          revisionFrequency: 'weekly',
+          learningObjectives: [],
+          assessmentTags: []
+        });
+      }
+      if (b.type === 'formula_vault' && b.formulas) {
+        b.formulas.forEach(f => {
+          formulas.push({
+            id: CP.Util.genId('F', idx++),
+            expression: f.expr,
+            name: f.name,
+            parentConcept: b.title
+          });
+        });
+      }
+    });
+
+    // Build sequential dependencies
+    for (let i = 1; i < concepts.length; i++) {
+      dependencies.push({
+        from: concepts[i - 1].id,
+        to: concepts[i].id,
+        type: 'sequential'
+      });
+      concepts[i - 1].successors.push(concepts[i].id);
+      concepts[i].prerequisites.push(concepts[i - 1].id);
+    }
+
+    this._confidence = 94;
+    return {
+      concepts,
+      formulas,
+      dependencies,
+      totalConcepts: concepts.length,
+      confidence: this._confidence
+    };
+  }
+
+  _inferBloom(block) {
+    if (block.type === 'derivation') return 'analyze';
+    if (block.type === 'formula_vault') return 'apply';
+    if (block.keyTerms && block.keyTerms.length > 2) return 'understand';
+    return 'remember';
+  }
+
+  _inferDifficulty(block) {
+    if (block.type === 'derivation') return 0.8;
+    if (block.type === 'formula_vault') return 0.6;
+    return 0.4;
+  }
+};
+
+/* ── Engine 4: Importance Engine (Generic Scoring) ── */
+CP.Core.ImportanceEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('Importance'); }
+
+  calculate(knowledge, teachingSignals, context) {
+    const scores = knowledge.concepts.map(c => {
+      const score = this._score(c, teachingSignals, context);
+      return {
+        conceptId: c.id,
+        conceptName: c.title,
+        score: score.total,
+        level: this._level(score.total),
+        factors: score.factors
+      };
+    });
+
+    this._confidence = 90;
+    return {
+      scores,
+      highImportanceCount: scores.filter(s => s.level === 'high').length,
+      averageScore: scores.length ? Math.round(scores.reduce((a, b) => a + b.score, 0) / scores.length) : 0,
+      confidence: this._confidence
+    };
+  }
+
+  _score(concept, teaching, context) {
+    const factors = {};
+    let total = 0;
+
+    // Teacher emphasis (0-25)
+    factors.emphasis = Math.min(25, teaching.emphasisMarkers.length * 5);
+    total += factors.emphasis;
+
+    // Concept type weight (0-25)
+    factors.typeWeight = concept.type === 'derivation' ? 25 : concept.type === 'formula_vault' ? 20 : 15;
+    total += factors.typeWeight;
+
+    // Bloom level (0-20)
+    factors.bloom = concept.bloomLevel === 'analyze' ? 20 : concept.bloomLevel === 'apply' ? 15 : 10;
+    total += factors.bloom;
+
+    // Difficulty (0-15)
+    factors.difficulty = Math.round(concept.difficulty * 15);
+    total += factors.difficulty;
+
+    // Base (0-15)
+    factors.base = 15;
+    total += factors.base;
+
+    return { total: Math.min(100, total), factors };
+  }
+
+  _level(score) {
+    if (score >= 70) return 'high';
+    if (score >= 40) return 'medium';
+    return 'low';
+  }
+};
+
+/* ── Engine 5: Cognitive Load Engine (NEW) ── */
+CP.Core.CognitiveLoadEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('CognitiveLoad'); }
+
+  analyze(knowledge, importance) {
+    const loadPoints = [];
+    let totalLoad = 0;
+
+    knowledge.concepts.forEach((c, idx) => {
+      const load = this._calculateLoad(c, importance, idx, knowledge);
+      loadPoints.push({
+        conceptId: c.id,
+        conceptName: c.title,
+        load: load.total,
+        overload: load.total > 70,
+        recommendations: load.recommendations
+      });
+      totalLoad += load.total;
+    });
+
+    const avgLoad = loadPoints.length ? totalLoad / loadPoints.length : 0;
+    this._confidence = 86;
+
+    return {
+      loadPoints,
+      averageLoad: Math.round(avgLoad),
+      overloadDetected: avgLoad > 65,
+      naturalPauses: this._findPauses(loadPoints),
+      visualAidRecommendations: this._recommendVisualAids(knowledge),
+      confidence: this._confidence
+    };
+  }
+
+  _calculateLoad(concept, importance, idx, knowledge) {
+    const recommendations = [];
+    let load = 0;
+
+    // Base difficulty
+    load += concept.difficulty * 30;
+
+    // Prerequisite chain length
+    const prereqDepth = this._prereqDepth(concept, knowledge);
+    load += prereqDepth * 10;
+
+    // Importance pressure
+    const imp = importance.scores.find(s => s.conceptId === concept.id);
+    if (imp && imp.level === 'high') load += 15;
+
+    // Position in sequence (later = more load)
+    load += Math.min(20, idx * 3);
+
+    // Recommendations
+    if (load > 70) {
+      recommendations.push('Insert memory trick');
+      recommendations.push('Add visual diagram');
+    }
+    if (concept.type === 'derivation') {
+      recommendations.push('Break into smaller steps');
+    }
+    if (prereqDepth > 2) {
+      recommendations.push('Review prerequisites first');
+    }
+
+    return { total: Math.min(100, Math.round(load)), recommendations };
+  }
+
+  _prereqDepth(concept, knowledge, depth = 0) {
+    if (!concept.prerequisites.length || depth > 5) return depth;
+    const prereq = knowledge.concepts.find(c => c.id === concept.prerequisites[0]);
+    if (!prereq) return depth;
+    return this._prereqDepth(prereq, knowledge, depth + 1);
+  }
+
+  _findPauses(loadPoints) {
+    const pauses = [];
+    loadPoints.forEach((lp, i) => {
+      if (i > 0 && loadPoints[i - 1].load > 60 && lp.load < 40) {
+        pauses.push({ after: loadPoints[i - 1].conceptName, before: lp.conceptName });
+      }
+    });
+    return pauses;
+  }
+
+  _recommendVisualAids(knowledge) {
+    const aids = [];
+    knowledge.concepts.forEach(c => {
+      if (c.difficulty > 0.7 && c.type !== 'derivation') {
+        aids.push({ concept: c.title, type: 'diagram' });
+      }
+    });
+    return aids;
+  }
+};
+
+/* ── Engine 6: Learning Evidence Engine ── */
+CP.Core.LearningEvidenceEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('LearningEvidence'); }
+
+  build(knowledge, transcript) {
+    const evidenceMap = {};
+    knowledge.concepts.forEach(c => {
+      evidenceMap[c.id] = this._extractEvidence(c, transcript);
+    });
+    this._confidence = 87;
+    return {
+      evidence: evidenceMap,
+      confidence: this._confidence
+    };
+  }
+
+  _extractEvidence(concept, transcript) {
+    const name = concept.title.toLowerCase();
+    const words = transcript.toLowerCase().split(/\s+/);
+    const mentionCount = words.filter(w => w.includes(name.split(' ')[0])).length;
+
+    return {
+      conceptId: concept.id,
+      transcriptExcerpts: this._findExcerpts(concept.title, transcript),
+      mentionCount,
+      teacherEmphasis: mentionCount > 5,
+      confidenceScore: Math.min(100, 50 + mentionCount * 3),
+      inferenceLevel: mentionCount > 10 ? 'direct' : mentionCount > 3 ? 'strong' : 'inferred'
+    };
+  }
+
+  _findExcerpts(conceptName, transcript) {
+    const idx = transcript.toLowerCase().indexOf(conceptName.toLowerCase());
+    if (idx === -1) return [];
+    const start = Math.max(0, idx - 50);
+    const end = Math.min(transcript.length, idx + conceptName.length + 100);
+    return [transcript.slice(start, end).trim()];
+  }
+};
+
+/* ── Engine 7: Publishing Intelligence (Generic) ── */
+CP.Core.PublishingIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('Publishing'); }
+
+  decide(blocks, importance, cognitiveLoad) {
+    return blocks.map(b => {
+      const imp = this._findImportance(b, importance);
+      const load = this._findLoad(b, cognitiveLoad);
+      return {
+        ...b,
+        priority: this._priority(b, imp),
+        layout: this._layout(b, imp, load),
+        density: this._density(b, load),
+        typography: this._typography(b),
+        importanceScore: imp,
+        cognitiveLoad: load
+      };
+    });
+  }
+
+  _findImportance(block, importance) {
+    const match = importance.scores.find(s => s.conceptName === (block.heading || block.title));
+    return match ? match.score : 50;
+  }
+
+  _findLoad(block, cognitiveLoad) {
+    const match = cognitiveLoad.loadPoints.find(lp => lp.conceptName === (block.heading || block.title));
+    return match ? match.load : 40;
+  }
+
+  _priority(block, importance) {
+    if (block.type === 'narrative' && importance > 70) return 1;
+    if (['derivation', 'formula_vault'].includes(block.type)) return 2;
+    if (['comparison_table', 'diagram'].includes(block.type)) return 3;
+    if (['teacher_emphasis', 'memory_trick', 'misconception_alert', 'exam_radar'].includes(block.type)) return 4;
+    return 3;
+  }
+
+  _layout(block, importance, load) {
+    if (['teacher_emphasis', 'memory_trick'].includes(block.type)) return 'sidebar';
+    if (['misconception_alert', 'exam_radar'].includes(block.type)) return 'half';
+    if (block.type === 'narrative' && importance > 70) return 'full';
+    return 'full';
+  }
+
+  _density(block, load) {
+    if (load > 70) return 'spacious';
+    if (['memory_trick', 'exam_radar'].includes(block.type)) return 'compact';
+    return 'standard';
+  }
+
+  _typography(block) {
+    if (block.type === 'derivation') return { size: 'small', weight: 'normal' };
+    if (block.type === 'formula_vault') return { size: 'medium', weight: 'bold' };
+    return { size: 'normal', weight: 'normal' };
+  }
+};
+
+/* ── Engine 8: Page Planning Engine (NEW) ── */
+CP.Core.PagePlanningEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('PagePlanning'); }
+
+  plan(blocks, context) {
+    // Estimate pages based on lecture duration
+    const durationMin = Math.floor(context.duration / 60);
+    let targetPages;
+    if (durationMin <= 45) targetPages = 1;
+    else if (durationMin <= 75) targetPages = 2;
+    else targetPages = 3;
+
+    // Calculate total block weight
+    const totalWeight = blocks.reduce((sum, b) => sum + this._blockWeight(b), 0);
+    const weightPerPage = totalWeight / targetPages;
+
+    // Group blocks into pages
+    const pages = [];
+    let currentPage = [];
+    let currentWeight = 0;
+
+    blocks.forEach(b => {
+      const w = this._blockWeight(b);
+      if (currentWeight + w > weightPerPage && currentPage.length > 0) {
+        pages.push(currentPage);
+        currentPage = [];
+        currentWeight = 0;
+      }
+      currentPage.push(b);
+      currentWeight += w;
+    });
+    if (currentPage.length) pages.push(currentPage);
+
+    this._confidence = 91;
+    return {
+      pages,
+      totalPages: pages.length,
+      targetPages,
+      weightPerPage: Math.round(weightPerPage),
+      compressionRatio: targetPages / pages.length,
+      confidence: this._confidence
+    };
+  }
+
+  _blockWeight(block) {
+    if (block.type === 'derivation') return 3;
+    if (block.type === 'narrative') return 2;
+    if (block.type === 'formula_vault') return 2;
+    if (block.type === 'comparison_table') return 2;
+    if (block.type === 'diagram') return 2;
+    if (['teacher_emphasis', 'memory_trick', 'misconception_alert', 'exam_radar'].includes(block.type)) return 1;
+    return 1;
+  }
+};
+
+/* ── Engine 9: Layout Optimization Intelligence (Upgraded) ── */
+CP.Core.LayoutOptimizationIntelligence = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('LOI'); }
+
+  optimize(pagePlan) {
+    const optimizedPages = pagePlan.pages.map((pageBlocks, pageIdx) => {
+      return this._optimizePage(pageBlocks, pageIdx, pagePlan.totalPages);
+    });
+
+    this._confidence = 93;
+    return {
+      pages: optimizedPages,
+      totalPages: optimizedPages.length,
+      densityScore: this._densityScore(optimizedPages),
+      confidence: this._confidence
+    };
+  }
+
+  _optimizePage(blocks, pageIdx, totalPages) {
+    const fullBlocks = blocks.filter(b => b.layout === 'full');
+    const halfBlocks = blocks.filter(b => b.layout === 'half');
+    const sidebarBlocks = blocks.filter(b => b.layout === 'sidebar');
+
+    // Handle widows/orphans
+    const adjusted = this._handleWidowsOrphans(fullBlocks);
+
+    // Merge small blocks if needed
+    const merged = this._mergeSmallBlocks(adjusted, halfBlocks);
+
+    return {
+      pageIndex: pageIdx,
+      fullBlocks: merged.full,
+      halfBlocks: merged.half,
+      sidebarBlocks,
+      columnStrategy: this._columnStrategy(merged),
+      pageBreakAfter: pageIdx < totalPages - 1
+    };
+  }
+
+  _handleWidowsOrphans(blocks) {
+    // If last block is very small, try to merge with previous
+    if (blocks.length > 1) {
+      const last = blocks[blocks.length - 1];
+      if (last.type === 'hook' || last.type === 'flowchart') {
+        // Move to next page or merge
+        return blocks;
+      }
+    }
+    return blocks;
+  }
+
+  _mergeSmallBlocks(fullBlocks, halfBlocks) {
+    // If we have many small full blocks, convert some to half
+    const adjusted = [...fullBlocks];
+    const adjustedHalf = [...halfBlocks];
+
+    if (adjusted.length > 4 && adjustedHalf.length < 2) {
+      // Convert last 2 full blocks to half
+      const toConvert = adjusted.splice(-2, 2);
+      toConvert.forEach(b => {
+        b.layout = 'half';
+        adjustedHalf.push(b);
+      });
+    }
+
+    return { full: adjusted, half: adjustedHalf };
+  }
+
+  _columnStrategy(page) {
+    if (page.half.length >= 2) return 'mixed-2col';
+    if (page.sidebarBlocks.length > 0) return 'with-sidebar';
+    return 'single-col';
+  }
+
+  _densityScore(pages) {
+    let score = 0;
+    pages.forEach(p => {
+      const total = p.fullBlocks.length + p.halfBlocks.length + p.sidebarBlocks.length;
+      score += Math.min(100, 60 + total * 5);
+    });
+    return Math.round(score / Math.max(1, pages.length));
+  }
+};
+
+/* ── Engine 10: Decision Layer (NEW) ── */
+CP.Core.DecisionEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('Decision'); }
+
+  resolve(intelligence, constraints) {
+    const { knowledge, importance, cognitiveLoad, publishing, pagePlan, layout } = intelligence;
+
+    const decisions = [];
+
+    // Resolve conflicts between engines
+    knowledge.concepts.forEach(concept => {
+      const imp = importance.scores.find(s => s.conceptId === concept.id);
+      const load = cognitiveLoad.loadPoints.find(lp => lp.conceptId === concept.id);
+
+      const decision = this._resolveConcept(concept, imp, load, constraints);
+      decisions.push(decision);
+    });
+
+    this._confidence = 89;
+    return {
+      decisions,
+      compressionApplied: decisions.filter(d => d.action === 'compress').length,
+      splitsApplied: decisions.filter(d => d.action === 'split').length,
+      sidebarMoves: decisions.filter(d => d.action === 'sidebar').length,
+      confidence: this._confidence
+    };
+  }
+
+  _resolveConcept(concept, importance, load, constraints) {
+    const decision = {
+      conceptId: concept.id,
+      conceptName: concept.title,
+      action: 'preserve',
+      reasoning: []
     };
 
-    S.sessions.unshift(ctx);
-    if(S.sessions.length>50)S.sessions.pop();
-    localStorage.setItem('cp_sessions',JSON.stringify(S.sessions));
+    // Conflict: High importance but high cognitive load
+    if (importance.level === 'high' && load.load > 70) {
+      decision.action = 'split';
+      decision.reasoning.push('High importance but overloaded — splitting across pages');
+    }
+    // Conflict: High importance but limited space
+    else if (importance.level === 'high' && constraints.pageSpace === 'limited') {
+      decision.action = 'compress';
+      decision.reasoning.push('High importance but space limited — compressing formulas');
+    }
+    // Low importance but high load
+    else if (importance.level === 'low' && load.load > 60) {
+      decision.action = 'sidebar';
+      decision.reasoning.push('Low importance but high load — moving to sidebar');
+    }
+    // Derivation integrity
+    else if (concept.type === 'derivation' && load.load > 50) {
+      decision.action = 'preserve-derivation';
+      decision.reasoning.push('Preserving derivation integrity despite load');
+    }
 
-    showOutputs();
-  }catch(e){
-    console.error(e);
-    showToast('❌ '+e.message);
-    goTo('config');
+    return decision;
   }
-}
+};
 
-async function activateStep(i){document.getElementById('step-'+i).classList.add('active');}
-async function completeStep(i){
-  const el=document.getElementById('step-'+i);
-  el.classList.remove('active');el.classList.add('done');
-}
+/* ── Engine 11: Recommendation Engine ── */
+CP.Core.RecommendationEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('Recommendation'); }
 
-async function callGroq(key,prompt){
-  const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-    method:'POST',
-    headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'llama-3.3-70b-versatile',
-      messages:[{role:'user',content:prompt}],
-      temperature:0.3,
-      response_format:{type:'json_object'}
-    })
-  });
-  const data=await res.json();
-  if(data.error) throw new Error(data.error.message||'API error');
-  let content=data.choices[0].message.content;
-  try{return JSON.parse(content);}
-  catch(e){
-    const m=content.match(/\{[\s\S]*\}/);
-    if(m) return JSON.parse(m[0]);
-    throw new Error('Invalid JSON response');
+  generate(intelligence) {
+    const { importance, cognitiveLoad, knowledge } = intelligence;
+
+    this._confidence = 85;
+    return {
+      revision: this._revisionRecs(importance),
+      homework: ['Complete today\'s DPP', 'Finish assignment this week'],
+      practice: this._practiceRecs(cognitiveLoad),
+      weakAreas: importance.scores.filter(s => s.level === 'medium').slice(0, 3).map(s => s.conceptName),
+      nextClass: this._nextClassRec(knowledge),
+      confidence: this._confidence
+    };
   }
-}
 
-// ── PROMPT 1: VSN-2.0 with LOI ──
-function buildVSNPrompt(ctx,transcript){
-  const enabledBlocks=Object.entries(S.settings)
-    .filter(([k,v])=>v && ['formulaVault','teacherVoice','memoryTricks','misconceptions','examRadar','derivations'].includes(k))
-    .map(([k])=>k);
+  _revisionRecs(importance) {
+    return importance.scores.filter(s => s.level === 'high').slice(0, 3).map(s => `Revise: ${s.conceptName}`);
+  }
 
-  return `You are the Visual Notes Standard (VSN-2.0) Knowledge Rendering Engine with Layout Optimization Intelligence (LOI).
+  _practiceRecs(cognitiveLoad) {
+    const recs = [];
+    if (cognitiveLoad.overloadDetected) recs.push('Take breaks between topics');
+    if (cognitiveLoad.naturalPauses.length) recs.push('Use natural pauses for quick revision');
+    return recs;
+  }
+
+  _nextClassRec(knowledge) {
+    if (knowledge.totalConcepts > 10) return 'Continue with next topic';
+    return 'Chapter revision & test';
+  }
+};
+
+/* ── Engine 12: Parent Intelligence Engine ── */
+CP.Core.ParentIntelligenceEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('ParentIntelligence'); }
+
+  prepare(intelligence, context) {
+    const { knowledge, cognitiveLoad, recommendations } = intelligence;
+
+    this._confidence = 91;
+    return {
+      context: {
+        topic: context.chapter,
+        duration: `${Math.floor(context.duration / 60)} minutes`,
+        class: context.class,
+        subject: context.subject,
+        teacher: 'Class Teacher'
+      },
+      conceptsCovered: knowledge.concepts.slice(0, 6).map(c => c.title),
+      cognitiveLoadSummary: {
+        averageLoad: cognitiveLoad.averageLoad,
+        overloadDetected: cognitiveLoad.overloadDetected
+      },
+      recommendations,
+      confidence: this._confidence
+    };
+  }
+};
+
+/* ── Engine 13: Chapter Progress Engine ── */
+CP.Core.ChapterProgressEngine = class extends CP.Core.IntelligenceEngine {
+  constructor() { super('ChapterProgress'); }
+
+  calculate(knowledge, importance, context) {
+    const totalConcepts = this._estimateTotal(context);
+    const completed = knowledge.concepts.length;
+    const coveragePct = Math.min(100, Math.round((completed / totalConcepts) * 100));
+
+    this._confidence = 88;
+    return {
+      chapterName: context.chapter,
+      totalConcepts,
+      completedConcepts: completed,
+      remainingConcepts: Math.max(0, totalConcepts - completed),
+      coveragePercentage: coveragePct,
+      estimatedClassesRemaining: Math.max(1, Math.ceil((totalConcepts - completed) / 3)),
+      difficultyLevel: this._difficulty(importance),
+      pyqCoverage: Math.min(100, knowledge.formulas.length * 10),
+      confidence: this._confidence
+    };
+  }
+
+  _estimateTotal(context) {
+    const base = { 'Physics': 12, 'Chemistry': 14, 'Mathematics': 10, 'Biology': 15, 'Science': 10 };
+    return base[context.subject] || 12;
+  }
+
+  _difficulty(importance) {
+    if (importance.highImportanceCount > 5) return 'hard';
+    if (importance.averageScore > 50) return 'medium';
+    return 'easy';
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   LAYER 2: EDUCATION ADAPTERS (Domain-Specific)
+   
+   These adapters know about Physics, NEET, JEE, NCERT, etc.
+   They translate generic intelligence into domain-specific outputs.
+   ══════════════════════════════════════════════════════════ */
+CP.Education = {};
+
+CP.Education.Adapter = class {
+  constructor(subject, exam, board) {
+    this.subject = subject;
+    this.exam = exam;
+    this.board = board;
+  }
+
+  // Interpret generic signals for this domain
+  interpretSignals(signals) { return signals; }
+
+  // Enrich knowledge graph with domain-specific mappings
+  enrichKnowledge(knowledge) { return knowledge; }
+
+  // Calculate domain-specific importance adjustments
+  adjustImportance(importance, knowledge) { return importance; }
+
+  // Build domain-specific prompts
+  buildPrompt(intelligence, outputType) {
+    throw new Error('Must implement buildPrompt()');
+  }
+
+  // Subject-specific concept estimation
+  estimateChapterConcepts() { return 12; }
+};
+
+CP.Education.PhysicsAdapter = class extends CP.Education.Adapter {
+  constructor(exam, board) { super('Physics', exam, board); }
+
+  enrichKnowledge(knowledge) {
+    knowledge.concepts.forEach(c => {
+      c.ncertMapping = { chapter: 'Electrostatics', relevance: 'high' };
+      if (c.type === 'derivation') {
+        c.assessmentTags.push('derivation', 'step-marking');
+      }
+      if (c.type === 'formula_vault') {
+        c.pyqMapping = { JEE: 'high', NEET: 'medium' };
+      }
+    });
+    return knowledge;
+  }
+
+  adjustImportance(importance, knowledge) {
+    if (this.exam.includes('JEE Advanced')) {
+      importance.scores.forEach(s => {
+        const c = knowledge.concepts.find(c => c.id === s.conceptId);
+        if (c && c.type === 'derivation') s.score = Math.min(100, s.score + 10);
+      });
+    }
+    return importance;
+  }
+
+  estimateChapterConcepts() { return 12; }
+};
+
+CP.Education.ChemistryAdapter = class extends CP.Education.Adapter {
+  constructor(exam, board) { super('Chemistry', exam, board); }
+
+  enrichKnowledge(knowledge) {
+    knowledge.concepts.forEach(c => {
+      if (c.title.toLowerCase().includes('reaction') || c.title.toLowerCase().includes('mechanism')) {
+        c.assessmentTags.push('mechanism', 'exception');
+      }
+    });
+    return knowledge;
+  }
+
+  estimateChapterConcepts() { return 14; }
+};
+
+CP.Education.MathematicsAdapter = class extends CP.Education.Adapter {
+  constructor(exam, board) { super('Mathematics', exam, board); }
+
+  enrichKnowledge(knowledge) {
+    knowledge.concepts.forEach(c => {
+      if (c.type === 'derivation') {
+        c.assessmentTags.push('proof', 'step-by-step');
+      }
+    });
+    return knowledge;
+  }
+
+  estimateChapterConcepts() { return 10; }
+};
+
+CP.Education.BiologyAdapter = class extends CP.Education.Adapter {
+  constructor(exam, board) { super('Biology', exam, board); }
+
+  enrichKnowledge(knowledge) {
+    knowledge.concepts.forEach(c => {
+      if (c.type === 'narrative') {
+        c.assessmentTags.push('diagram-based', 'process');
+      }
+    });
+    return knowledge;
+  }
+
+  estimateChapterConcepts() { return 15; }
+};
+
+CP.Education.getAdapter = function(subject, exam, board) {
+  switch (subject) {
+    case 'Physics': return new CP.Education.PhysicsAdapter(exam, board);
+    case 'Chemistry': return new CP.Education.ChemistryAdapter(exam, board);
+    case 'Mathematics': return new CP.Education.MathematicsAdapter(exam, board);
+    case 'Biology': return new CP.Education.BiologyAdapter(exam, board);
+    default: return new CP.Education.Adapter(subject, exam, board);
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   LAYER 3: ORCHESTRATION
+   
+   Workflow Orchestrator — manages the pipeline
+   Prompt Builder — assembles prompts from intelligence
+   LLM Executor — just execution
+   ══════════════════════════════════════════════════════════ */
+CP.Orchestration = {};
+
+/* ── Prompt Builder ── */
+CP.Orchestration.PromptBuilder = class {
+  constructor(adapter) {
+    this.adapter = adapter;
+  }
+
+  buildVSN(context, transcript, settings, sessionIntel, teachingIntel) {
+    const enabledBlocks = Object.entries(settings)
+      .filter(([k, v]) => v && ['formulaVault', 'teacherVoice', 'memoryTricks', 'misconceptions', 'examRadar', 'derivations'].includes(k))
+      .map(([k]) => k);
+
+    return `You are the Visual Notes Standard (VSN-2.0) Knowledge Rendering Engine with Layout Optimization Intelligence (LOI).
 Generate HIGH-DENSITY educational notes optimized for maximum learning per square inch.
 
 CONTEXT:
-- Class: ${ctx.class} | Subject: ${ctx.subject}
-- Chapter: ${ctx.chapter} | Board: ${ctx.board}
-- Exam Target: ${ctx.exam}
+- Class: ${context.class} | Subject: ${context.subject}
+- Chapter: ${context.chapter} | Board: ${context.board}
+- Exam Target: ${context.exam}
+- Session Position: ${sessionIntel.positionInChapter} in chapter
+
+TEACHING INTELLIGENCE:
+- Emphasis markers: ${teachingIntel.emphasisMarkers.length}
+- Memory tricks: ${teachingIntel.memoryTricks.length}
+- Misconceptions corrected: ${teachingIntel.misconceptions.length}
+- Teaching style: ${teachingIntel.teachingStyle}
 
 LECTURE TRANSCRIPT:
 """
 ${transcript}
 """
 
-═══════════════════════════════════════════════════
-GROUNDING RULE — READ THIS BEFORE WRITING ANYTHING
-═══════════════════════════════════════════════════
-
-Read the ENTIRE transcript above before writing a single block. Do not stop at the opening minutes.
-
-- Every block must be traceable to something actually said in this transcript — not generic textbook content for "${ctx.chapter}".
-- If the teacher spent most of the class on one specific sub-topic (e.g. applications, a particular derivation, a specific problem type), that sub-topic must dominate the notes — not the general chapter introduction.
-- Weight coverage toward what was taught LATEST and MOST, not just what was said first.
-- If the transcript is short, unclear, or only covers 2-3 real concepts, generate fewer blocks. Do NOT pad the count with invented generic content to hit a target block count.
-- Never substitute a topic the teacher didn't actually cover just because it's part of the standard chapter.
-
-═══════════════════════════════════════════════════
-LAYOUT OPTIMIZATION INTELLIGENCE (LOI)
-═══════════════════════════════════════════════════
-
-Think like an educational publisher, not a document editor.
-
-DENSITY TARGETS:
+LAYOUT OPTIMIZATION:
 - 30-45 min lecture ≈ 1 A4 page
 - 60 min lecture ≈ 2 A4 pages
-- 90 min lecture ≈ 2-3 A4 pages
+- Use "full", "half", "sidebar" layouts
+- Assign priority 1-4 to each block
+- Target 90-95% page utilization
 
-COMPRESSION STRATEGY:
-- Formulas → Group into compact grids/tables
-- Comparisons → Use tables instead of paragraphs
-- Memory tricks → Compact floating boxes
-- Definitions → Inline or sidebar
-- Derivations → Step-by-step but compact
-
-MULTI-COLUMN LAYOUT:
-Mark blocks with "layout" property:
-- "full" → Full width (major concepts, derivations)
-- "half" → 50% width (can share space)
-- "sidebar" → Floating side content (tricks, tips)
-
-VISUAL PRIORITY:
-Assign each block a priority (1-4):
-- Priority 1: Major concepts (large rendering)
-- Priority 2: Derivations (medium-large)
-- Priority 3: Supporting info (medium)
-- Priority 4: Memory aids (compact)
-
-═══════════════════════════════════════════════════
-BLOCK TYPES
-═══════════════════════════════════════════════════
-
-1. "hook" — Teacher's opening
-   {type:"hook", content:"...", layout:"full", priority:3}
-
-2. "narrative" — Core concept
-   {type:"narrative", heading:"...", content:"...", keyTerms:[], layout:"full", priority:1}
-
-3. "formula_vault" — COMPRESSED formula grid
-   {type:"formula_vault", title:"...", 
-    formulas:[{expr:"...", name:"..."}],
-    legend:[{symbol:"...", meaning:"..."}],
-    layout:"full", priority:2}
-
-4. "derivation" — Step-by-step proof
-   {type:"derivation", title:"...", 
-    steps:[{step:1, expr:"...", justification:"..."}],
-    layout:"full", priority:2}
-
-5. "teacher_emphasis" — Floating sidebar
-   {type:"teacher_emphasis", quote:"...", context:"...", layout:"sidebar", priority:4}
-
-6. "memory_trick" — Compact floating
-   {type:"memory_trick", title:"...", content:"...", layout:"sidebar", priority:4}
-
-7. "misconception_alert" — Compact
-   {type:"misconception_alert", mistake:"...", correction:"...", layout:"half", priority:3}
-
-8. "exam_radar" — Compact
-   {type:"exam_radar", level:"high|medium|low", exam:"${ctx.exam}", content:"...", layout:"half", priority:3}
-
-9. "comparison_table" — Dense table
-   {type:"comparison_table", title:"...", headers:[], rows:[], layout:"full", priority:2}
-
-10. "diagram" — Compact
-    {type:"diagram", title:"...", description:"...", labels:[], layout:"full", priority:2}
-
-11. "flowchart" — Compact
-    {type:"flowchart", title:"...", steps:[], layout:"full", priority:3}
+BLOCK TYPES:
+1. "hook" — Teacher's opening {type:"hook", content:"...", layout:"full", priority:3}
+2. "narrative" — Core concept {type:"narrative", heading:"...", content:"...", keyTerms:[], layout:"full", priority:1}
+3. "formula_vault" — Compressed formula grid {type:"formula_vault", title:"...", formulas:[{expr:"...", name:"..."}], legend:[{symbol:"...", meaning:"..."}], layout:"full", priority:2}
+4. "derivation" — Step-by-step proof {type:"derivation", title:"...", steps:[{step:1, expr:"...", justification:"..."}], layout:"full", priority:2}
+5. "teacher_emphasis" — Floating sidebar {type:"teacher_emphasis", quote:"...", context:"...", layout:"sidebar", priority:4}
+6. "memory_trick" — Compact floating {type:"memory_trick", title:"...", content:"...", layout:"sidebar", priority:4}
+7. "misconception_alert" — Compact {type:"misconception_alert", mistake:"...", correction:"...", layout:"half", priority:3}
+8. "exam_radar" — Compact {type:"exam_radar", level:"high|medium|low", exam:"${context.exam}", content:"...", layout:"half", priority:3}
+9. "comparison_table" — Dense table {type:"comparison_table", title:"...", headers:[], rows:[], layout:"full", priority:2}
+10. "diagram" — Compact {type:"diagram", title:"...", description:"...", labels:[], layout:"full", priority:2}
+11. "flowchart" — Compact {type:"flowchart", title:"...", steps:[], layout:"full", priority:3}
 
 ENABLED BLOCKS: ${enabledBlocks.join(', ')}
 
-SUBJECT INTELLIGENCE:
+SUBJECT INTELLIGENCE (${context.subject}):
 - Physics: Heavy on derivation, vector notation, diagrams
 - Chemistry: Comparison tables, exceptions, memory tricks
 - Mathematics: Step-by-step derivation, worked examples
 - Biology: Diagram blocks, flowcharts, labeled structures
 
-EXAM INTELLIGENCE (${ctx.exam}):
-- JEE Advanced: derivation, edge cases, multi-concept links
-- JEE Main: formula-focused, shortcuts, direct applications
-- NEET: memory tricks, factual accuracy, NCERT alignment
-- Boards: step-marking friendly, definitions, standard derivations
-
-═══════════════════════════════════════════════════
 OUTPUT JSON:
-═══════════════════════════════════════════════════
 {
   "metadata":{
     "topic":"Main topic name",
     "subtopic":"Specific subtopic",
-    "class":"${ctx.class}",
-    "subject":"${ctx.subject}",
-    "exam":"${ctx.exam}",
-    "lectureFlow":"00:00 - ${Math.floor(ctx.duration/60)}:${(ctx.duration%60).toString().padStart(2,'0')}"
+    "class":"${context.class}",
+    "subject":"${context.subject}",
+    "exam":"${context.exam}",
+    "lectureFlow":"00:00 - ${Math.floor(context.duration / 60)}:${(context.duration % 60).toString().padStart(2, '0')}"
   },
-  "blocks":[
-    // Array of blocks with layout and priority properties
-  ]
+  "blocks":[...]
 }
 
-CRITICAL RULES:
-- Generate 10-20 blocks WHEN the transcript genuinely supports it — never invent content just to hit this range
-- Use "sidebar" layout for memory tricks, teacher emphasis
-- Use "half" layout for misconceptions, exam radar
-- Use "full" layout for major concepts, derivations, formula vaults
-- Target 90-95% page utilization for the content that actually exists — density is a rendering goal, not a license to fabricate
-- Use proper math notation (E⃗ for vectors, ² for squares, ₃ for subscripts)`;
-}
+CRITICAL: Generate 10-20 blocks. Use proper math notation (E⃗ for vectors, ² for squares).`;
+  }
 
-// ── PROMPT 2: PARENT SUMMARY ──
-function buildParentSummaryPrompt(ctx,vsnData,transcript){
-  const conceptsCovered=vsnData.blocks
-    .filter(b=>b.type==='narrative'||b.type==='formula_vault')
-    .map(b=>b.heading||b.title||'')
-    .filter(Boolean).slice(0,8);
+  buildDPP(context, knowledge, teaching, importance) {
+    const conceptNames = knowledge.concepts.map(c => c.title).join(', ');
+    const highImportance = importance.scores.filter(s => s.level === 'high').map(s => s.conceptName);
 
-  return `You are a friendly academic coordinator writing a brief update for parents.
-Parents have NO technical background. Use simple, warm, encouraging language.
-Avoid jargon. Explain importance in everyday terms.
-
-CONTEXT:
-- Class: ${ctx.class} | Subject: ${ctx.subject}
-- Chapter: ${ctx.chapter} | Board: ${ctx.board}
-- Exam Target: ${ctx.exam}
-- Lecture Duration: ${Math.floor(ctx.duration/60)} min ${ctx.duration%60} sec
-
-CONCEPTS COVERED IN CLASS:
-${conceptsCovered.map((c,i)=>`${i+1}. ${c}`).join('\n')}
-
-LECTURE EXCERPT:
-"""
-${transcript.slice(0,3000)}
-"""
-
-═══════════════════════════════════════════════════
-TASK: Generate a Parent Summary
-═══════════════════════════════════════════════════
-
-RULES:
-- Write like a caring teacher messaging a parent
-- Keep concepts in plain English (e.g., "how charges push/pull" not "Coulomb's Law vector form")
-- Be encouraging but honest
-- Suggestions should be actionable and specific
-- Homework section should reference the DPP/Assignment/Test
-- Keep "Why This Topic Matters" to 2-3 sentences maximum
-
-OUTPUT JSON:
-{
-  "todayClass":{
-    "topic":"${ctx.chapter}",
-    "duration":"${Math.floor(ctx.duration/60)} minutes",
-    "teacher":"Class Teacher",
-    "class":"${ctx.class}",
-    "subject":"${ctx.subject}"
-  },
-  "conceptsLearned":[
-    "Simple explanation of concept 1",
-    "Simple explanation of concept 2",
-    "Simple explanation of concept 3"
-  ],
-  "whyThisMatters":"2-3 sentences explaining why this topic matters for future studies and exams, in parent-friendly language.",
-  "homework":{
-    "dpp":"10-question practice sheet (to be solved today)",
-    "assignment":"20-question assignment (to be completed this week)",
-    "test":"Chapter test scheduled for revision"
-  },
-  "parentSuggestions":[
-    "Specific actionable suggestion 1",
-    "Specific actionable suggestion 2",
-    "Specific actionable suggestion 3",
-    "Specific actionable suggestion 4"
-  ],
-  "upcomingClass":"Next topic that will likely be covered"
-}
-
-CRITICAL:
-- 4-6 concepts in conceptsLearned
-- 4 parent suggestions
-- All language must be parent-friendly (no technical terms without explanation)`;
-}
-
-// ── PROMPT 3: CHAPTER COVERAGE ──
-function buildChapterCoveragePrompt(ctx,vsnData,transcript){
-  const conceptsCovered=vsnData.blocks
-    .filter(b=>['narrative','formula_vault','derivation'].includes(b.type))
-    .map(b=>b.heading||b.title||'')
-    .filter(Boolean);
-
-  const derivationCount=vsnData.blocks.filter(b=>b.type==='derivation').length;
-  const formulaCount=vsnData.blocks.filter(b=>b.type==='formula_vault').length;
-
-  return `You are an academic progress analyst. Estimate how much of the chapter has been covered based on the classroom teaching.
-
-CONTEXT:
-- Class: ${ctx.class} | Subject: ${ctx.subject}
-- Chapter: ${ctx.chapter} | Board: ${ctx.board}
-- Exam Target: ${ctx.exam}
-- Lecture Duration: ${Math.floor(ctx.duration/60)} min
-
-CONCEPTS COVERED IN THIS LECTURE:
-${conceptsCovered.map((c,i)=>`- ${c}`).join('\n')}
-
-TEACHING SIGNALS:
-- Derivations completed: ${derivationCount}
-- Formula groups covered: ${formulaCount}
-- Lecture duration: ${Math.floor(ctx.duration/60)} minutes
-
-═══════════════════════════════════════════════════
-COVERAGE ESTIMATION LOGIC
-═══════════════════════════════════════════════════
-
-Coverage is NOT based on time elapsed. It is based on:
-- Concepts completed vs. total chapter concepts
-- Teacher emphasis (repeated topics = deeper coverage)
-- Derivations completed (indicates thorough treatment)
-- Numericals/examples discussed
-- DPP and Assignment generated (indicates practice readiness)
-
-For ${ctx.subject} (${ctx.class}, ${ctx.board}):
-- Estimate total concepts in the chapter (typically 8-15 for a standard chapter)
-- Match what was taught against the expected chapter scope
-- Assign a realistic coverage percentage
-
-DIFFICULTY LEVELS:
-- "easy" — Foundational/introductory concepts
-- "medium" — Core chapter concepts
-- "hard" — Advanced/competitive-level concepts
-
-═══════════════════════════════════════════════════
-OUTPUT JSON:
-═══════════════════════════════════════════════════
-{
-  "chapterName":"${ctx.chapter}",
-  "coveragePercentage":75,
-  "conceptsCompleted":["concept 1","concept 2","concept 3"],
-  "conceptsRemaining":["concept X","concept Y"],
-  "estimatedClassesRemaining":3,
-  "estimatedCompletionDate":"YYYY-MM-DD (approx 2 weeks from now)",
-  "difficultyLevel":"easy|medium|hard",
-  "pyqCoverage":60,
-  "nextObjective":"What the next class should focus on",
-  "pendingConcepts":["concept 1","concept 2"],
-  "prerequisites":["What students should revise before next class"],
-  "expectedHomework":"Brief description of expected homework",
-  "expectedTestDate":"Approximate date for chapter test"
-}
-
-RULES:
-- coveragePercentage must be 0-100, realistic based on concepts covered
-- conceptsCompleted: list what was actually taught (from the lecture)
-- conceptsRemaining: list typical remaining topics for this chapter
-- estimatedClassesRemaining: realistic number (1-10)
-- estimatedCompletionDate: date string, approx 1-3 weeks out
-- pyqCoverage: 0-100, how much of PYQ-relevant content is covered
-- difficultyLevel: based on how advanced the covered concepts are
-- Keep lists concise (3-6 items each)`;
-}
-
-// ── PROMPT 4: DPP (STRICT 10-QUESTION PATTERN) ──
-function buildDppPrompt(ctx,vsnData,transcript){
-  const topicSummary=vsnData.blocks.slice(0,8).map(b=>{
-    if(b.type==='formula_vault') return 'Formulas: '+b.formulas.map(f=>f.expr).join('; ');
-    if(b.type==='narrative') return b.heading+': '+b.content.slice(0,200);
-    if(b.type==='misconception_alert') return 'Mistake: '+b.mistake+' → '+b.correction;
-    if(b.type==='teacher_emphasis') return 'Emphasis: '+b.quote;
-    return '';
-  }).filter(Boolean).join('\n');
-
-  return `You are an expert ${ctx.subject} faculty at a top ${ctx.exam} coaching institute.
+    return `You are an expert ${context.subject} faculty at a top ${context.exam} coaching institute.
 Generate a CLASSROOM-SPECIFIC Daily Practice Problem (DPP) worksheet.
 
 CONTEXT:
-- Class: ${ctx.class} | Subject: ${ctx.subject}
-- Chapter: ${ctx.chapter} | Board: ${ctx.board}
-- Exam Target: ${ctx.exam}
+- Class: ${context.class} | Subject: ${context.subject}
+- Chapter: ${context.chapter} | Board: ${context.board}
+- Exam Target: ${context.exam}
 
-LECTURE CONTENT:
-${topicSummary}
+CONCEPTS COVERED: ${conceptNames}
+HIGH IMPORTANCE: ${highImportance.join(', ')}
+TEACHING STYLE: ${teaching.teachingStyle}
 
-TRANSCRIPT EXCERPT:
-"""
-${transcript.slice(0,4000)}
-"""
-
-═══════════════════════════════════════════════════
-DPP SPECIFICATION (10 Questions)
-═══════════════════════════════════════════════════
-
+DPP SPECIFICATION (10 Questions):
 DIFFICULTY: 30% Easy / 50% Medium / 20% Challenging
 MINIMUM STANDARD: NEET Level
 
@@ -1446,14 +1632,14 @@ FOR EVERY QUESTION INCLUDE:
 
 OUTPUT JSON:
 {
-  "title":"Daily Practice Problem — ${ctx.chapter}",
-  "subject":"${ctx.subject}",
-  "class":"${ctx.class}",
-  "exam":"${ctx.exam}",
+  "title":"Daily Practice Problem — ${context.chapter}",
+  "subject":"${context.subject}",
+  "class":"${context.class}",
+  "exam":"${context.exam}",
   "totalQuestions":10,
   "sections":{
     "A_MCQ":[{"num":1,"q":"...","options":["A) ...","B) ...","C) ...","D) ..."],"answer":"B","explanation":"...","concept":"...","difficulty":"easy","blooms":"understand"}],
-    "B_Fill":[{"num":4,"q":"The electric field inside a conductor is ______.","answer":"zero","explanation":"...","concept":"...","difficulty":"easy","blooms":"remember"}],
+    "B_Fill":[{"num":4,"q":"The ______ is defined as...","answer":"...","explanation":"...","concept":"...","difficulty":"easy","blooms":"remember"}],
     "C_TF":[{"num":6,"q":"Statement","answer":"True","explanation":"...","concept":"...","difficulty":"medium","blooms":"understand"}],
     "D_AR":[{"num":8,"assertion":"...","reason":"...","answer":"A","explanation":"...","concept":"...","difficulty":"medium","blooms":"analyze"}],
     "E_Statement":[{"num":10,"statement1":"...","statement2":"...","answer":"B","explanation":"...","concept":"...","difficulty":"challenging","blooms":"evaluate"}]
@@ -1464,22 +1650,14 @@ RULES:
 - Exactly 10 questions (3+2+2+2+1)
 - Classroom-specific, not generic
 - Include questions based on teacher emphasis and misconceptions`;
-}
+  }
 
-// ── PROMPT 5: ASSIGNMENT (20 QUESTIONS) ──
-function buildAssignmentPrompt(ctx,vsnData,transcript){
-  const topicSummary=vsnData.blocks.slice(0,8).map(b=>{
-    if(b.type==='formula_vault') return 'Formulas: '+b.formulas.map(f=>f.expr).join('; ');
-    if(b.type==='narrative') return b.heading+': '+b.content.slice(0,200);
-    if(b.type==='derivation') return 'Derivation: '+b.title;
-    return '';
-  }).filter(Boolean).join('\n');
+  buildAssignment(context, knowledge, importance) {
+    const conceptNames = knowledge.concepts.map(c => c.title).join(', ');
+    return `Generate a comprehensive ASSIGNMENT for ${context.class} ${context.subject}: ${context.chapter}.
+Target exam: ${context.exam}
 
-  return `Generate a comprehensive ASSIGNMENT for ${ctx.class} ${ctx.subject}: ${ctx.chapter}.
-Target exam: ${ctx.exam}
-
-CONTENT:
-${topicSummary}
+CONCEPTS: ${conceptNames}
 
 SPECIFICATION (20 Questions):
 - Section I — Objective: 16 questions (MCQs, conceptual, application, numerical)
@@ -1487,23 +1665,12 @@ SPECIFICATION (20 Questions):
 - Total marks: 40
 - Duration: 60 min
 
-FOR EVERY QUESTION:
-- Question number, text, concept tested
-- Difficulty: "easy" | "medium" | "hard"
-- Marks (1-5)
-- Options (for MCQs)
-- Type tag
-
-ANSWER KEY:
-- Objective: correct options only
-- Subjective: brief hints (1 line each)
-
 OUTPUT JSON:
 {
-  "title":"Assignment — ${ctx.chapter}",
-  "subject":"${ctx.subject}",
-  "class":"${ctx.class}",
-  "exam":"${ctx.exam}",
+  "title":"Assignment — ${context.chapter}",
+  "subject":"${context.subject}",
+  "class":"${context.class}",
+  "exam":"${context.exam}",
   "duration":"60 min",
   "maxMarks":40,
   "objective":[{"num":1,"q":"...","options":["A) ...","B) ...","C) ...","D) ..."],"type":"conceptual","concept":"...","difficulty":"easy","marks":1,"blooms":"remember"}],
@@ -1515,836 +1682,1038 @@ RULES:
 - Exactly 20 questions (16 objective + 4 subjective)
 - Gradually increasing difficulty
 - Classroom-specific, not generic`;
+  }
+
+  buildParent(context, parentIntel) {
+    return `You are a friendly academic coordinator writing a brief update for parents.
+Parents have NO technical background. Use simple, warm, encouraging language.
+
+CONTEXT:
+- Class: ${parentIntel.context.class} | Subject: ${parentIntel.context.subject}
+- Chapter: ${parentIntel.context.topic}
+- Lecture Duration: ${parentIntel.context.duration}
+
+CONCEPTS COVERED:
+${parentIntel.conceptsCovered.map((c, i) => `${i + 1}. ${c}`).join('\n')}
+
+COGNITIVE LOAD:
+- Average load: ${parentIntel.cognitiveLoadSummary.averageLoad}%
+- Overload detected: ${parentIntel.cognitiveLoadSummary.overloadDetected ? 'Yes' : 'No'}
+
+OUTPUT JSON:
+{
+  "todayClass":{
+    "topic":"${parentIntel.context.topic}",
+    "duration":"${parentIntel.context.duration}",
+    "teacher":"${parentIntel.context.teacher}",
+    "class":"${parentIntel.context.class}",
+    "subject":"${parentIntel.context.subject}"
+  },
+  "conceptsLearned":["Simple explanation 1","Simple explanation 2","Simple explanation 3"],
+  "whyThisMatters":"2-3 sentences in parent-friendly language.",
+  "homework":{
+    "dpp":"10-question practice sheet (to be solved today)",
+    "assignment":"20-question assignment (to be completed this week)",
+    "test":"Chapter test scheduled for revision"
+  },
+  "parentSuggestions":["Suggestion 1","Suggestion 2","Suggestion 3","Suggestion 4"],
+  "upcomingClass":"Next topic"
 }
 
-// ── PROMPT 6: Flashcards + Chapter Test ──
-function buildExtraPrompt(ctx,vsnData){
-  return `Generate flashcards and chapter test for ${ctx.class} ${ctx.subject}: ${vsnData.metadata.topic}.
-Target exam: ${ctx.exam}
+CRITICAL: 4-6 concepts, 4 parent suggestions, all parent-friendly.`;
+  }
+
+  buildCoverage(context, chapterProgress, knowledge) {
+    const completed = knowledge.concepts.map(c => c.title);
+    const futureDate = (weeks) => {
+      const d = new Date();
+      d.setDate(d.getDate() + weeks * 7);
+      return d.toISOString().split('T')[0];
+    };
+
+    return `Estimate chapter coverage for ${context.subject} — ${context.chapter}.
+
+SUBJECT: ${context.subject} | CLASS: ${context.class} | BOARD: ${context.board} | EXAM: ${context.exam}
+ESTIMATED TOTAL CONCEPTS: ${chapterProgress.totalConcepts}
+CONCEPTS COVERED:
+${completed.map(c => `- ${c}`).join('\n')}
+
+OUTPUT JSON:
+{
+  "chapterName":"${context.chapter}",
+  "coveragePercentage":${chapterProgress.coveragePercentage},
+  "conceptsCompleted":${JSON.stringify(completed)},
+  "conceptsRemaining":["Remaining concept 1","Remaining concept 2"],
+  "estimatedClassesRemaining":${chapterProgress.estimatedClassesRemaining},
+  "estimatedCompletionDate":"${futureDate(chapterProgress.estimatedClassesRemaining)}",
+  "difficultyLevel":"${chapterProgress.difficultyLevel}",
+  "pyqCoverage":${chapterProgress.pyqCoverage},
+  "nextObjective":"What the next class should focus on",
+  "pendingConcepts":["concept 1","concept 2"],
+  "prerequisites":["What to revise before next class"],
+  "expectedHomework":"Brief description",
+  "expectedTestDate":"${futureDate(chapterProgress.estimatedClassesRemaining + 1)}"
+}
+
+RULES:
+- Realistic coverage percentage (0-100)
+- Keep lists concise (3-6 items)`;
+  }
+
+  buildExtra(context, knowledge) {
+    return `Generate flashcards and chapter test for ${context.class} ${context.subject}: ${knowledge.concepts[0]?.title || context.chapter}.
+Target exam: ${context.exam}
 
 OUTPUT JSON:
 {
   "flashcards":[{"q":"Question","a":"Answer","tag":"concept"}],
   "test":{
-    "title":"Chapter Test — ${ctx.chapter}",
+    "title":"Chapter Test — ${context.chapter}",
     "duration":"45 min",
     "maxMarks":30,
-    "pattern":"${ctx.exam} pattern",
+    "pattern":"${context.exam} pattern",
     "questions":[{"num":1,"q":"...","type":"MCQ","marks":4,"options":["A) ...","B) ...","C) ...","D) ..."]}]
   }
 }
 
 RULES:
 - 10 flashcards (quick recall)
-- 10 test questions matching ${ctx.exam} pattern`;
-}
+- 10 test questions matching ${context.exam} pattern`;
+  }
+};
 
-function buildSummary(vsnData,dppData,asgnData){
-  const blocks=vsnData.blocks;
-  const formulaCount=blocks.filter(b=>b.type==='formula_vault').length;
-  const emphasisCount=blocks.filter(b=>b.type==='teacher_emphasis').length;
-  const misconceptionCount=blocks.filter(b=>b.type==='misconception_alert').length;
-  const examRadarCount=blocks.filter(b=>b.type==='exam_radar').length;
+/* ── LLM Executor ── */
+CP.Orchestration.LLMExecutor = class {
+  async call(key, prompt) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${key}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.3,
+        response_format: { type: 'json_object' }
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message || 'API error');
+    let content = data.choices[0].message.content;
+    try { return JSON.parse(content); }
+    catch (e) {
+      const m = content.match(/\{[\s\S]*\}/);
+      if (m) return JSON.parse(m[0]);
+      throw new Error('Invalid JSON response');
+    }
+  }
+};
 
-  return `📊 VSN-2.0 Analysis Summary
+/* ── Workflow Orchestrator ── */
+CP.Orchestration.WorkflowOrchestrator = class {
+  constructor(context) {
+    this.context = context;
+    this.adapter = CP.Education.getAdapter(context.subject, context.exam, context.board);
+    this.promptBuilder = new CP.Orchestration.PromptBuilder(this.adapter);
+    this.llm = new CP.Orchestration.LLMExecutor();
+
+    // Core engines
+    this.sessionIntel = new CP.Core.SessionIntelligenceEngine();
+    this.teachingIntel = new CP.Core.TeachingIntelligenceEngine();
+    this.knowledgeGraph = new CP.Core.KnowledgeGraphEngine();
+    this.importance = new CP.Core.ImportanceEngine();
+    this.cognitiveLoad = new CP.Core.CognitiveLoadEngine();
+    this.evidence = new CP.Core.LearningEvidenceEngine();
+    this.publishing = new CP.Core.PublishingIntelligenceEngine();
+    this.pagePlanning = new CP.Core.PagePlanningEngine();
+    this.loi = new CP.Core.LayoutOptimizationIntelligence();
+    this.decision = new CP.Core.DecisionEngine();
+    this.recommendation = new CP.Core.RecommendationEngine();
+    this.parentIntel = new CP.Core.ParentIntelligenceEngine();
+    this.chapterProgress = new CP.Core.ChapterProgressEngine();
+  }
+
+  async run(transcript, settings, onStep) {
+    // Stage 0: Session Intelligence
+    await onStep(0);
+    const sessionAnalysis = this.sessionIntel.analyze(this.context);
+
+    // Stage 1: Teaching Intelligence
+    await onStep(1);
+    const teachingAnalysis = this.teachingIntel.analyze(transcript);
+
+    // Stage 2: VSN-2.0 Notes (LLM call)
+    await onStep(2);
+    const vsnPrompt = this.promptBuilder.buildVSN(this.context, transcript, settings, sessionAnalysis, teachingAnalysis);
+    const vsnData = await this.llm.call(getKey(), vsnPrompt);
+
+    // Stage 3: Knowledge Graph
+    await onStep(3);
+    let knowledge = this.knowledgeGraph.build(vsnData.blocks, this.context);
+    knowledge = this.adapter.enrichKnowledge(knowledge);
+
+    // Stage 4: Importance
+    await onStep(4);
+    let importance = this.importance.calculate(knowledge, teachingAnalysis, this.context);
+    importance = this.adapter.adjustImportance(importance, knowledge);
+
+    // Stage 5: Cognitive Load
+    await onStep(5);
+    const cognitiveLoadAnalysis = this.cognitiveLoad.analyze(knowledge, importance);
+
+    // Stage 6: Publishing Intelligence
+    await onStep(6);
+    const publishingPlan = this.publishing.decide(vsnData.blocks, importance, cognitiveLoadAnalysis);
+
+    // Stage 7: Page Planning
+    await onStep(7);
+    const pagePlan = this.pagePlanning.plan(publishingPlan, this.context);
+
+    // Stage 8: LOI
+    await onStep(8);
+    const layoutPlan = this.loi.optimize(pagePlan);
+
+    // Stage 9: Evidence
+    await onStep(9);
+    const evidenceAnalysis = this.evidence.build(knowledge, transcript);
+
+    // Stage 10: Decision Layer
+    await onStep(10);
+    const decisions = this.decision.resolve(
+      { knowledge, importance, cognitiveLoad: cognitiveLoadAnalysis, publishing: publishingPlan, pagePlan, layout: layoutPlan },
+      { pageSpace: layoutPlan.totalPages > pagePlan.targetPages ? 'limited' : 'normal' }
+    );
+
+    // Stage 11: Recommendations
+    await onStep(11);
+    const recommendations = this.recommendation.generate({ knowledge, importance, cognitiveLoad: cognitiveLoadAnalysis });
+
+    // Stage 12: Parent Summary (LLM call)
+    await onStep(12);
+    const parentInput = this.parentIntel.prepare(
+      { knowledge, cognitiveLoad: cognitiveLoadAnalysis, recommendations },
+      this.context
+    );
+    const parentPrompt = this.promptBuilder.buildParent(this.context, parentInput);
+    const parentSummary = await this.llm.call(getKey(), parentPrompt);
+
+    // Stage 13: Chapter Coverage (LLM call)
+    await onStep(13);
+    const chapterProg = this.chapterProgress.calculate(knowledge, importance, this.context);
+    const coveragePrompt = this.promptBuilder.buildCoverage(this.context, chapterProg, knowledge);
+    const chapterCoverage = await this.llm.call(getKey(), coveragePrompt);
+
+    // Stage 14: DPP (LLM call)
+    await onStep(14);
+    const dppPrompt = this.promptBuilder.buildDPP(this.context, knowledge, teachingAnalysis, importance);
+    const dppData = await this.llm.call(getKey(), dppPrompt);
+
+    // Stage 15: Assignment (LLM call)
+    await onStep(15);
+    const asgnPrompt = this.promptBuilder.buildAssignment(this.context, knowledge, importance);
+    const asgnData = await this.llm.call(getKey(), asgnPrompt);
+
+    // Stage 16: Flashcards + Test (LLM call)
+    await onStep(16);
+    const extraPrompt = this.promptBuilder.buildExtra(this.context, knowledge);
+    const extraData = await this.llm.call(getKey(), extraPrompt);
+
+    // Stage 17: Finalize
+    await onStep(17);
+
+    // Build intelligence package
+    const intelligence = {
+      session: sessionAnalysis,
+      teaching: teachingAnalysis,
+      knowledge,
+      importance,
+      cognitiveLoad: cognitiveLoadAnalysis,
+      evidence: evidenceAnalysis,
+      publishing: publishingPlan,
+      pagePlan,
+      layout: layoutPlan,
+      decisions,
+      recommendations,
+      chapterProgress: chapterProg,
+      confidence: {
+        session: sessionAnalysis.confidence,
+        teaching: teachingAnalysis.confidence,
+        knowledge: knowledge.confidence,
+        importance: importance.confidence,
+        cognitiveLoad: cognitiveLoadAnalysis.confidence,
+        evidence: evidenceAnalysis.confidence,
+        publishing: 95,
+        pagePlan: pagePlan.confidence,
+        loi: layoutPlan.confidence,
+        decision: decisions.confidence,
+        recommendation: recommendations.confidence,
+        parent: parentInput.confidence,
+        chapterProgress: chapterProg.confidence
+      }
+    };
+
+    return {
+      vsn: vsnData,
+      parentSummary,
+      chapterCoverage,
+      dpp: dppData,
+      assignment: asgnData,
+      flashcards: extraData.flashcards || [],
+      test: extraData.test || null,
+      intelligence,
+      summary: this._buildSummary(intelligence, dppData, asgnData)
+    };
+  }
+
+  _buildSummary(intelligence, dppData, asgnData) {
+    const conf = intelligence.confidence;
+    return `📊 V4.0 Intelligence Summary
 ━━━━━━━━━━━━━━━━━━━━━━━
-Topic: ${vsnData.metadata.topic}
-Duration: ${vsnData.metadata.lectureFlow}
+Topic: ${intelligence.session.positionInChapter} in chapter
 
-📐 NOTES (High-Density)
-  Formula Vaults: ${formulaCount}
-  Teacher Emphasis: ${emphasisCount}
-  Misconceptions: ${misconceptionCount}
-  Exam Radars: ${examRadarCount}
-  Total Blocks: ${blocks.length}
+Confidence Scores:
+  Session: ${conf.session}% | Teaching: ${conf.teaching}%
+  Knowledge: ${conf.knowledge}% | Importance: ${conf.importance}%
+  Cognitive Load: ${conf.cognitiveLoad}% | Evidence: ${conf.evidence}%
+  Page Plan: ${conf.pagePlan}% | LOI: ${conf.loi}%
+  Decision: ${conf.decision}% | Recommendation: ${conf.recommendation}%
+
+📐 NOTES
+  Concepts: ${intelligence.knowledge.totalConcepts}
+  Formulas: ${intelligence.knowledge.formulas.length}
+  High-Importance: ${intelligence.importance.highImportanceCount}
+  Cognitive Load: ${intelligence.cognitiveLoad.averageLoad}% avg
 
 📝 DPP: 10 questions (5 sections)
-📚 Assignment: ${(asgnData.objective||[]).length + (asgnData.subjective||[]).length} questions
+📚 Assignment: ${(asgnData.objective?.length || 0) + (asgnData.subjective?.length || 0) || 20} questions
 
-Rendered using VSN-2.0 with Layout Optimization Intelligence.`;
-}
-
-// ══════════════════════════════════════════════════════════
-// VSN-2.0 RENDERER WITH LOI
-// ══════════════════════════════════════════════════════════
-function renderVSN(vsnData){
-  const {metadata,blocks}=vsnData;
-  let html=`<div class="vsn-page">`;
-
-  html+=`
-    <div class="vsn-header">
-      <h1>${escapeHtml(metadata.topic)}</h1>
-      ${metadata.subtopic?`<div class="vsn-sub">${escapeHtml(metadata.subtopic)}</div>`:''}
-      <div class="vsn-meta">
-        <span class="vsn-tag">${metadata.class}</span>
-        <span class="vsn-tag">${metadata.subject}</span>
-        <span class="vsn-tag">${metadata.exam}</span>
-        ${metadata.lectureFlow?`<span class="vsn-tag">⏱ ${metadata.lectureFlow}</span>`:''}
-      </div>
-    </div>
-  `;
-
-  const fullBlocks=[];
-  const halfBlocks=[];
-
-  blocks.forEach(b=>{
-    const layout=b.layout||'full';
-    if(layout==='half') halfBlocks.push(b);
-    else fullBlocks.push(b);
-  });
-
-  fullBlocks.forEach(b=>{html+=renderBlock(b);});
-
-  if(halfBlocks.length>0){
-    html+=`<div class="vsn-2col">`;
-    halfBlocks.forEach(b=>{html+=renderBlock(b);});
-    html+=`</div>`;
+Architecture: Intelligence-Oriented (V4.0)`;
   }
+};
 
-  html+=`</div>`;
-  return html;
-}
+/* ══════════════════════════════════════════════════════════
+   LAYER 4: RENDERING
+   ══════════════════════════════════════════════════════════ */
+CP.Rendering = {};
 
-function renderBlock(b){
-  switch(b.type){
-    case 'hook':
-      return `<div class="vsn-hook">${escapeHtml(b.content)}</div>`;
-    case 'narrative':
-      let content=escapeHtml(b.content);
-      (b.keyTerms||[]).forEach(term=>{
-        const re=new RegExp(`\\b${escapeRegex(term)}\\b`,'g');
-        content=content.replace(re,`<span class="key-term">${term}</span>`);
-      });
-      return `<div class="vsn-narrative"><h3>${escapeHtml(b.heading||'Concept')}</h3><p>${content}</p></div>`;
-    case 'formula_vault':
-      const formulas=(b.formulas||[]).map(f=>
-        `<div class="vsn-formula-item">
-          ${f.name?`<div class="fname">${escapeHtml(f.name)}</div>`:''}
-          ${escapeHtml(f.expr)}
-        </div>`
-      ).join('');
-      const legend=(b.legend||[]).map(l=>
-        `<div class="vsn-legend-item"><span class="sym">${escapeHtml(l.symbol)}</span><span>${escapeHtml(l.meaning)}</span></div>`
-      ).join('');
-      return `<div class="vsn-formula-vault">
-        ${b.title?`<div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-family:sans-serif;font-size:10px;">${escapeHtml(b.title)}</div>`:''}
-        <div class="vsn-formula-grid">${formulas}</div>
-        ${legend?`<div class="vsn-legend">${legend}</div>`:''}
-      </div>`;
-    case 'derivation':
-      const steps=(b.steps||[]).map(s=>
-        `<div class="vsn-step">
-          <div class="vsn-step-num">${s.step}</div>
-          <div>
-            <div class="vsn-step-content">${escapeHtml(s.expr)}</div>
-            ${s.justification?`<div class="vsn-step-justification">${escapeHtml(s.justification)}</div>`:''}
-          </div>
-        </div>`
-      ).join('');
-      return `<div class="vsn-derivation"><h4>${escapeHtml(b.title||'DERIVATION')}</h4>${steps}</div>`;
-    case 'teacher_emphasis':
-      return `<div class="vsn-emphasis">
-        <div class="quote">"${escapeHtml(b.quote)}"</div>
-        ${b.context?`<div style="font-size:8px;color:var(--text3);margin-top:2px;font-family:sans-serif;">— ${escapeHtml(b.context)}</div>`:''}
-      </div>`;
-    case 'memory_trick':
-      return `<div class="vsn-memory">
-        ${b.title?`<div style="font-weight:700;margin-bottom:2px;font-size:10px;">${escapeHtml(b.title)}</div>`:''}
-        <div style="font-size:9px;">${escapeHtml(b.content)}</div>
-      </div>`;
-    case 'misconception_alert':
-      return `<div class="vsn-misconception">
-        <div class="vsn-mistake">${escapeHtml(b.mistake)}</div>
-        <div class="vsn-correction">${escapeHtml(b.correction)}</div>
-      </div>`;
-    case 'exam_radar':
-      const levelText={high:'🔥 HIGH',medium:'⚡ MED',low:'📘 LOW'}[b.level]||'📘 STD';
-      return `<div class="vsn-exam-radar">
-        <span class="vsn-exam-level">${levelText} · ${escapeHtml(b.exam||'')}</span>
-        <div style="font-size:9px;line-height:1.3;">${escapeHtml(b.content)}</div>
-      </div>`;
-    case 'comparison_table':
-      const headers=(b.headers||[]).map(h=>`<th>${escapeHtml(h)}</th>`).join('');
-      const rows=(b.rows||[]).map(row=>
-        `<tr>${row.map(cell=>`<td>${escapeHtml(cell)}</td>`).join('')}</tr>`
-      ).join('');
-      return `<div class="vsn-comparison"><h4>${escapeHtml(b.title||'Comparison')}</h4>
-        <table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
-    case 'diagram':
-      return `<div class="vsn-diagram">
-        <h4>${escapeHtml(b.title||'Diagram')}</h4>
-        <div class="vsn-diagram-desc">${escapeHtml(b.description)}</div>
-        ${b.labels&&b.labels.length?`<div class="vsn-diagram-labels"><b>Labels:</b> ${b.labels.map(escapeHtml).join(' · ')}</div>`:''}
-      </div>`;
-    case 'flowchart':
-      const flowSteps=(b.steps||[]).map((s,i,arr)=>
-        `<div class="vsn-flow-step">
-          <div class="vsn-flow-node">${escapeHtml(s)}</div>
-          ${i<arr.length-1?'<div class="vsn-flow-arrow">→</div>':''}
-        </div>`
-      ).join('');
-      return `<div class="vsn-flowchart"><h4>${escapeHtml(b.title||'Process Flow')}</h4><div>${flowSteps}</div></div>`;
-    default:
-      return '';
-  }
-}
+CP.Rendering.VSNRenderer = class {
+  render(vsnData, intelligence) {
+    const { metadata, blocks } = vsnData;
+    let html = `<div class="vsn-page">`;
 
-// ══════════════════════════════════════════════════════════
-// PARENT SUMMARY RENDERER
-// ══════════════════════════════════════════════════════════
-function renderParentSummary(ps){
-  if(!ps) return '<p style="color:var(--text3);text-align:center;padding:20px;">No parent summary generated.</p>';
-
-  const tc=ps.todayClass||{};
-  const concepts=ps.conceptsLearned||[];
-  const hw=ps.homework||{};
-  const suggestions=ps.parentSuggestions||[];
-
-  let html=`<div class="ps-container">`;
-
-  html+=`
-    <div class="ps-header">
-      <h2>👨‍👩‍👧 Parent Summary</h2>
-      <div class="ps-meta">A simple update on today's class for parents</div>
-    </div>
-  `;
-
-  html+=`
-    <div class="ps-section ps-today">
-      <div class="ps-section-title">Today's Class</div>
-      <div class="ps-class-grid">
-        <div class="ps-class-item"><b>TOPIC</b><span>${escapeHtml(tc.topic||'')}</span></div>
-        <div class="ps-class-item"><b>DURATION</b><span>${escapeHtml(tc.duration||'')}</span></div>
-        <div class="ps-class-item"><b>CLASS</b><span>${escapeHtml(tc.class||'')}</span></div>
-        <div class="ps-class-item"><b>SUBJECT</b><span>${escapeHtml(tc.subject||'')}</span></div>
-      </div>
-    </div>
-  `;
-
-  if(concepts.length){
-    html+=`
-      <div class="ps-section ps-concepts">
-        <div class="ps-section-title">Concepts Learned</div>
-        <ul class="ps-concept-list">
-          ${concepts.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}
-        </ul>
+    html += `
+      <div class="vsn-header">
+        <h1>${CP.Util.escapeHtml(metadata.topic)}</h1>
+        ${metadata.subtopic ? `<div class="vsn-sub">${CP.Util.escapeHtml(metadata.subtopic)}</div>` : ''}
+        <div class="vsn-meta">
+          <span class="vsn-tag">${metadata.class}</span>
+          <span class="vsn-tag">${metadata.subject}</span>
+          <span class="vsn-tag">${metadata.exam}</span>
+          ${metadata.lectureFlow ? `<span class="vsn-tag">⏱ ${metadata.lectureFlow}</span>` : ''}
+          ${intelligence ? `<span class="vsn-tag">🧠 ${intelligence.confidence.knowledge}%</span>` : ''}
+        </div>
       </div>
     `;
+
+    const fullBlocks = (intelligence?.layout?.pages?.[0]?.fullBlocks) || blocks.filter(b => (b.layout || 'full') === 'full');
+    const halfBlocks = (intelligence?.layout?.pages?.[0]?.halfBlocks) || blocks.filter(b => b.layout === 'half');
+
+    fullBlocks.forEach(b => { html += this._renderBlock(b); });
+
+    if (halfBlocks.length > 0) {
+      html += `<div class="vsn-2col">`;
+      halfBlocks.forEach(b => { html += this._renderBlock(b); });
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    return html;
   }
 
-  if(ps.whyThisMatters){
-    html+=`
-      <div class="ps-section ps-why">
-        <div class="ps-section-title">Why This Topic Matters</div>
-        <div class="ps-why-text">${escapeHtml(ps.whyThisMatters)}</div>
-      </div>
-    `;
-  }
-
-  html+=`
-    <div class="ps-section ps-homework">
-      <div class="ps-section-title">Homework</div>
-      <div class="ps-hw-grid">
-        ${hw.dpp?`<div class="ps-hw-item"><b>📝 DPP</b><span>${escapeHtml(hw.dpp)}</span><span class="ps-hw-badge">Today</span></div>`:''}
-        ${hw.assignment?`<div class="ps-hw-item"><b>📚 Assignment</b><span>${escapeHtml(hw.assignment)}</span><span class="ps-hw-badge">This Week</span></div>`:''}
-        ${hw.test?`<div class="ps-hw-item"><b>🎯 Test</b><span>${escapeHtml(hw.test)}</span><span class="ps-hw-badge">Upcoming</span></div>`:''}
-      </div>
-    </div>
-  `;
-
-  if(suggestions.length){
-    html+=`
-      <div class="ps-section ps-suggest">
-        <div class="ps-section-title">Parent Suggestions</div>
-        <ul class="ps-suggest-list">
-          ${suggestions.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-  }
-
-  if(ps.upcomingClass){
-    html+=`
-      <div class="ps-section ps-upcoming">
-        <div class="ps-section-title">Upcoming Class</div>
-        <div class="ps-upcoming-box">➡️ ${escapeHtml(ps.upcomingClass)}</div>
-      </div>
-    `;
-  }
-
-  html+=`</div>`;
-  return html;
-}
-
-// ══════════════════════════════════════════════════════════
-// CHAPTER COVERAGE RENDERER
-// ══════════════════════════════════════════════════════════
-function renderChapterCoverage(cc){
-  if(!cc) return '<p style="color:var(--text3);text-align:center;padding:20px;">No coverage data generated.</p>';
-
-  const pct=Math.max(0,Math.min(100,cc.coveragePercentage||0));
-  const diffClass={easy:'diff-easy',medium:'diff-medium',hard:'diff-hard'}[cc.difficultyLevel]||'diff-medium';
-  const diffLabel={easy:'Easy',medium:'Medium',hard:'Hard'}[cc.difficultyLevel]||'Medium';
-
-  let html=`<div class="cc-container">`;
-
-  html+=`
-    <div class="cc-header">
-      <h2>📊 Chapter Coverage</h2>
-      <div class="cc-meta">${escapeHtml(cc.chapterName||'')} · ${escapeHtml(S.current?.exam||'')}</div>
-    </div>
-  `;
-
-  html+=`
-    <div class="cc-progress-card">
-      <div class="cc-percent">${pct}<small>%</small></div>
-      <div class="cc-progress-bar">
-        <div class="cc-progress-fill" style="width:${pct}%;"></div>
-      </div>
-      <div class="cc-progress-label">Chapter Completion</div>
-    </div>
-  `;
-
-  html+=`
-    <div class="cc-stats-grid">
-      <div class="cc-stat">
-        <div class="cc-stat-label">Classes Remaining</div>
-        <div class="cc-stat-value">${cc.estimatedClassesRemaining||'—'}</div>
-      </div>
-      <div class="cc-stat">
-        <div class="cc-stat-label">Difficulty Level</div>
-        <div class="cc-stat-value ${diffClass}">${diffLabel}</div>
-      </div>
-      <div class="cc-stat">
-        <div class="cc-stat-label">PYQ Coverage</div>
-        <div class="cc-stat-value">${cc.pyqCoverage||0}%</div>
-      </div>
-      <div class="cc-stat">
-        <div class="cc-stat-label">Expected Completion</div>
-        <div class="cc-stat-value" style="font-size:11px;">${escapeHtml(cc.estimatedCompletionDate||'—')}</div>
-      </div>
-    </div>
-  `;
-
-  if(cc.conceptsCompleted && cc.conceptsCompleted.length){
-    html+=`
-      <div class="cc-section">
-        <div class="cc-section-title">✓ Concepts Completed (${cc.conceptsCompleted.length})</div>
-        <ul class="cc-list completed">
-          ${cc.conceptsCompleted.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-  }
-
-  if(cc.conceptsRemaining && cc.conceptsRemaining.length){
-    html+=`
-      <div class="cc-section">
-        <div class="cc-section-title">◌ Concepts Remaining (${cc.conceptsRemaining.length})</div>
-        <ul class="cc-list pending">
-          ${cc.conceptsRemaining.map(c=>`<li>${escapeHtml(c)}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-  }
-
-  html+=`
-    <div class="cc-section">
-      <div class="cc-section-title">🗓 Future Planning</div>
-      <div class="cc-planning-grid">
-        ${cc.nextObjective?`<div class="cc-plan-item"><b>NEXT OBJECTIVE</b><span>${escapeHtml(cc.nextObjective)}</span></div>`:''}
-        ${cc.expectedTestDate?`<div class="cc-plan-item"><b>EXPECTED TEST</b><span>${escapeHtml(cc.expectedTestDate)}</span></div>`:''}
-        ${cc.expectedHomework?`<div class="cc-plan-item"><b>EXPECTED HOMEWORK</b><span>${escapeHtml(cc.expectedHomework)}</span></div>`:''}
-        ${cc.prerequisites&&cc.prerequisites.length?`<div class="cc-plan-item"><b>PREREQUISITES</b><span>${escapeHtml(cc.prerequisites.join(', '))}</span></div>`:''}
-      </div>
-    </div>
-  `;
-
-  html+=`</div>`;
-  return html;
-}
-
-// ══════════════════════════════════════════════════════════
-// DPP RENDERER
-// ══════════════════════════════════════════════════════════
-function renderDPP(dpp){
-  if(!dpp||!dpp.sections) return '<p style="color:var(--text3);text-align:center;padding:20px;">No DPP generated.</p>';
-
-  const sections=dpp.sections;
-  let html=`<div class="dpp-container">`;
-
-  html+=`
-    <div class="dpp-header">
-      <h2>${escapeHtml(dpp.title||'Daily Practice Problem')}</h2>
-      <div class="dpp-meta">
-        ${escapeHtml(dpp.subject||'')} · ${escapeHtml(dpp.class||'')} · ${escapeHtml(dpp.exam||'')}
-        ${dpp.totalQuestions?` · ${dpp.totalQuestions} Q`:''}
-      </div>
-    </div>
-  `;
-
-  if(sections.A_MCQ && sections.A_MCQ.length){
-    html+=`<div class="dpp-section">
-      <div class="dpp-section-header sec-a">
-        <div><div class="dpp-section-title">SECTION A — MCQ</div>
-        <div class="dpp-section-sub">${sections.A_MCQ.length} questions</div></div>
-      </div>
-      ${sections.A_MCQ.map(q=>renderMCQ(q)).join('')}
-    </div>`;
-  }
-
-  if(sections.B_Fill && sections.B_Fill.length){
-    html+=`<div class="dpp-section">
-      <div class="dpp-section-header sec-b">
-        <div><div class="dpp-section-title">SECTION B — Fill in the Blanks</div>
-        <div class="dpp-section-sub">${sections.B_Fill.length} questions</div></div>
-      </div>
-      ${sections.B_Fill.map(q=>renderFill(q)).join('')}
-    </div>`;
-  }
-
-  if(sections.C_TF && sections.C_TF.length){
-    html+=`<div class="dpp-section">
-      <div class="dpp-section-header sec-c">
-        <div><div class="dpp-section-title">SECTION C — True or False</div>
-        <div class="dpp-section-sub">${sections.C_TF.length} questions</div></div>
-      </div>
-      ${sections.C_TF.map(q=>renderTF(q)).join('')}
-    </div>`;
-  }
-
-  if(sections.D_AR && sections.D_AR.length){
-    html+=`<div class="dpp-section">
-      <div class="dpp-section-header sec-d">
-        <div><div class="dpp-section-title">SECTION D — Assertion & Reasoning</div>
-        <div class="dpp-section-sub">${sections.D_AR.length} questions</div></div>
-      </div>
-      ${sections.D_AR.map(q=>renderAR(q)).join('')}
-    </div>`;
-  }
-
-  if(sections.E_Statement && sections.E_Statement.length){
-    html+=`<div class="dpp-section">
-      <div class="dpp-section-header sec-e">
-        <div><div class="dpp-section-title">SECTION E — Statement I & II</div>
-        <div class="dpp-section-sub">${sections.E_Statement.length} question</div></div>
-      </div>
-      ${sections.E_Statement.map(q=>renderStatement(q)).join('')}
-    </div>`;
-  }
-
-  html+=`</div>`;
-  return html;
-}
-
-function renderMCQ(q){
-  const options=(q.options||[]).map(opt=>{
-    const letter=opt.match(/^[A-D]/)?.[0];
-    const isCorrect=letter===q.answer;
-    return `<li class="${isCorrect?'correct':''}">${escapeHtml(opt)}</li>`;
-  }).join('');
-  return `
-    <div class="dpp-q">
-      <div class="dpp-q-head">
-        <span class="dpp-q-num">Q${q.num}</span>
-        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-      </div>
-      <div class="dpp-q-text">${escapeHtml(q.q)}</div>
-      <ul class="dpp-options">${options}</ul>
-      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
-      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
-    </div>
-  `;
-}
-
-function renderFill(q){
-  let qText=escapeHtml(q.q);
-  qText=qText.replace(/_{2,}|____+|\\[blank\\]/g,'<span class="dpp-blank">'+escapeHtml(q.answer||'')+'</span>');
-  return `
-    <div class="dpp-q">
-      <div class="dpp-q-head">
-        <span class="dpp-q-num">Q${q.num}</span>
-        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-      </div>
-      <div class="dpp-fill-blank">${qText}</div>
-      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
-      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
-    </div>
-  `;
-}
-
-function renderTF(q){
-  const isTrue=q.answer && q.answer.toLowerCase()==='true';
-  return `
-    <div class="dpp-q">
-      <div class="dpp-q-head">
-        <span class="dpp-q-num">Q${q.num}</span>
-        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-      </div>
-      <div class="dpp-q-text">${escapeHtml(q.q)}</div>
-      <div class="dpp-tf-badge ${isTrue?'true':'false'}">Answer: ${isTrue?'✓ TRUE':'✗ FALSE'}</div>
-      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
-      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
-    </div>
-  `;
-}
-
-function renderAR(q){
-  const arOptions=[
-    {key:'A',text:'Both A and R are true, and R is the correct explanation of A'},
-    {key:'B',text:'Both A and R are true, but R is NOT the correct explanation of A'},
-    {key:'C',text:'A is true but R is false'},
-    {key:'D',text:'A is false but R is true'}
-  ];
-  const optionsHtml=arOptions.map(o=>
-    `<div class="ar-opt ${o.key===q.answer?'correct':''}"><b>${o.key})</b> ${o.text}</div>`
-  ).join('');
-  return `
-    <div class="dpp-q">
-      <div class="dpp-q-head">
-        <span class="dpp-q-num">Q${q.num}</span>
-        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-      </div>
-      <div class="dpp-ar-block">
-        <div class="ar-label">ASSERTION (A)</div>
-        <div class="ar-text">${escapeHtml(q.assertion)}</div>
-      </div>
-      <div class="dpp-ar-block">
-        <div class="ar-label">REASON (R)</div>
-        <div class="ar-text">${escapeHtml(q.reason)}</div>
-      </div>
-      <div class="dpp-ar-options">${optionsHtml}</div>
-      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
-      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
-    </div>
-  `;
-}
-
-function renderStatement(q){
-  const stOptions=[
-    {key:'A',text:'Both Statement I and Statement II are correct'},
-    {key:'B',text:'Statement I is correct but Statement II is incorrect'},
-    {key:'C',text:'Statement I is incorrect but Statement II is correct'},
-    {key:'D',text:'Both Statement I and Statement II are incorrect'}
-  ];
-  const optionsHtml=stOptions.map(o=>
-    `<div class="ar-opt ${o.key===q.answer?'correct':''}"><b>${o.key})</b> ${o.text}</div>`
-  ).join('');
-  return `
-    <div class="dpp-q">
-      <div class="dpp-q-head">
-        <span class="dpp-q-num">Q${q.num}</span>
-        <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-      </div>
-      <div class="dpp-stmt-block">
-        <div class="stmt-label">STATEMENT I</div>
-        <div class="stmt-text">${escapeHtml(q.statement1)}</div>
-      </div>
-      <div class="dpp-stmt-block" style="margin-top:6px;">
-        <div class="stmt-label">STATEMENT II</div>
-        <div class="stmt-text">${escapeHtml(q.statement2)}</div>
-      </div>
-      <div class="dpp-ar-options" style="margin-top:6px;">${optionsHtml}</div>
-      ${q.explanation?`<div class="dpp-explanation">${escapeHtml(q.explanation)}</div>`:''}
-      ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
-    </div>
-  `;
-}
-
-// ══════════════════════════════════════════════════════════
-// ASSIGNMENT RENDERER
-// ══════════════════════════════════════════════════════════
-function renderAssignment(asgn){
-  if(!asgn) return '<p style="color:var(--text3);text-align:center;padding:20px;">No assignment generated.</p>';
-
-  let html=`<div class="asgn-container">`;
-
-  html+=`
-    <div class="asgn-header">
-      <h2>${escapeHtml(asgn.title||'Assignment')}</h2>
-      <div class="asgn-meta">
-        <span>📚 ${escapeHtml(asgn.subject||'')}</span>
-        <span>🎓 ${escapeHtml(asgn.class||'')}</span>
-        <span>🎯 ${escapeHtml(asgn.exam||'')}</span>
-        <span>⏱ ${escapeHtml(asgn.duration||'60 min')}</span>
-        <span>📊 Max: ${asgn.maxMarks||40}</span>
-      </div>
-    </div>
-  `;
-
-  if(asgn.objective && asgn.objective.length){
-    html+=`<div class="asgn-section-title">SECTION I — OBJECTIVE (${asgn.objective.length} Q)</div>`;
-    html+=asgn.objective.map(q=>{
-      const optionsHtml=(q.options||[]).map(opt=>`<li>${escapeHtml(opt)}</li>`).join('');
-      return `
-        <div class="asgn-q">
-          <div class="asgn-q-head">
-            <span class="asgn-q-num">Q${q.num}</span>
+  _renderBlock(b) {
+    const U = CP.Util;
+    switch (b.type) {
+      case 'hook':
+        return `<div class="vsn-hook">${U.escapeHtml(b.content)}</div>`;
+      case 'narrative':
+        let content = U.escapeHtml(b.content);
+        (b.keyTerms || []).forEach(term => {
+          const re = new RegExp(`\\b${U.escapeRegex(term)}\\b`, 'g');
+          content = content.replace(re, `<span class="key-term">${term}</span>`);
+        });
+        return `<div class="vsn-narrative"><h3>${U.escapeHtml(b.heading || 'Concept')}</h3><p>${content}</p></div>`;
+      case 'formula_vault':
+        const formulas = (b.formulas || []).map(f =>
+          `<div class="vsn-formula-item">
+            ${f.name ? `<div class="fname">${U.escapeHtml(f.name)}</div>` : ''}
+            ${U.escapeHtml(f.expr)}
+          </div>`
+        ).join('');
+        const legend = (b.legend || []).map(l =>
+          `<div class="vsn-legend-item"><span class="sym">${U.escapeHtml(l.symbol)}</span><span>${U.escapeHtml(l.meaning)}</span></div>`
+        ).join('');
+        return `<div class="vsn-formula-vault">
+          ${b.title ? `<div style="font-weight:700;color:var(--navy);margin-bottom:4px;font-family:sans-serif;font-size:10px;">${U.escapeHtml(b.title)}</div>` : ''}
+          <div class="vsn-formula-grid">${formulas}</div>
+          ${legend ? `<div class="vsn-legend">${legend}</div>` : ''}
+        </div>`;
+      case 'derivation':
+        const steps = (b.steps || []).map(s =>
+          `<div class="vsn-step">
+            <div class="vsn-step-num">${s.step}</div>
             <div>
-              <span class="asgn-type-tag">${escapeHtml(q.type||'MCQ')}</span>
-              <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-              <span class="asgn-marks">${q.marks||1}m</span>
+              <div class="vsn-step-content">${U.escapeHtml(s.expr)}</div>
+              ${s.justification ? `<div class="vsn-step-justification">${U.escapeHtml(s.justification)}</div>` : ''}
             </div>
-          </div>
-          <div class="asgn-q-text">${escapeHtml(q.q)}</div>
-          ${optionsHtml?`<ul class="asgn-options">${optionsHtml}</ul>`:''}
-          ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
-        </div>
-      `;
-    }).join('');
+          </div>`
+        ).join('');
+        return `<div class="vsn-derivation"><h4>${U.escapeHtml(b.title || 'DERIVATION')}</h4>${steps}</div>`;
+      case 'teacher_emphasis':
+        return `<div class="vsn-emphasis">
+          <div class="quote">"${U.escapeHtml(b.quote)}"</div>
+          ${b.context ? `<div style="font-size:8px;color:var(--text3);margin-top:2px;font-family:sans-serif;">— ${U.escapeHtml(b.context)}</div>` : ''}
+        </div>`;
+      case 'memory_trick':
+        return `<div class="vsn-memory">
+          ${b.title ? `<div style="font-weight:700;margin-bottom:2px;font-size:10px;">${U.escapeHtml(b.title)}</div>` : ''}
+          <div style="font-size:9px;">${U.escapeHtml(b.content)}</div>
+        </div>`;
+      case 'misconception_alert':
+        return `<div class="vsn-misconception">
+          <div class="vsn-mistake">${U.escapeHtml(b.mistake)}</div>
+          <div class="vsn-correction">${U.escapeHtml(b.correction)}</div>
+        </div>`;
+      case 'exam_radar':
+        const levelText = { high: '🔥 HIGH', medium: '⚡ MED', low: '📘 LOW' }[b.level] || '📘 STD';
+        return `<div class="vsn-exam-radar">
+          <span class="vsn-exam-level">${levelText} · ${U.escapeHtml(b.exam || '')}</span>
+          <div style="font-size:9px;line-height:1.3;">${U.escapeHtml(b.content)}</div>
+        </div>`;
+      case 'comparison_table':
+        const headers = (b.headers || []).map(h => `<th>${U.escapeHtml(h)}</th>`).join('');
+        const rows = (b.rows || []).map(row =>
+          `<tr>${row.map(cell => `<td>${U.escapeHtml(cell)}</td>`).join('')}</tr>`
+        ).join('');
+        return `<div class="vsn-comparison"><h4>${U.escapeHtml(b.title || 'Comparison')}</h4>
+          <table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div>`;
+      case 'diagram':
+        return `<div class="vsn-diagram">
+          <h4>${U.escapeHtml(b.title || 'Diagram')}</h4>
+          <div class="vsn-diagram-desc">${U.escapeHtml(b.description)}</div>
+          ${b.labels && b.labels.length ? `<div class="vsn-diagram-labels"><b>Labels:</b> ${b.labels.map(U.escapeHtml).join(' · ')}</div>` : ''}
+        </div>`;
+      case 'flowchart':
+        const flowSteps = (b.steps || []).map((s, i, arr) =>
+          `<div class="vsn-flow-step">
+            <div class="vsn-flow-node">${U.escapeHtml(s)}</div>
+            ${i < arr.length - 1 ? '<div class="vsn-flow-arrow">→</div>' : ''}
+          </div>`
+        ).join('');
+        return `<div class="vsn-flowchart"><h4>${U.escapeHtml(b.title || 'Process Flow')}</h4><div>${flowSteps}</div></div>`;
+      default:
+        return '';
+    }
+  }
+};
+
+CP.Rendering.ParentSummaryRenderer = class {
+  render(ps) {
+    if (!ps) return '<p style="color:var(--text3);text-align:center;padding:20px;">No parent summary generated.</p>';
+    const U = CP.Util;
+    const tc = ps.todayClass || {};
+    const concepts = ps.conceptsLearned || [];
+    const hw = ps.homework || {};
+    const suggestions = ps.parentSuggestions || [];
+
+    let html = `<div class="ps-container">`;
+    html += `<div class="ps-header"><h2>👨‍👩‍👧 Parent Summary</h2><div class="ps-meta">A simple update on today's class for parents</div></div>`;
+    html += `<div class="ps-section ps-today"><div class="ps-section-title">Today's Class</div>
+      <div class="ps-class-grid">
+        <div class="ps-class-item"><b>TOPIC</b><span>${U.escapeHtml(tc.topic || '')}</span></div>
+        <div class="ps-class-item"><b>DURATION</b><span>${U.escapeHtml(tc.duration || '')}</span></div>
+        <div class="ps-class-item"><b>CLASS</b><span>${U.escapeHtml(tc.class || '')}</span></div>
+        <div class="ps-class-item"><b>SUBJECT</b><span>${U.escapeHtml(tc.subject || '')}</span></div>
+      </div></div>`;
+    if (concepts.length) {
+      html += `<div class="ps-section ps-concepts"><div class="ps-section-title">Concepts Learned</div>
+        <ul class="ps-concept-list">${concepts.map(c => `<li>${U.escapeHtml(c)}</li>`).join('')}</ul></div>`;
+    }
+    if (ps.whyThisMatters) {
+      html += `<div class="ps-section ps-why"><div class="ps-section-title">Why This Topic Matters</div>
+        <div class="ps-why-text">${U.escapeHtml(ps.whyThisMatters)}</div></div>`;
+    }
+    html += `<div class="ps-section ps-homework"><div class="ps-section-title">Homework</div><div class="ps-hw-grid">
+      ${hw.dpp ? `<div class="ps-hw-item"><b>📝 DPP</b><span>${U.escapeHtml(hw.dpp)}</span><span class="ps-hw-badge">Today</span></div>` : ''}
+      ${hw.assignment ? `<div class="ps-hw-item"><b>📚 Assignment</b><span>${U.escapeHtml(hw.assignment)}</span><span class="ps-hw-badge">This Week</span></div>` : ''}
+      ${hw.test ? `<div class="ps-hw-item"><b>🎯 Test</b><span>${U.escapeHtml(hw.test)}</span><span class="ps-hw-badge">Upcoming</span></div>` : ''}
+    </div></div>`;
+    if (suggestions.length) {
+      html += `<div class="ps-section ps-suggest"><div class="ps-section-title">Parent Suggestions</div>
+        <ul class="ps-suggest-list">${suggestions.map(s => `<li>${U.escapeHtml(s)}</li>`).join('')}</ul></div>`;
+    }
+    if (ps.upcomingClass) {
+      html += `<div class="ps-section ps-upcoming"><div class="ps-section-title">Upcoming Class</div>
+        <div class="ps-upcoming-box">➡️ ${U.escapeHtml(ps.upcomingClass)}</div></div>`;
+    }
+    html += `</div>`;
+    return html;
+  }
+};
+
+CP.Rendering.ChapterCoverageRenderer = class {
+  render(cc) {
+    if (!cc) return '<p style="color:var(--text3);text-align:center;padding:20px;">No coverage data generated.</p>';
+    const U = CP.Util;
+    const pct = CP.Util.clamp(cc.coveragePercentage || 0, 0, 100);
+    const diffClass = { easy: 'diff-easy', medium: 'diff-medium', hard: 'diff-hard' }[cc.difficultyLevel] || 'diff-medium';
+    const diffLabel = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }[cc.difficultyLevel] || 'Medium';
+
+    let html = `<div class="cc-container">`;
+    html += `<div class="cc-header"><h2>📊 Chapter Coverage</h2>
+      <div class="cc-meta">${U.escapeHtml(cc.chapterName || '')}</div></div>`;
+    html += `<div class="cc-progress-card">
+      <div class="cc-percent">${pct}<small>%</small></div>
+      <div class="cc-progress-bar"><div class="cc-progress-fill" style="width:${pct}%;"></div></div>
+      <div class="cc-progress-label">Chapter Completion</div></div>`;
+    html += `<div class="cc-stats-grid">
+      <div class="cc-stat"><div class="cc-stat-label">Classes Remaining</div><div class="cc-stat-value">${cc.estimatedClassesRemaining || '—'}</div></div>
+      <div class="cc-stat"><div class="cc-stat-label">Difficulty Level</div><div class="cc-stat-value ${diffClass}">${diffLabel}</div></div>
+      <div class="cc-stat"><div class="cc-stat-label">PYQ Coverage</div><div class="cc-stat-value">${cc.pyqCoverage || 0}%</div></div>
+      <div class="cc-stat"><div class="cc-stat-label">Expected Completion</div><div class="cc-stat-value" style="font-size:11px;">${U.escapeHtml(cc.estimatedCompletionDate || '—')}</div></div>
+    </div>`;
+    if (cc.conceptsCompleted && cc.conceptsCompleted.length) {
+      html += `<div class="cc-section"><div class="cc-section-title">✓ Concepts Completed (${cc.conceptsCompleted.length})</div>
+        <ul class="cc-list completed">${cc.conceptsCompleted.map(c => `<li>${U.escapeHtml(c)}</li>`).join('')}</ul></div>`;
+    }
+    if (cc.conceptsRemaining && cc.conceptsRemaining.length) {
+      html += `<div class="cc-section"><div class="cc-section-title">◌ Concepts Remaining (${cc.conceptsRemaining.length})</div>
+        <ul class="cc-list pending">${cc.conceptsRemaining.map(c => `<li>${U.escapeHtml(c)}</li>`).join('')}</ul></div>`;
+    }
+    html += `<div class="cc-section"><div class="cc-section-title">🗓 Future Planning</div><div class="cc-planning-grid">
+      ${cc.nextObjective ? `<div class="cc-plan-item"><b>NEXT OBJECTIVE</b><span>${U.escapeHtml(cc.nextObjective)}</span></div>` : ''}
+      ${cc.expectedTestDate ? `<div class="cc-plan-item"><b>EXPECTED TEST</b><span>${U.escapeHtml(cc.expectedTestDate)}</span></div>` : ''}
+      ${cc.expectedHomework ? `<div class="cc-plan-item"><b>EXPECTED HOMEWORK</b><span>${U.escapeHtml(cc.expectedHomework)}</span></div>` : ''}
+      ${cc.prerequisites && cc.prerequisites.length ? `<div class="cc-plan-item"><b>PREREQUISITES</b><span>${U.escapeHtml(cc.prerequisites.join(', '))}</span></div>` : ''}
+    </div></div>`;
+    html += `</div>`;
+    return html;
+  }
+};
+
+CP.Rendering.DPPRenderer = class {
+  render(dpp) {
+    if (!dpp || !dpp.sections) return '<p style="color:var(--text3);text-align:center;padding:20px;">No DPP generated.</p>';
+    const U = CP.Util;
+    const sections = dpp.sections;
+    let html = `<div class="dpp-container">`;
+    html += `<div class="dpp-header"><h2>${U.escapeHtml(dpp.title || 'Daily Practice Problem')}</h2>
+      <div class="dpp-meta">${U.escapeHtml(dpp.subject || '')} · ${U.escapeHtml(dpp.class || '')} · ${U.escapeHtml(dpp.exam || '')}${dpp.totalQuestions ? ` · ${dpp.totalQuestions} Q` : ''}</div></div>`;
+
+    if (sections.A_MCQ?.length) {
+      html += `<div class="dpp-section"><div class="dpp-section-header sec-a"><div><div class="dpp-section-title">SECTION A — MCQ</div><div class="dpp-section-sub">${sections.A_MCQ.length} questions</div></div></div>${sections.A_MCQ.map(q => this._mcq(q)).join('')}</div>`;
+    }
+    if (sections.B_Fill?.length) {
+      html += `<div class="dpp-section"><div class="dpp-section-header sec-b"><div><div class="dpp-section-title">SECTION B — Fill in the Blanks</div><div class="dpp-section-sub">${sections.B_Fill.length} questions</div></div></div>${sections.B_Fill.map(q => this._fill(q)).join('')}</div>`;
+    }
+    if (sections.C_TF?.length) {
+      html += `<div class="dpp-section"><div class="dpp-section-header sec-c"><div><div class="dpp-section-title">SECTION C — True or False</div><div class="dpp-section-sub">${sections.C_TF.length} questions</div></div></div>${sections.C_TF.map(q => this._tf(q)).join('')}</div>`;
+    }
+    if (sections.D_AR?.length) {
+      html += `<div class="dpp-section"><div class="dpp-section-header sec-d"><div><div class="dpp-section-title">SECTION D — Assertion & Reasoning</div><div class="dpp-section-sub">${sections.D_AR.length} questions</div></div></div>${sections.D_AR.map(q => this._ar(q)).join('')}</div>`;
+    }
+    if (sections.E_Statement?.length) {
+      html += `<div class="dpp-section"><div class="dpp-section-header sec-e"><div><div class="dpp-section-title">SECTION E — Statement I & II</div><div class="dpp-section-sub">${sections.E_Statement.length} question</div></div></div>${sections.E_Statement.map(q => this._stmt(q)).join('')}</div>`;
+    }
+    html += `</div>`;
+    return html;
   }
 
-  if(asgn.subjective && asgn.subjective.length){
-    html+=`<div class="asgn-section-title">SECTION II — SUBJECTIVE (${asgn.subjective.length} Q)</div>`;
-    html+=asgn.subjective.map(q=>`
-      <div class="asgn-q">
-        <div class="asgn-q-head">
-          <span class="asgn-q-num">Q${q.num}</span>
-          <div>
-            <span class="asgn-type-tag">${escapeHtml(q.type||'Short Answer')}</span>
-            <span class="dpp-diff ${q.difficulty||'medium'}">${(q.difficulty||'medium').toUpperCase()}</span>
-            <span class="asgn-marks">${q.marks||4}m</span>
-          </div>
-        </div>
-        <div class="asgn-q-text">${escapeHtml(q.q)}</div>
-        ${q.concept?`<span class="dpp-concept-tag">🎯 ${escapeHtml(q.concept)}</span>`:''}
+  _mcq(q) {
+    const U = CP.Util;
+    const options = (q.options || []).map(opt => {
+      const letter = opt.match(/^[A-D]/)?.[0];
+      const isCorrect = letter === q.answer;
+      return `<li class="${isCorrect ? 'correct' : ''}">${U.escapeHtml(opt)}</li>`;
+    }).join('');
+    return `<div class="dpp-q"><div class="dpp-q-head"><span class="dpp-q-num">Q${q.num}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span></div><div class="dpp-q-text">${U.escapeHtml(q.q)}</div><ul class="dpp-options">${options}</ul>${q.explanation ? `<div class="dpp-explanation">${U.escapeHtml(q.explanation)}</div>` : ''}${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`;
+  }
+
+  _fill(q) {
+    const U = CP.Util;
+    let qText = U.escapeHtml(q.q);
+    qText = qText.replace(/_{2,}|____+|\\[blank\\]/g, `<span class="dpp-blank">${U.escapeHtml(q.answer || '')}</span>`);
+    return `<div class="dpp-q"><div class="dpp-q-head"><span class="dpp-q-num">Q${q.num}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span></div><div class="dpp-fill-blank">${qText}</div>${q.explanation ? `<div class="dpp-explanation">${U.escapeHtml(q.explanation)}</div>` : ''}${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`;
+  }
+
+  _tf(q) {
+    const U = CP.Util;
+    const isTrue = q.answer && q.answer.toLowerCase() === 'true';
+    return `<div class="dpp-q"><div class="dpp-q-head"><span class="dpp-q-num">Q${q.num}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span></div><div class="dpp-q-text">${U.escapeHtml(q.q)}</div><div class="dpp-tf-badge ${isTrue ? 'true' : 'false'}">Answer: ${isTrue ? '✓ TRUE' : '✗ FALSE'}</div>${q.explanation ? `<div class="dpp-explanation">${U.escapeHtml(q.explanation)}</div>` : ''}${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`;
+  }
+
+  _ar(q) {
+    const U = CP.Util;
+    const arOptions = [
+      { key: 'A', text: 'Both A and R are true, and R is the correct explanation of A' },
+      { key: 'B', text: 'Both A and R are true, but R is NOT the correct explanation of A' },
+      { key: 'C', text: 'A is true but R is false' },
+      { key: 'D', text: 'A is false but R is true' }
+    ];
+    const optionsHtml = arOptions.map(o =>
+      `<div class="ar-opt ${o.key === q.answer ? 'correct' : ''}"><b>${o.key})</b> ${o.text}</div>`
+    ).join('');
+    return `<div class="dpp-q"><div class="dpp-q-head"><span class="dpp-q-num">Q${q.num}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span></div><div class="dpp-ar-block"><div class="ar-label">ASSERTION (A)</div><div class="ar-text">${U.escapeHtml(q.assertion)}</div></div><div class="dpp-ar-block"><div class="ar-label">REASON (R)</div><div class="ar-text">${U.escapeHtml(q.reason)}</div></div><div class="dpp-ar-options">${optionsHtml}</div>${q.explanation ? `<div class="dpp-explanation">${U.escapeHtml(q.explanation)}</div>` : ''}${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`;
+  }
+
+  _stmt(q) {
+    const U = CP.Util;
+    const stOptions = [
+      { key: 'A', text: 'Both Statement I and Statement II are correct' },
+      { key: 'B', text: 'Statement I is correct but Statement II is incorrect' },
+      { key: 'C', text: 'Statement I is incorrect but Statement II is correct' },
+      { key: 'D', text: 'Both Statement I and Statement II are incorrect' }
+    ];
+    const optionsHtml = stOptions.map(o =>
+      `<div class="ar-opt ${o.key === q.answer ? 'correct' : ''}"><b>${o.key})</b> ${o.text}</div>`
+    ).join('');
+    return `<div class="dpp-q"><div class="dpp-q-head"><span class="dpp-q-num">Q${q.num}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span></div><div class="dpp-stmt-block"><div class="stmt-label">STATEMENT I</div><div class="stmt-text">${U.escapeHtml(q.statement1)}</div></div><div class="dpp-stmt-block" style="margin-top:6px;"><div class="stmt-label">STATEMENT II</div><div class="stmt-text">${U.escapeHtml(q.statement2)}</div></div><div class="dpp-ar-options" style="margin-top:6px;">${optionsHtml}</div>${q.explanation ? `<div class="dpp-explanation">${U.escapeHtml(q.explanation)}</div>` : ''}${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`;
+  }
+};
+
+CP.Rendering.AssignmentRenderer = class {
+  render(asgn) {
+    if (!asgn) return '<p style="color:var(--text3);text-align:center;padding:20px;">No assignment generated.</p>';
+    const U = CP.Util;
+    let html = `<div class="asgn-container">`;
+    html += `<div class="asgn-header"><h2>${U.escapeHtml(asgn.title || 'Assignment')}</h2>
+      <div class="asgn-meta">
+        <span>📚 ${U.escapeHtml(asgn.subject || '')}</span>
+        <span>🎓 ${U.escapeHtml(asgn.class || '')}</span>
+        <span>🎯 ${U.escapeHtml(asgn.exam || '')}</span>
+        <span>⏱ ${U.escapeHtml(asgn.duration || '60 min')}</span>
+        <span>📊 Max: ${asgn.maxMarks || 40}</span>
+      </div></div>`;
+
+    if (asgn.objective?.length) {
+      html += `<div class="asgn-section-title">SECTION I — OBJECTIVE (${asgn.objective.length} Q)</div>`;
+      html += asgn.objective.map(q => {
+        const optionsHtml = (q.options || []).map(opt => `<li>${U.escapeHtml(opt)}</li>`).join('');
+        return `<div class="asgn-q"><div class="asgn-q-head"><span class="asgn-q-num">Q${q.num}</span><div><span class="asgn-type-tag">${U.escapeHtml(q.type || 'MCQ')}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span><span class="asgn-marks">${q.marks || 1}m</span></div></div><div class="asgn-q-text">${U.escapeHtml(q.q)}</div>${optionsHtml ? `<ul class="asgn-options">${optionsHtml}</ul>` : ''}${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`;
+      }).join('');
+    }
+
+    if (asgn.subjective?.length) {
+      html += `<div class="asgn-section-title">SECTION II — SUBJECTIVE (${asgn.subjective.length} Q)</div>`;
+      html += asgn.subjective.map(q => `<div class="asgn-q"><div class="asgn-q-head"><span class="asgn-q-num">Q${q.num}</span><div><span class="asgn-type-tag">${U.escapeHtml(q.type || 'Short Answer')}</span><span class="dpp-diff ${q.difficulty || 'medium'}">${(q.difficulty || 'medium').toUpperCase()}</span><span class="asgn-marks">${q.marks || 4}m</span></div></div><div class="asgn-q-text">${U.escapeHtml(q.q)}</div>${q.concept ? `<span class="dpp-concept-tag">🎯 ${U.escapeHtml(q.concept)}</span>` : ''}</div>`).join('');
+    }
+
+    if (asgn.answerKey) {
+      html += `<div class="asgn-answer-key"><h3>ANSWER KEY</h3>`;
+      if (asgn.answerKey.objective?.length) {
+        html += `<div class="asgn-ak-section"><h4>SECTION I</h4><div class="asgn-ak-grid">${asgn.answerKey.objective.map((ans, i) => `<div class="asgn-ak-item"><b>Q${i + 1}:</b> ${U.escapeHtml(ans)}</div>`).join('')}</div></div>`;
+      }
+      if (asgn.answerKey.subjective?.length) {
+        const startNum = (asgn.objective || []).length + 1;
+        html += `<div class="asgn-ak-section"><h4>SECTION II (Hints)</h4>${asgn.answerKey.subjective.map((hint, i) => `<div class="asgn-ak-subjective"><b>Q${startNum + i}:</b> ${U.escapeHtml(hint)}</div>`).join('')}</div>`;
+      }
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    return html;
+  }
+};
+
+CP.Rendering.FlashcardRenderer = class {
+  render(cards) {
+    if (!cards || !cards.length) return '<p style="color:var(--text3);text-align:center;padding:20px;">No flashcards.</p>';
+    const U = CP.Util;
+    return cards.map(c => `<div class="flashcard"><div class="flashcard-q">${U.escapeHtml(c.q)}</div><div class="flashcard-a">${U.escapeHtml(c.a)}</div>${c.tag ? `<span class="flashcard-tag">${U.escapeHtml(c.tag)}</span>` : ''}</div>`).join('');
+  }
+};
+
+CP.Rendering.TestRenderer = class {
+  render(test) {
+    if (!test) return '<p style="color:var(--text3);text-align:center;padding:20px;">No test.</p>';
+    const U = CP.Util;
+    let html = `<div class="test-header"><h2>${U.escapeHtml(test.title || 'Chapter Test')}</h2><div class="test-meta">⏱ ${U.escapeHtml(test.duration || '45 min')} · 📊 Max: ${test.maxMarks || 30} · 🎯 ${U.escapeHtml(test.pattern || '')}</div></div>`;
+    html += (test.questions || []).map(q => {
+      const optionsHtml = (q.options || []).map(opt => `<li>${U.escapeHtml(opt)}</li>`).join('');
+      return `<div class="asgn-q"><div class="asgn-q-head"><span class="asgn-q-num">Q${q.num}</span><div><span class="asgn-type-tag">${U.escapeHtml(q.type || 'MCQ')}</span><span class="asgn-marks">${q.marks || 4}m</span></div></div><div class="asgn-q-text">${U.escapeHtml(q.q)}</div>${optionsHtml ? `<ul class="asgn-options">${optionsHtml}</ul>` : ''}</div>`;
+    }).join('');
+    return html;
+  }
+};
+
+/* ══════════════════════════════════════════════════════════
+   LAYER 5-10: UI, SESSION, EXPORT, SETTINGS, AUTH
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Auth ── */
+CP.Auth = {
+  saveKey() {
+    const v = document.getElementById('groq-key').value.trim();
+    if (v.length > 10) {
+      localStorage.setItem('cp_groq', v);
+      document.getElementById('key-status').innerHTML = '<span class="key-ok">✓ Key saved</span>';
+    }
+  }
+};
+
+function getKey() {
+  return localStorage.getItem('cp_groq') || document.getElementById('groq-key').value.trim();
+}
+
+/* ── Settings ── */
+CP.Settings = {
+  data: {
+    formulaVault: true, teacherVoice: true, memoryTricks: true,
+    misconceptions: true, examRadar: true, derivations: true,
+    pyqPatterns: true, bloomsTaxonomy: true
+  },
+  load() {
+    const saved = JSON.parse(localStorage.getItem('cp_settings') || '{}');
+    this.data = { ...this.data, ...saved };
+  },
+  toggle(el) {
+    const key = el.dataset.setting;
+    this.data[key] = !this.data[key];
+    el.classList.toggle('on');
+    localStorage.setItem('cp_settings', JSON.stringify(this.data));
+  },
+  applyUI() {
+    document.querySelectorAll('.toggle[data-setting]').forEach(t => {
+      const key = t.dataset.setting;
+      if (this.data[key]) t.classList.add('on'); else t.classList.remove('on');
+    });
+  }
+};
+
+/* ── Session ── */
+CP.Session = {
+  current: null,
+  recognition: null,
+  recognitionActive: false,
+  timerSeconds: 0,
+  timerInterval: null,
+
+  start() {
+    const chapter = document.getElementById('cfg-chapter').value.trim();
+    if (!chapter) { CP.Util.showToast('Please enter a chapter name'); return; }
+    this.current = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      class: document.getElementById('cfg-class').value,
+      subject: document.getElementById('cfg-subject').value,
+      chapter,
+      board: document.getElementById('cfg-board').value,
+      exam: document.getElementById('cfg-exam').value,
+      transcript: '',
+      duration: 0,
+      outputs: {},
+      intelligence: null
+    };
+    CP.UI.goTo('recording');
+    document.getElementById('rec-info').textContent = `${this.current.subject} · ${this.current.chapter} · ${this.current.class}`;
+    this._startRecognition();
+    this._startTimer();
+  },
+
+  stop() {
+    clearInterval(this.timerInterval);
+    this._stopRecognition();
+    this.current.duration = this.timerSeconds;
+    if (this.current.transcript.trim().length < 20) {
+      CP.Util.showToast('⚠ Recording too short');
+      CP.UI.goTo('config');
+      return;
+    }
+    CP.UI.goTo('generating');
+    this._runOrchestrator();
+  },
+
+  async _runOrchestrator() {
+    const stepsEl = document.getElementById('gen-steps');
+    const stages = [
+      { label: 'Session Intelligence — analyzing history...', icon: '🎓' },
+      { label: 'Teaching Intelligence — extracting signals...', icon: '🎙' },
+      { label: 'VSN-2.0 Notes — rendering with LOI...', icon: '📐' },
+      { label: 'Knowledge Graph — building concept network...', icon: '🔗' },
+      { label: 'Importance Engine — scoring concepts...', icon: '⚖️' },
+      { label: 'Cognitive Load — analyzing mental load...', icon: '🧠' },
+      { label: 'Publishing Intelligence — typography decisions...', icon: '📰' },
+      { label: 'Page Planning — pagination strategy...', icon: '📄' },
+      { label: 'LOI — optimizing density...', icon: '📊' },
+      { label: 'Evidence Engine — tracking evidence...', icon: '🔍' },
+      { label: 'Decision Layer — resolving conflicts...', icon: '⚡' },
+      { label: 'Recommendations — what comes next...', icon: '💡' },
+      { label: 'Parent Summary — parent-friendly update...', icon: '👨‍👩‍👧' },
+      { label: 'Chapter Coverage — progress tracking...', icon: '📈' },
+      { label: 'DPP — 10 questions, 5 sections...', icon: '📝' },
+      { label: 'Assignment — 20 questions...', icon: '📚' },
+      { label: 'Flashcards & Chapter Test...', icon: '🎴' },
+      { label: 'Finalizing outputs...', icon: '✨' }
+    ];
+    stepsEl.innerHTML = stages.map((s, i) =>
+      `<div class="gen-step" id="step-${i}"><div class="gen-step-icon">${s.icon}</div>${s.label}</div>`
+    ).join('');
+
+    const orchestrator = new CP.Orchestration.WorkflowOrchestrator(this.current);
+    const onStep = async (i) => {
+      document.getElementById('step-' + i).classList.add('active');
+      await new Promise(r => setTimeout(r, 250));
+    };
+
+    try {
+      const outputs = await orchestrator.run(this.current.transcript, CP.Settings.data, async (i) => {
+        if (i > 0) {
+          const prev = document.getElementById('step-' + (i - 1));
+          prev.classList.remove('active');
+          prev.classList.add('done');
+        }
+        await onStep(i);
+      });
+
+      const last = document.getElementById('step-' + (stages.length - 1));
+      last.classList.remove('active');
+      last.classList.add('done');
+
+      this.current.outputs = {
+        vsn: outputs.vsn,
+        parentSummary: outputs.parentSummary,
+        chapterCoverage: outputs.chapterCoverage,
+        dpp: outputs.dpp,
+        assignment: outputs.assignment,
+        flashcards: outputs.flashcards,
+        test: outputs.test,
+        summary: outputs.summary
+      };
+      this.current.intelligence = outputs.intelligence;
+
+      const sie = new CP.Core.SessionIntelligenceEngine();
+      sie.saveSession(this.current);
+
+      CP.UI.showOutputs(this.current);
+    } catch (e) {
+      console.error(e);
+      CP.Util.showToast('❌ ' + e.message);
+      CP.UI.goTo('config');
+    }
+  },
+
+  _startRecognition() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { CP.Util.showToast('Speech recognition not supported'); return; }
+    this.recognition = new SR();
+    this.recognition.continuous = true;
+    this.recognition.interimResults = true;
+    this.recognition.lang = 'en-IN';
+    this.recognitionActive = true;
+    this.recognition.onresult = (e) => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) this.current.transcript += t + ' ';
+        else interim = t;
+      }
+      const p = document.getElementById('transcript-preview');
+      if (p) { p.textContent = (this.current.transcript.slice(-300) + interim) || 'Listening...'; p.scrollTop = p.scrollHeight; }
+    };
+    this.recognition.onend = () => { if (this.recognitionActive) try { this.recognition.start(); } catch (e) { } };
+    this.recognition.onerror = (e) => { if (e.error !== 'no-speech') console.warn(e.error); };
+    try { this.recognition.start(); } catch (e) { }
+  },
+
+  _stopRecognition() {
+    this.recognitionActive = false;
+    if (this.recognition) { try { this.recognition.stop(); } catch (e) { } this.recognition = null; }
+  },
+
+  _startTimer() {
+    this.timerSeconds = 0;
+    this.timerInterval = setInterval(() => {
+      this.timerSeconds++;
+      const m = Math.floor(this.timerSeconds / 60), s = this.timerSeconds % 60;
+      document.getElementById('rec-timer').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    }, 1000);
+  }
+};
+
+/* ── UI ── */
+CP.UI = {
+  outputTabs: ['Notes', 'Parent Summary', 'Chapter Coverage', 'DPP', 'Assignment', 'Flashcards', 'Chapter Test', 'Summary'],
+  activeTab: 'Notes',
+  svSession: null,
+  svTab: 'Notes',
+  notesHtml: '',
+
+  // Renderers (instantiated once)
+  renderers: {
+    vsn: new CP.Rendering.VSNRenderer(),
+    parent: new CP.Rendering.ParentSummaryRenderer(),
+    coverage: new CP.Rendering.ChapterCoverageRenderer(),
+    dpp: new CP.Rendering.DPPRenderer(),
+    assignment: new CP.Rendering.AssignmentRenderer(),
+    flashcards: new CP.Rendering.FlashcardRenderer(),
+    test: new CP.Rendering.TestRenderer()
+  },
+
+  goTo(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+    if (id === 'history') this._renderHistory();
+  },
+
+  goToSession() {
+    if (!getKey()) { CP.Util.showToast('⚠ Please enter your Groq API key first'); return; }
+    this.goTo('config');
+  },
+
+  showOutputs(session) {
+    CP.Session.current = session;
+    this.activeTab = 'Notes';
+    document.getElementById('out-title').textContent = `${session.subject}: ${session.chapter}`;
+    document.getElementById('out-sub').textContent = `${session.class} · ${session.board} · ${session.exam}`;
+    this._renderOutputTabs();
+    this.goTo('outputs');
+  },
+
+  _renderOutputTabs() {
+    const tabsEl = document.getElementById('output-tabs');
+    tabsEl.innerHTML = this.outputTabs.map(t =>
+      `<div class="tab-btn ${t === this.activeTab ? 'active' : ''}" onclick="CP.UI.switchTab('${t}')">${t}</div>`
+    ).join('');
+    this._renderActiveTab('output-body', CP.Session.current.outputs);
+    document.getElementById('preview-btn').style.display = this.activeTab === 'Notes' ? 'inline-flex' : 'none';
+  },
+
+  switchTab(t) { this.activeTab = t; this._renderOutputTabs(); },
+
+  _renderActiveTab(bodyId, outputs) {
+    const body = document.getElementById(bodyId);
+    if (this.activeTab === 'Notes') body.innerHTML = this.renderers.vsn.render(outputs.vsn, outputs.intelligence);
+    else if (this.activeTab === 'Parent Summary') body.innerHTML = this.renderers.parent.render(outputs.parentSummary);
+    else if (this.activeTab === 'Chapter Coverage') body.innerHTML = this.renderers.coverage.render(outputs.chapterCoverage);
+    else if (this.activeTab === 'DPP') body.innerHTML = this.renderers.dpp.render(outputs.dpp);
+    else if (this.activeTab === 'Assignment') body.innerHTML = this.renderers.assignment.render(outputs.assignment);
+    else if (this.activeTab === 'Flashcards') body.innerHTML = this.renderers.flashcards.render(outputs.flashcards);
+    else if (this.activeTab === 'Chapter Test') body.innerHTML = this.renderers.test.render(outputs.test);
+    else if (this.activeTab === 'Summary') body.innerHTML = `<pre style="white-space:pre-wrap;font-family:inherit;padding:16px;">${CP.Util.escapeHtml(outputs.summary)}</pre>`;
+  },
+
+  _renderHistory() {
+    const sessions = JSON.parse(localStorage.getItem('cp_sessions') || '[]');
+    const body = document.getElementById('history-body');
+    if (!sessions.length) {
+      body.innerHTML = `<div class="empty"><div class="empty-icon">📂</div><h3>No sessions yet</h3><p>Your recorded classes will appear here.</p></div>`;
+      return;
+    }
+    body.innerHTML = sessions.map(s => `
+      <div class="session-item" onclick="CP.UI.viewSession(${s.id})">
+        <h3>${CP.Util.escapeHtml(s.subject)}: ${CP.Util.escapeHtml(s.chapter)}</h3>
+        <p>${new Date(s.date).toLocaleDateString()} · ${Math.floor(s.duration / 60)}m ${s.duration % 60}s</p>
+        <span class="session-badge">${s.class} · ${s.exam}</span>
       </div>
     `).join('');
-  }
+  },
 
-  if(asgn.answerKey){
-    html+=`<div class="asgn-answer-key"><h3>ANSWER KEY</h3>`;
+  viewSession(id) {
+    const sessions = JSON.parse(localStorage.getItem('cp_sessions') || '[]');
+    const s = sessions.find(x => x.id === id);
+    if (!s) return;
+    this.svSession = s;
+    CP.Session.current = s;
+    this.svTab = 'Notes';
+    document.getElementById('sv-title').textContent = `${s.subject}: ${s.chapter}`;
+    this._renderSVTabs();
+    this.goTo('session-view');
+  },
 
-    if(asgn.answerKey.objective && asgn.answerKey.objective.length){
-      html+=`<div class="asgn-ak-section">
-        <h4>SECTION I</h4>
-        <div class="asgn-ak-grid">
-          ${asgn.answerKey.objective.map((ans,i)=>`
-            <div class="asgn-ak-item"><b>Q${i+1}:</b> ${escapeHtml(ans)}</div>
-          `).join('')}
-        </div>
-      </div>`;
-    }
+  _renderSVTabs() {
+    document.getElementById('sv-tabs').innerHTML = this.outputTabs.map(t =>
+      `<div class="tab-btn ${t === this.svTab ? 'active' : ''}" onclick="CP.UI.switchSVTab('${t}')">${t}</div>`
+    ).join('');
+    this.activeTab = this.svTab;
+    this._renderActiveTab('sv-body', this.svSession.outputs);
+    document.getElementById('sv-preview-btn').style.display = this.svTab === 'Notes' ? 'inline-flex' : 'none';
+  },
 
-    if(asgn.answerKey.subjective && asgn.answerKey.subjective.length){
-      const startNum=(asgn.objective||[]).length+1;
-      html+=`<div class="asgn-ak-section">
-        <h4>SECTION II (Hints)</h4>
-        ${asgn.answerKey.subjective.map((hint,i)=>`
-          <div class="asgn-ak-subjective"><b>Q${startNum+i}:</b> ${escapeHtml(hint)}</div>
-        `).join('')}
-      </div>`;
-    }
+  switchSVTab(t) { this.svTab = t; this._renderSVTabs(); }
+};
 
-    html+=`</div>`;
-  }
-
-  html+=`</div>`;
-  return html;
-}
-
-// ══════════════════════════════════════════════════════════
-// FLASHCARDS & TEST
-// ══════════════════════════════════════════════════════════
-function renderFlashcards(cards){
-  if(!cards||!cards.length) return '<p style="color:var(--text3);text-align:center;padding:20px;">No flashcards.</p>';
-  return cards.map(c=>`
-    <div class="flashcard">
-      <div class="flashcard-q">${escapeHtml(c.q)}</div>
-      <div class="flashcard-a">${escapeHtml(c.a)}</div>
-      ${c.tag?`<span class="flashcard-tag">${escapeHtml(c.tag)}</span>`:''}
-    </div>
-  `).join('');
-}
-
-function renderTest(test){
-  if(!test) return '<p style="color:var(--text3);text-align:center;padding:20px;">No test.</p>';
-
-  let html=`<div class="test-header">
-    <h2>${escapeHtml(test.title||'Chapter Test')}</h2>
-    <div class="test-meta">
-      ⏱ ${escapeHtml(test.duration||'45 min')} · 📊 Max: ${test.maxMarks||30} · 🎯 ${escapeHtml(test.pattern||'')}
-    </div>
-  </div>`;
-
-  html+=(test.questions||[]).map(q=>{
-    const optionsHtml=(q.options||[]).map(opt=>`<li>${escapeHtml(opt)}</li>`).join('');
-    return `
-      <div class="asgn-q">
-        <div class="asgn-q-head">
-          <span class="asgn-q-num">Q${q.num}</span>
-          <div>
-            <span class="asgn-type-tag">${escapeHtml(q.type||'MCQ')}</span>
-            <span class="asgn-marks">${q.marks||4}m</span>
-          </div>
-        </div>
-        <div class="asgn-q-text">${escapeHtml(q.q)}</div>
-        ${optionsHtml?`<ul class="asgn-options">${optionsHtml}</ul>`:''}
-      </div>
-    `;
-  }).join('');
-
-  return html;
-}
-
-// ══════════════════════════════════════════════════════════
-// OUTPUT DISPLAY
-// ══════════════════════════════════════════════════════════
-function showOutputs(){
-  S.outputTabs=['Notes','Parent Summary','Chapter Coverage','DPP','Assignment','Flashcards','Chapter Test','Summary'];
-  S.activeTab='Notes';
-  document.getElementById('out-title').textContent=`${S.current.subject}: ${S.current.chapter}`;
-  document.getElementById('out-sub').textContent=`${S.current.class} · ${S.current.board} · ${S.current.exam}`;
-  renderOutputTabs();
-  goTo('outputs');
-}
-
-function renderOutputTabs(){
-  const tabsEl=document.getElementById('output-tabs');
-  tabsEl.innerHTML=S.outputTabs.map(t=>
-    `<div class="tab-btn ${t===S.activeTab?'active':''}" onclick="switchTab('${t}')">${t}</div>`
-  ).join('');
-
-  const body=document.getElementById('output-body');
-  const outputs=S.current.outputs;
-
-  if(S.activeTab==='Notes') body.innerHTML=renderVSN(outputs.vsn);
-  else if(S.activeTab==='Parent Summary') body.innerHTML=renderParentSummary(outputs.parentSummary);
-  else if(S.activeTab==='Chapter Coverage') body.innerHTML=renderChapterCoverage(outputs.chapterCoverage);
-  else if(S.activeTab==='DPP') body.innerHTML=renderDPP(outputs.dpp);
-  else if(S.activeTab==='Assignment') body.innerHTML=renderAssignment(outputs.assignment);
-  else if(S.activeTab==='Flashcards') body.innerHTML=renderFlashcards(outputs.flashcards);
-  else if(S.activeTab==='Chapter Test') body.innerHTML=renderTest(outputs.test);
-  else if(S.activeTab==='Summary') body.innerHTML=`<pre style="white-space:pre-wrap;font-family:inherit;padding:16px;">${escapeHtml(outputs.summary)}</pre>`;
-
-  const prevBtn=document.getElementById('preview-btn');
-  prevBtn.style.display = S.activeTab==='Notes' ? 'inline-flex' : 'none';
-}
-
-function switchTab(t){S.activeTab=t;renderOutputTabs();}
-
-function copyOutput(){
-  const text=document.getElementById('output-body').innerText;
-  navigator.clipboard.writeText(text).then(()=>showToast('✓ Copied!')).catch(()=>showToast('Copy failed'));
-}
-function shareOutput(){
-  const text=document.getElementById('output-body').innerText;
-  if(navigator.share){navigator.share({title:'ClassPulse Output',text}).catch(()=>{});}
-  else{copyOutput();}
-}
-
-// ══════════════════════════════════════════════════════════
-// PDF EXPORT
-// ══════════════════════════════════════════════════════════
-function openPreview(){
-  const vsnHtml=renderVSN(S.current.outputs.vsn);
-  const fullHtml=`<!DOCTYPE html><html><head><meta charset="UTF-8">
-<title>${S.current.subject} - ${S.current.chapter}</title>
+/* ── Export ── */
+CP.Export = {
+  openPreview() {
+    const vsnHtml = CP.UI.renderers.vsn.render(CP.Session.current.outputs.vsn, CP.Session.current.outputs.intelligence);
+    const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>${CP.Session.current.subject} - ${CP.Session.current.chapter}</title>
 <style>
 body{font-family:Georgia,serif;padding:20px;max-width:800px;margin:auto;color:#1A2A3A;line-height:1.7;}
-${extractVSNCSS()}
+${this._extractCSS()}
 </style></head><body>${vsnHtml}</body></html>`;
+    CP.UI.notesHtml = fullHtml;
+    document.getElementById('notes-iframe').srcdoc = fullHtml;
+    CP.UI.goTo('preview');
+  },
 
-  S.notesHtml=fullHtml;
-  document.getElementById('notes-iframe').srcdoc=fullHtml;
-  goTo('preview');
-}
+  _extractCSS() {
+    let css = '';
+    document.querySelectorAll('style').forEach(s => {
+      if (s.textContent.includes('.vsn-')) css += s.textContent;
+    });
+    return css;
+  },
 
-function extractVSNCSS(){
-  let css='';
-  document.querySelectorAll('style').forEach(s=>{
-    if(s.textContent.includes('.vsn-')) css+=s.textContent;
-  });
-  return css;
-}
+  downloadPDF() {
+    CP.Util.showToast('Opening print dialog...');
+    const w = window.open('', '', 'height=800,width=800');
+    w.document.write(CP.UI.notesHtml);
+    w.document.close();
+    setTimeout(() => w.print(), 600);
+  },
 
-function downloadPDF(){
-  showToast('Opening print dialog...');
-  const w=window.open('','','height=800,width=800');
-  w.document.write(S.notesHtml);
-  w.document.close();
-  setTimeout(()=>w.print(),600);
-}
+  openPreviewFromSV() {
+    CP.Session.current = CP.UI.svSession;
+    this.openPreview();
+  },
 
-function openPreviewFromSV(){
-  S.current=S.svSession;
-  openPreview();
-}
+  copy() {
+    const text = document.getElementById('output-body').innerText;
+    navigator.clipboard.writeText(text).then(() => CP.Util.showToast('✓ Copied!')).catch(() => CP.Util.showToast('Copy failed'));
+  },
 
-// ══════════════════════════════════════════════════════════
-// HISTORY
-// ══════════════════════════════════════════════════════════
-function renderHistory(){
-  const body=document.getElementById('history-body');
-  if(!S.sessions.length){
-    body.innerHTML=`<div class="empty"><div class="empty-icon">📂</div><h3>No sessions yet</h3><p>Your recorded classes will appear here.</p></div>`;
-    return;
+  share() {
+    const text = document.getElementById('output-body').innerText;
+    if (navigator.share) navigator.share({ title: 'ClassPulse Output', text }).catch(() => { });
+    else this.copy();
+  },
+
+  copySV() {
+    const text = document.getElementById('sv-body').innerText;
+    navigator.clipboard.writeText(text).then(() => CP.Util.showToast('✓ Copied!')).catch(() => CP.Util.showToast('Copy failed'));
+  },
+
+  shareSV() {
+    const text = document.getElementById('sv-body').innerText;
+    if (navigator.share) navigator.share({ title: 'ClassPulse Output', text }).catch(() => { });
+    else this.copySV();
   }
-  body.innerHTML=S.sessions.map(s=>`
-    <div class="session-item" onclick="viewSession(${s.id})">
-      <h3>${escapeHtml(s.subject)}: ${escapeHtml(s.chapter)}</h3>
-      <p>${new Date(s.date).toLocaleDateString()} · ${Math.floor(s.duration/60)}m ${s.duration%60}s</p>
-      <span class="session-badge">${s.class} · ${s.exam}</span>
-    </div>
-  `).join('');
-}
+};
 
-function viewSession(id){
-  const s=S.sessions.find(x=>x.id===id);
-  if(!s)return;
-  S.svSession=s;
-  S.current=s;
-  S.outputTabs=['Notes','Parent Summary','Chapter Coverage','DPP','Assignment','Flashcards','Chapter Test','Summary'];
-  S.activeTab='Notes';
-  document.getElementById('sv-title').textContent=`${s.subject}: ${s.chapter}`;
-  renderSVTabs();
-  goTo('session-view');
-}
-
-function renderSVTabs(){
-  document.getElementById('sv-tabs').innerHTML=S.outputTabs.map(t=>
-    `<div class="tab-btn ${t===S.activeTab?'active':''}" onclick="switchSVTab('${t}')">${t}</div>`
-  ).join('');
-
-  const body=document.getElementById('sv-body');
-  const outputs=S.svSession.outputs;
-  if(S.activeTab==='Notes') body.innerHTML=renderVSN(outputs.vsn);
-  else if(S.activeTab==='Parent Summary') body.innerHTML=renderParentSummary(outputs.parentSummary);
-  else if(S.activeTab==='Chapter Coverage') body.innerHTML=renderChapterCoverage(outputs.chapterCoverage);
-  else if(S.activeTab==='DPP') body.innerHTML=renderDPP(outputs.dpp);
-  else if(S.activeTab==='Assignment') body.innerHTML=renderAssignment(outputs.assignment);
-  else if(S.activeTab==='Flashcards') body.innerHTML=renderFlashcards(outputs.flashcards);
-  else if(S.activeTab==='Chapter Test') body.innerHTML=renderTest(outputs.test);
-  else if(S.activeTab==='Summary') body.innerHTML=`<pre style="white-space:pre-wrap;font-family:inherit;padding:16px;">${escapeHtml(outputs.summary)}</pre>`;
-
-  document.getElementById('sv-preview-btn').style.display = S.activeTab==='Notes' ? 'inline-flex' : 'none';
-}
-
-function switchSVTab(t){S.activeTab=t;renderSVTabs();}
-function copySV(){
-  const text=document.getElementById('sv-body').innerText;
-  navigator.clipboard.writeText(text).then(()=>showToast('✓ Copied!')).catch(()=>showToast('Copy failed'));
-}
-function shareSV(){
-  const text=document.getElementById('sv-body').innerText;
-  if(navigator.share){navigator.share({title:'ClassPulse Output',text}).catch(()=>{});}
-  else{copySV();}
-}
-
-// ══════════════════════════════════════════════════════════
-// UTILITIES
-// ══════════════════════════════════════════════════════════
-function escapeHtml(s){
-  if(!s) return '';
-  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function escapeRegex(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
+/* ══════════════════════════════════════════════════════════
+   INITIALIZATION
+   ══════════════════════════════════════════════════════════ */
+window.onload = () => {
+  const k = localStorage.getItem('cp_groq');
+  if (k) {
+    document.getElementById('groq-key').value = k;
+    document.getElementById('key-status').innerHTML = '<span class="key-ok">✓ Key saved</span>';
+  }
+  CP.Settings.load();
+  CP.Settings.applyUI();
+};
 </script>
 </body>
 </html>
